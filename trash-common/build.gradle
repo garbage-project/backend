@@ -1,5 +1,63 @@
+plugins {
+    id 'nu.studer.jooq' version '9.0'
+}
+
 bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jooq'
+
+    jooqGenerator 'com.mysql:mysql-connector-j'
+}
+
+jooq {
+    version = dependencyManagement.importedProperties['jooq.version']
+    edition = nu.studer.gradle.jooq.JooqEdition.OSS  // default (can be omitted)
+
+    configurations {
+        main {  // name of the jOOQ configuration
+            generateSchemaSourceOnCompilation = false  // default (can be omitted)
+
+            generationTool {
+                logging = org.jooq.meta.jaxb.Logging.DEBUG
+                jdbc {
+                    driver = 'com.mysql.jdbc.Driver'
+                    url = 'jdbc:mysql://localhost:3306/trash'
+                    user = 'root'
+                    password = '1234'
+                }
+                generator {
+                    name = 'org.jooq.codegen.DefaultGenerator'
+                    database {
+                        name = 'org.jooq.meta.mysql.MySQLDatabase'
+                        inputSchema = 'trash'
+                        forcedTypes {
+                            forcedType {
+                                name = 'varchar'
+                                includeExpression = '.*'
+                                includeTypes = 'JSONB?'
+                            }
+                            forcedType {
+                                name = 'varchar'
+                                includeExpression = '.*'
+                                includeTypes = 'INET'
+                            }
+                        }
+                    }
+                    generate {
+                        deprecated = false
+                        records = true
+                        immutablePojos = true
+                        fluentSetters = true
+                    }
+                    target {
+                        packageName = 'sun'
+                        directory = 'src/main/java/com/project/trash/common/domain/jooq'  // default (can be omitted)
+                    }
+                    strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+                }
+            }
+        }
+    }
 }
