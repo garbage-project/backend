@@ -1,1 +1,5 @@
 rootProject.name = 'trash'
+include 'trash-app'
+include 'trash-common'
+include 'trash-admin'
+
