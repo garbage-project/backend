@@ -61,14 +61,14 @@ public class Member extends BaseTimeEntity {
    */
   @Convert(converter = SocialType.TypeCodeConverter.class)
   @Column(name = "MBR_SCL_TYP", nullable = false)
-  private String socialType;
+  private SocialType socialType;
   /**
    * 유효여부
    */
-  @Column(name = "MBR_VALID_YN", nullable = false)
+  @Column(name = "MBR_VLD_YN", nullable = false)
   private Boolean valid = Boolean.TRUE;
 
-  public Member(String email, String name, GenderType gender, String birthday, String socialId, String socialType) {
+  public Member(String email, String name, GenderType gender, String birthday, String socialId, SocialType socialType) {
     this.email = email;
     this.name = name;
     this.gender = gender;

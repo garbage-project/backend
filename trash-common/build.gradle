@@ -1,4 +1,5 @@
 plugins {
+    id 'java-library'
     id 'nu.studer.jooq' version '9.0'
 }
 
@@ -6,9 +7,18 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-jooq'
+    api 'org.springframework.boot:spring-boot-starter-security'
+    api 'org.springframework.boot:spring-boot-starter-jooq'
+    api 'org.springframework.boot:spring-boot-configuration-processor:3.2.4'
 
     jooqGenerator 'com.mysql:mysql-connector-j'
+
+    // Jwt
+    api 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 jooq {
@@ -52,7 +62,7 @@ jooq {
                         fluentSetters = true
                     }
                     target {
-                        packageName = 'sun'
+                        packageName = 'trash'
                         directory = 'src/main/java/com/project/trash/common/domain/jooq'  // default (can be omitted)
                     }
                     strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
