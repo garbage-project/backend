@@ -68,7 +68,7 @@ public class AuthService {
               memberInfo.socialId(), memberInfo.socialType()));
     } else {
       // 엑세스 토큰 유효성 검증
-      if (!socialId.equals(socialMemberClient.getAccessTokenInfo(socialType, param.getAccessToken()))) {
+      if (!socialId.equals(socialMemberClient.getSocialId(socialType, param.getAccessToken()))) {
         throw new ValidationException("auth.not_match_social_id");
       }
     }

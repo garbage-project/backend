@@ -33,17 +33,17 @@ public class SocialMemberClientComposite {
   }
 
   /**
-   * 엑세스 토큰 정보 확인(검증)
-   */
-  public String getAccessTokenInfo(SocialType socialType, String accessToken) {
-    return getClient(socialType).getAccessTokenInfo(accessToken);
-  }
-
-  /**
    * 소셜 타입에 맞는 사용자 정보 가져오기
    */
   public OAuthMember getMemberInfo(SocialType socialType, String accessToken) {
     return getClient(socialType).getMemberInfo(accessToken);
+  }
+
+  /**
+   * 엑세스 토큰 정보 확인(검증)
+   */
+  public String getSocialId(SocialType socialType, String accessToken) {
+    return getClient(socialType).getSocialId(accessToken);
   }
 
   private SocialMemberClient getClient(SocialType socialType) {

@@ -20,11 +20,15 @@ public enum GenderType implements Codable {
   /**
    * 여자
    */
-  FEMALE("F", "여자");
+  FEMALE("F", "여자"),
+  /**
+   * 확인불가
+   */
+  NONE("N", "확인불가");
 
   private final String code;
   private final String name;
-  
+
   GenderType(String code, String name) {
     this.code = code;
     this.name = name;

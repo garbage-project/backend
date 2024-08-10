@@ -14,14 +14,14 @@ public interface SocialMemberClient {
   String getAccessToken(String authCode);
 
   /**
-   * 엑세스 토큰 정보 확인(검증)
-   */
-  String getAccessTokenInfo(String accessToken);
-
-  /**
-   * 사용자 정보 가져오기
+   * 사용자 정보 조회
    */
   OAuthMember getMemberInfo(String accessToken);
+
+  /**
+   * 소셜 ID 조회
+   */
+  String getSocialId(String accessToken);
 
   /**
    * 지원하는 SocialType
