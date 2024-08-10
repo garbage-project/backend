@@ -1,4 +1,4 @@
-package com.project.trash.auth.kakao.client;
+package com.project.trash.auth.naver.client;
 
 import com.project.trash.auth.client.SocialMemberClient;
 import com.project.trash.auth.domain.OAuthMember;
@@ -9,31 +9,31 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Kakao 회원 정보 요청
+ * Naver 회원 정보 요청
  */
 @RequiredArgsConstructor
 @Component
-public class KakaoMemberClient implements SocialMemberClient {
+public class NaverMemberClient implements SocialMemberClient {
 
-  private final KakaoApiClient kakaoApiClient;
+  private final NaverApiClient naverApiClient;
 
   @Override
   public String getAccessToken(String authCode) {
-    return kakaoApiClient.getToken(authCode);
+    return naverApiClient.getToken(authCode);
   }
 
   @Override
   public OAuthMember getMemberInfo(String accessToken) {
-    return kakaoApiClient.getMemberInfo(accessToken);
+    return naverApiClient.getMemberInfo(accessToken);
   }
 
   @Override
   public String getSocialId(String accessToken) {
-    return kakaoApiClient.getAccessTokenInfo(accessToken);
+    return naverApiClient.getSocialId(accessToken);
   }
 
   @Override
   public SocialType supportSocial() {
-    return SocialType.KAKAO;
+    return SocialType.NAVER;
   }
 }
