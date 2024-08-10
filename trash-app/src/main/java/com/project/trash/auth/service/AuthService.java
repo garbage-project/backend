@@ -5,6 +5,7 @@ import com.project.trash.auth.domain.OAuthMember;
 import com.project.trash.auth.provider.AuthCodeRequestUrlProviderComposite;
 import com.project.trash.auth.request.LoginRequest;
 import com.project.trash.auth.response.LoginResponse;
+import com.project.trash.common.exception.ValidationException;
 import com.project.trash.member.domain.Member;
 import com.project.trash.member.domain.enums.SocialType;
 import com.project.trash.member.repository.MemberRepository;
@@ -51,24 +52,31 @@ public class AuthService {
    */
   @Transactional
   public LoginResponse login(LoginRequest param) {
-    OAuthMember memberInfo =
-        socialMemberClient.fetch(SocialType.fromCode(param.getSocialType()), param.getAccessToken());
+    String socialId = param.getSocialId();
+    SocialType socialType = SocialType.fromCode(param.getSocialType());
+    if (!memberRepository.existsBySocialId(socialId)) {
+      // 회원가입
+      OAuthMember memberInfo = socialMemberClient.getMemberInfo(socialType, param.getAccessToken());
 
-    //    // 소셜 ID 일치여부 검증
-    //    if (!memberInfo.socialId().equals(param.getSocialId())) {
-    //      throw new ValidationException("auth.not_match_social_id");
-    //    }
+      // 소셜 ID 일치여부 검증
+      if (!socialId.equals(memberInfo.socialId())) {
+        throw new ValidationException("auth.not_match_social_id");
+      }
 
-    if (!memberRepository.existsBySocialId(memberInfo.socialId())) {
       memberRepository.save(
           new Member(memberInfo.email(), memberInfo.name(), memberInfo.gender(), memberInfo.birthday(),
               memberInfo.socialId(), memberInfo.socialType()));
+    } else {
+      // 엑세스 토큰 유효성 검증
+      if (!socialId.equals(socialMemberClient.getAccessTokenInfo(socialType, param.getAccessToken()))) {
+        throw new ValidationException("auth.not_match_social_id");
+      }
     }
 
-    Pair<String, Integer> accessToken = jwtService.createAccessToken(memberInfo.socialId());
-    Pair<String, Integer> refreshToken = jwtService.createRefreshToken(memberInfo.socialId());
+    Pair<String, Integer> accessToken = jwtService.createAccessToken(socialId);
+    Pair<String, Integer> refreshToken = jwtService.createRefreshToken(socialId);
 
-    return new LoginResponse(memberInfo.socialId(), accessToken.getLeft(), accessToken.getRight(),
-        refreshToken.getLeft(), refreshToken.getRight());
+    return new LoginResponse(socialId, accessToken.getLeft(), accessToken.getRight(), refreshToken.getLeft(),
+        refreshToken.getRight());
   }
 }

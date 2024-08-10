@@ -24,11 +24,32 @@ public class KakaoApiClient {
 
   private final KakaoOAuthConfig kakaoOAuthConfig;
 
-  public OAuthMember getMember(String accessToken) {
+  /**
+   * 엑세스 토큰 정보 확인(검증)
+   *
+   * @return 소셜 ID
+   */
+  public String getAccessTokenInfo(String accessToken) {
+    String resultText = WebClient.create(kakaoOAuthConfig.tokenInfoUri())
+                                 .get()
+                                 .header("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
+                                 .header(HttpHeaders.AUTHORIZATION,
+                                     kakaoOAuthConfig.authorizationPrefix() + accessToken)
+                                 .exchangeToMono(res -> res.bodyToMono(String.class))
+                                 .block();
+
+    return extractSocialId(resultText);
+  }
+
+  /**
+   * 사용자 정보 가져오기
+   */
+  public OAuthMember getMemberInfo(String accessToken) {
     String resultText = WebClient.create(kakaoOAuthConfig.userInfoUri())
                                  .get()
                                  .header("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
-                                 .header(HttpHeaders.AUTHORIZATION, accessToken)
+                                 .header(HttpHeaders.AUTHORIZATION,
+                                     kakaoOAuthConfig.authorizationPrefix() + accessToken)
                                  .exchangeToMono(res -> res.bodyToMono(String.class))
                                  .block();
 
@@ -36,10 +57,7 @@ public class KakaoApiClient {
   }
 
   /**
-   * Kakao 엑세스 토큰 발급
-   *
-   * @param authCode 경도
-   * @return 엑세스 토큰
+   * 엑세스 토큰 발급
    */
   public String getToken(String authCode) {
     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -60,10 +78,19 @@ public class KakaoApiClient {
   }
 
   /**
-   * json 문자열 파싱 - 토큰
-   *
-   * @param resultText 응답 문자열
-   * @return 토큰 정보
+   * 소셜 ID 추출
+   */
+  private String extractSocialId(String resultText) {
+    try {
+      JSONObject jsonObject = new JSONObject(resultText);
+      return String.valueOf(jsonObject.getLong("id"));
+    } catch (Exception e) {
+      throw new ValidationException("auth.get_token_info_fail");
+    }
+  }
+
+  /**
+   * 엑세스 토큰 추출
    */
   private String extractToken(String resultText) {
     try {

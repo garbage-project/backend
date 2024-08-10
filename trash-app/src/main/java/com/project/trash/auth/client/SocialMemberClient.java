@@ -4,22 +4,27 @@ import com.project.trash.auth.domain.OAuthMember;
 import com.project.trash.member.domain.enums.SocialType;
 
 /**
- * Resource Server 회원 정보 요청
+ * Resource Server 정보 요청
  */
 public interface SocialMemberClient {
 
   /**
-   * @return 회원 정보
-   */
-  OAuthMember fetch(String accessToken);
-
-  /**
-   * @return 엑세스 토큰
+   * 엑세스 토큰 발급
    */
   String getAccessToken(String authCode);
 
   /**
-   * @return 지원하는 SocialType
+   * 엑세스 토큰 정보 확인(검증)
+   */
+  String getAccessTokenInfo(String accessToken);
+
+  /**
+   * 사용자 정보 가져오기
+   */
+  OAuthMember getMemberInfo(String accessToken);
+
+  /**
+   * 지원하는 SocialType
    */
   SocialType supportSocial();
 }

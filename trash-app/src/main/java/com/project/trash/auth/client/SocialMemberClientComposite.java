@@ -26,17 +26,24 @@ public class SocialMemberClientComposite {
   }
 
   /**
-   * 소셜 타입에 맞는 회원 정보 반환
-   */
-  public OAuthMember fetch(SocialType socialType, String accessToken) {
-    return getClient(socialType).fetch(accessToken);
-  }
-
-  /**
-   * 소셜 타입에 맞는 AccessToken 반환
+   * 소셜 타입에 맞는 엑세스 토큰 발급
    */
   public String getAccessToken(SocialType socialType, String authCode) {
     return getClient(socialType).getAccessToken(authCode);
+  }
+
+  /**
+   * 엑세스 토큰 정보 확인(검증)
+   */
+  public String getAccessTokenInfo(SocialType socialType, String accessToken) {
+    return getClient(socialType).getAccessTokenInfo(accessToken);
+  }
+
+  /**
+   * 소셜 타입에 맞는 사용자 정보 가져오기
+   */
+  public OAuthMember getMemberInfo(SocialType socialType, String accessToken) {
+    return getClient(socialType).getMemberInfo(accessToken);
   }
 
   private SocialMemberClient getClient(SocialType socialType) {
