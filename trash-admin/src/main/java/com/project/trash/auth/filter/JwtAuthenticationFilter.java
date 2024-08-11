@@ -1,8 +1,8 @@
 package com.project.trash.auth.filter;
 
+import com.project.trash.admin.domain.AdminDetail;
+import com.project.trash.admin.service.AdminQueryService;
 import com.project.trash.auth.service.JwtService;
-import com.project.trash.member.domain.MemberDetail;
-import com.project.trash.member.service.MemberQueryService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtService jwtService;
-  private final MemberQueryService memberQueryService;
+  private final AdminQueryService adminQueryService;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -36,14 +36,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       return;
     }
 
-    String socialId = jwtService.extractSocialId(accessToken);
-    if (StringUtils.isNotBlank(socialId)) {
-      MemberDetail memberDetail = new MemberDetail(memberQueryService.getOne(socialId));
-      
+    String adminId = jwtService.extractUsername(accessToken);
+    if (StringUtils.isNotBlank(adminId)) {
+      AdminDetail adminDetail = new AdminDetail(adminQueryService.getOne(adminId));
+
       // 유효성 체크
-      if (jwtService.isTokenValid(accessToken, memberDetail)) {
+      if (jwtService.isTokenValid(accessToken, adminDetail)) {
         Authentication authentication =
-            new UsernamePasswordAuthenticationToken(memberDetail, accessToken, memberDetail.getAuthorities());
+            new UsernamePasswordAuthenticationToken(adminDetail, accessToken, adminDetail.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     }

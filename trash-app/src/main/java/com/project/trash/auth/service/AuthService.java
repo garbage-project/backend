@@ -47,8 +47,6 @@ public class AuthService {
 
   /**
    * 소셜 로그인, 가입 전이라면 회원가입
-   *
-   * @param param 요청 파라미터
    */
   @Transactional
   public LoginResponse login(LoginRequest param) {
