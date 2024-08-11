@@ -37,3 +37,4 @@ out/
 .vscode/
 
 trash-app/src/main/resources/application-secret.yml
+trash-admin/src/main/resources/application-secret.yml

@@ -1,10 +1,10 @@
 package com.project.trash.config;
 
+import com.project.trash.admin.service.AdminQueryService;
 import com.project.trash.auth.filter.JwtAuthenticationFilter;
 import com.project.trash.auth.service.JwtService;
 import com.project.trash.common.exception.handler.CustomAccessDeniedHandler;
 import com.project.trash.common.exception.handler.CustomAuthenticationEntryPoint;
-import com.project.trash.member.service.MemberQueryService;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
   private final JwtService jwtService;
-  private final MemberQueryService memberQueryService;
+  private final AdminQueryService adminQueryService;
 
   private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
   private final CustomAccessDeniedHandler customAccessDeniedHandler;
@@ -41,11 +41,9 @@ public class SecurityConfig {
                                                        .permitAll()
                                                        .requestMatchers("/auth/**")
                                                        .anonymous()
-                                                       .requestMatchers("/members/**")
-                                                       .authenticated()
                                                        .anyRequest()
                                                        .denyAll())
-        .addFilterBefore(new JwtAuthenticationFilter(jwtService, memberQueryService),
+        .addFilterBefore(new JwtAuthenticationFilter(jwtService, adminQueryService),
             UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling(it -> {
           it.authenticationEntryPoint(customAuthenticationEntryPoint);
