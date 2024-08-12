@@ -7,7 +7,7 @@ import java.util.EnumSet;
 import lombok.Getter;
 
 /**
- * 시설 타입
+ * 시설물 종류
  */
 @Getter
 public enum FacilityType implements Codable {
