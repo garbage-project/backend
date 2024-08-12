@@ -37,7 +37,7 @@ public class SecurityConfig {
         .httpBasic(AbstractHttpConfigurer::disable)
         // 세션을 생성하지 않게 설정
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/error", "/health", "/test")
+        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/error", "/health", "/test", "/facilities/**")
                                                        .permitAll()
                                                        .requestMatchers("/auth/**")
                                                        .anonymous()
