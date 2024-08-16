@@ -4,6 +4,9 @@ import com.project.trash.common.exception.ValidationException;
 import com.project.trash.common.utils.ValidatorUtils;
 import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.request.FacilityEntryRequest;
+import com.project.trash.facility.request.FacilityListRequest;
+
+import java.util.Set;
 
 import lombok.experimental.UtilityClass;
 
@@ -25,5 +28,19 @@ public class FacilityValidator {
     ValidatorUtils.validateEmpty(param.getDetailLocation(), "facility.param_detail_location_empty");
     ValidatorUtils.validateNull(param.getLatitude(), "facility.param_latitude_null");
     ValidatorUtils.validateNull(param.getLongitude(), "facility.param_longitude_null");
+  }
+
+  /**
+   * 시설물 목록 조회 요청 검증
+   */
+  public void validate(FacilityListRequest param) {
+    Set<String> typeSet = param.getType();
+    if (typeSet != null) {
+      for (String type : typeSet) {
+        if (!FacilityType.containCode(type)) {
+          throw new ValidationException("facility.param_type_invalid");
+        }
+      }
+    }
   }
 }
