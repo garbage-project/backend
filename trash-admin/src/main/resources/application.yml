@@ -8,6 +8,10 @@ spring:
     username: root
     password: 1234
 
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/spot-finder
+
   jpa:
     hibernate:
       naming:

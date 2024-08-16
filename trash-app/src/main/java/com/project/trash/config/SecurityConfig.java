@@ -8,6 +8,7 @@ import com.project.trash.member.service.MemberQueryService;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -37,11 +38,13 @@ public class SecurityConfig {
         .httpBasic(AbstractHttpConfigurer::disable)
         // 세션을 생성하지 않게 설정
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/error", "/health", "/test")
+        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/error", "/health", "/test", "/facilities/**")
                                                        .permitAll()
                                                        .requestMatchers("/auth/**")
                                                        .anonymous()
                                                        .requestMatchers("/members/**")
+                                                       .authenticated()
+                                                       .requestMatchers(HttpMethod.POST, "/facilities/**")
                                                        .authenticated()
                                                        .anyRequest()
                                                        .denyAll())
