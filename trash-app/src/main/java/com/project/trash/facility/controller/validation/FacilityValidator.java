@@ -5,6 +5,8 @@ import com.project.trash.common.utils.ValidatorUtils;
 import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
+import com.project.trash.review.request.ReviewEntryRequest;
+import com.project.trash.review.request.ReviewModifyRequest;
 
 import java.util.Set;
 
@@ -42,5 +44,21 @@ public class FacilityValidator {
         }
       }
     }
+  }
+
+  /**
+   * 리뷰 등록 요청 검증
+   */
+  public void validate(ReviewEntryRequest param) {
+    ValidatorUtils.validateEmpty(param.getFacilityId(), "facility.param_id_null");
+    ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
+  }
+
+  /**
+   * 리뷰 수정 요청 검증
+   */
+  public void validate(ReviewModifyRequest param) {
+    ValidatorUtils.validateNull(param.getReviewSeq(), "review.param_seq_null");
+    ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
   }
 }
