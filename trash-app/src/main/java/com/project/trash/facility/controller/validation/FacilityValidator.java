@@ -5,11 +5,13 @@ import com.project.trash.common.utils.ValidatorUtils;
 import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
+import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.review.request.ReviewEntryRequest;
 import com.project.trash.review.request.ReviewModifyRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -24,26 +26,45 @@ public class FacilityValidator {
   /**
    * 시설물 등록 요청 검증
    */
-  public void validate(FacilityEntryRequest param, List<MultipartFile> fileList) {
-    ValidatorUtils.validateEmpty(param.getType(), "facility.param_type_empty");
-    if (!FacilityType.containCode(param.getType())) {
-      throw new ValidationException("facility.param_type_invalid");
-    }
-    ValidatorUtils.validateEmpty(param.getLocation(), "facility.param_location_empty");
-    ValidatorUtils.validateEmpty(param.getDetailLocation(), "facility.param_detail_location_empty");
-    ValidatorUtils.validateNull(param.getLatitude(), "facility.param_latitude_null");
-    ValidatorUtils.validateNull(param.getLongitude(), "facility.param_longitude_null");
+  public void validate(FacilityEntryRequest param, List<MultipartFile> images) {
+    validate(param.getType(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
+        param.getLongitude());
 
     // 이미지
-    if (fileList != null) {
+    if (images != null) {
       // 최대 3개
-      if (fileList.size() > 3) {
+      if (images.size() > 3) {
         throw new ValidationException("facility.param_image_max_count");
       }
-      for (MultipartFile file : fileList) {
+      for (MultipartFile file : images) {
         if (file.isEmpty()) {
           throw new ValidationException("file.not_empty");
         }
+      }
+    }
+  }
+
+  /**
+   * 시설물 수정 요청 검증
+   */
+  public void validate(FacilityModifyRequest param, List<MultipartFile> images) {
+    validate(param.getType(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
+        param.getLongitude());
+
+    ValidatorUtils.validateEmpty(param.getFacilityId(), "facility.param_id_null");
+
+    // 이미지
+    if (images != null) {
+      // 최대 3개
+      int imageSize = param.getImageIndexes() != null ? param.getImageIndexes().size() : 0;
+      for (MultipartFile file : images) {
+        if (file.isEmpty()) {
+          throw new ValidationException("file.not_empty");
+        }
+        imageSize++;
+      }
+      if (imageSize > 3) {
+        throw new ValidationException("facility.param_image_max_count");
       }
     }
   }
@@ -76,5 +97,17 @@ public class FacilityValidator {
   public void validate(ReviewModifyRequest param) {
     ValidatorUtils.validateNull(param.getReviewSeq(), "review.param_seq_null");
     ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
+  }
+
+  private void validate(String type, String locaiton, String detailLocation, BigDecimal latitude,
+      BigDecimal longitude) {
+    ValidatorUtils.validateEmpty(type, "facility.param_type_empty");
+    if (!FacilityType.containCode(type)) {
+      throw new ValidationException("facility.param_type_invalid");
+    }
+    ValidatorUtils.validateEmpty(locaiton, "facility.param_location_empty");
+    ValidatorUtils.validateEmpty(detailLocation, "facility.param_detail_location_empty");
+    ValidatorUtils.validateNull(latitude, "facility.param_latitude_null");
+    ValidatorUtils.validateNull(longitude, "facility.param_longitude_null");
   }
 }

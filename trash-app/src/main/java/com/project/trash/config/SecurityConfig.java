@@ -38,16 +38,16 @@ public class SecurityConfig {
         .httpBasic(AbstractHttpConfigurer::disable)
         // 세션을 생성하지 않게 설정
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/error", "/health", "/test", "/facilities/**")
+        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/error", "/health", "/test")
+                                                       .permitAll()
+                                                       .requestMatchers(HttpMethod.GET, "/facilities/**")
                                                        .permitAll()
                                                        .requestMatchers("/auth/**")
                                                        .anonymous()
                                                        .requestMatchers("/members/**", "/facilities/reviews/**")
                                                        .authenticated()
-                                                       .requestMatchers(HttpMethod.POST, "/facilities/**")
-                                                       .authenticated()
                                                        .anyRequest()
-                                                       .denyAll())
+                                                       .authenticated())
         .addFilterBefore(new JwtAuthenticationFilter(jwtService, memberQueryService),
             UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling(it -> {

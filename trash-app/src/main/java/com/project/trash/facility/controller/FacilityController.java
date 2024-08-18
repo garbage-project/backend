@@ -5,6 +5,7 @@ import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.facility.controller.validation.FacilityValidator;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
+import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.facility.service.FacilityCommandService;
 import com.project.trash.facility.service.FacilityQueryService;
 import com.project.trash.review.request.ReviewEntryRequest;
@@ -42,6 +43,15 @@ public class FacilityController {
   private final ReviewCommandService reviewCommandService;
 
   /**
+   * 시설물 삭제
+   */
+  @DeleteMapping("/{facilityId}")
+  public ResponseEntity<?> delete(@PathVariable String facilityId) {
+    facilityCommandService.delete(facilityId);
+    return ResponseEntity.ok(new SuccessResponse());
+  }
+
+  /**
    * 리뷰 삭제
    */
   @DeleteMapping("/reviews/{reviewSeq}")
@@ -65,10 +75,10 @@ public class FacilityController {
    */
   @PostMapping
   public ResponseEntity<?> post(@RequestPart FacilityEntryRequest param,
-      @RequestPart(required = false) List<MultipartFile> fileList) {
-    FacilityValidator.validate(param, fileList);
+      @RequestPart(required = false) List<MultipartFile> images) {
+    FacilityValidator.validate(param, images);
 
-    facilityCommandService.entry(param, fileList);
+    facilityCommandService.entry(param, images);
     return ResponseEntity.ok(new SuccessResponse());
   }
 
@@ -80,6 +90,18 @@ public class FacilityController {
     FacilityValidator.validate(param);
 
     reviewCommandService.entry(param);
+    return ResponseEntity.ok(new SuccessResponse());
+  }
+
+  /**
+   * 시설물 수정
+   */
+  @PutMapping
+  public ResponseEntity<?> put(@RequestPart FacilityModifyRequest param,
+      @RequestPart(required = false) List<MultipartFile> images) {
+    FacilityValidator.validate(param, images);
+
+    facilityCommandService.modify(param, images);
     return ResponseEntity.ok(new SuccessResponse());
   }
 

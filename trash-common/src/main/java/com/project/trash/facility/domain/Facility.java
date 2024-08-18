@@ -76,7 +76,7 @@ public class Facility {
   /**
    * 이미지 목록
    */
-  private List<String> imageList;
+  private List<String> images;
   /**
    * 등록 회원 일련번호
    */
@@ -93,14 +93,25 @@ public class Facility {
   private LocalDateTime updatedAt;
 
   public Facility(FacilityType type, String location, String detailLocation, Decimal128 latitude, Decimal128 longitude,
-      String information, List<String> imageList, Long memberSeq) {
+      String information, List<String> images, Long memberSeq) {
     this.type = type;
     this.location = location;
     this.detailLocation = detailLocation;
     this.latitude = latitude;
     this.longitude = longitude;
     this.information = information;
-    this.imageList = imageList;
+    this.images = images;
     this.memberSeq = memberSeq;
+  }
+
+  public void update(FacilityType type, String location, String detailLocation, Decimal128 latitude,
+      Decimal128 longitude, String information, List<String> images) {
+    this.type = type;
+    this.location = location;
+    this.detailLocation = detailLocation;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.information = information;
+    this.images = images;
   }
 }
