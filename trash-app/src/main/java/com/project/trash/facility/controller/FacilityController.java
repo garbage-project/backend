@@ -5,6 +5,7 @@ import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.facility.controller.validation.FacilityValidator;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
+import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.facility.service.FacilityCommandService;
 import com.project.trash.facility.service.FacilityQueryService;
 import com.project.trash.review.request.ReviewEntryRequest;
@@ -20,7 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,10 +43,19 @@ public class FacilityController {
   private final ReviewCommandService reviewCommandService;
 
   /**
+   * 시설물 삭제
+   */
+  @DeleteMapping("/{facilityId}")
+  public ResponseEntity<?> delete(@PathVariable String facilityId) {
+    facilityCommandService.delete(facilityId);
+    return ResponseEntity.ok(new SuccessResponse());
+  }
+
+  /**
    * 리뷰 삭제
    */
   @DeleteMapping("/reviews/{reviewSeq}")
-  public ResponseEntity<?> deleteReview(@PathVariable(name = "reviewSeq") Long reviewSeq) {
+  public ResponseEntity<?> deleteReview(@PathVariable Long reviewSeq) {
     reviewCommandService.delete(reviewSeq);
     return ResponseEntity.ok(new SuccessResponse());
   }
@@ -60,10 +74,11 @@ public class FacilityController {
    * 시설물 등록
    */
   @PostMapping
-  public ResponseEntity<?> post(@RequestBody FacilityEntryRequest param) {
-    FacilityValidator.validate(param);
+  public ResponseEntity<?> post(@RequestPart FacilityEntryRequest param,
+      @RequestPart(required = false) List<MultipartFile> images) {
+    FacilityValidator.validate(param, images);
 
-    facilityCommandService.entry(param);
+    facilityCommandService.entry(param, images);
     return ResponseEntity.ok(new SuccessResponse());
   }
 
@@ -75,6 +90,18 @@ public class FacilityController {
     FacilityValidator.validate(param);
 
     reviewCommandService.entry(param);
+    return ResponseEntity.ok(new SuccessResponse());
+  }
+
+  /**
+   * 시설물 수정
+   */
+  @PutMapping
+  public ResponseEntity<?> put(@RequestPart FacilityModifyRequest param,
+      @RequestPart(required = false) List<MultipartFile> images) {
+    FacilityValidator.validate(param, images);
+
+    facilityCommandService.modify(param, images);
     return ResponseEntity.ok(new SuccessResponse());
   }
 

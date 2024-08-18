@@ -27,6 +27,13 @@ spring:
     fallbackToSystemLocale: false
     alwaysUseMessageFormat: true
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 15MB
+      resolve-lazily: true
+      enabled: true
+
   config:
     import: application-secret.yml
 

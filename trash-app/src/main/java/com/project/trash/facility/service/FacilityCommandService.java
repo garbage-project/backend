@@ -1,14 +1,22 @@
 package com.project.trash.facility.service;
 
+import com.project.trash.aws.dao.AwsFileDao;
+import com.project.trash.common.domain.enums.ImageType;
+import com.project.trash.common.exception.ValidationException;
 import com.project.trash.facility.domain.Facility;
 import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.request.FacilityEntryRequest;
+import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.utils.MemberUtils;
 
 import org.bson.types.Decimal128;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,15 +28,81 @@ import lombok.RequiredArgsConstructor;
 public class FacilityCommandService {
 
   private final FacilityRepository facilityRepository;
+  private final FacilityQueryService facilityQueryService;
+  private final AwsFileDao awsFileDao;
+
+  /**
+   * 시설물 삭제
+   */
+  @Transactional
+  public void delete(String facilityId) {
+    Facility facility = facilityQueryService.getOne(facilityId, MemberUtils.getMemberSeq());
+
+    facilityRepository.delete(facility);
+  }
 
   /**
    * 시설물 등록
    */
   @Transactional
-  public void entry(FacilityEntryRequest param) {
+  public void entry(FacilityEntryRequest param, List<MultipartFile> addImages) {
     facilityRepository.save(
         new Facility(FacilityType.fromCode(param.getType()), param.getLocation(), param.getDetailLocation(),
             new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()), param.getInformation(),
-            MemberUtils.getMemberSeq()));
+            makeImages(addImages), MemberUtils.getMemberSeq()));
+  }
+
+  /**
+   * 시설물 수정
+   */
+  @Transactional
+  public void modify(FacilityModifyRequest param, List<MultipartFile> addImages) {
+    Facility facility = facilityQueryService.getOne(param.getFacilityId(), MemberUtils.getMemberSeq());
+
+    facility.update(FacilityType.fromCode(param.getType()), param.getLocation(), param.getDetailLocation(),
+        new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()), param.getInformation(),
+        modifyImages(facility.getImages(), param.getImageIndexes(), addImages));
+
+    facilityRepository.save(facility);
+  }
+
+  /**
+   * 이미지 추가
+   */
+  private List<String> makeImages(List<MultipartFile> addImages) {
+    if (addImages == null) {
+      return null;
+    }
+    Long memberSeq = MemberUtils.getMemberSeq();
+    return addImages.stream().map(file -> awsFileDao.upload(memberSeq, ImageType.FACILITY.getType(), file)).toList();
+  }
+
+  /**
+   * 이미지 추가 및 삭제
+   */
+  private List<String> modifyImages(List<String> savedImages, List<Integer> imageIndexes,
+      List<MultipartFile> addImages) {
+    if (imageIndexes == null && addImages == null) {
+      return null;
+    }
+
+    List<String> images = new ArrayList<>();
+    if (imageIndexes != null) {
+      for (int index : imageIndexes) {
+        if (index >= 0 && index < savedImages.size()) {
+          images.add(savedImages.get(index));
+        } else {
+          throw new ValidationException("facility.image_not_found");
+        }
+      }
+    }
+
+    if (addImages == null) {
+      return images;
+    }
+    Long memberSeq = MemberUtils.getMemberSeq();
+    addImages.forEach(file -> images.add(awsFileDao.upload(memberSeq, ImageType.FACILITY.getType(), file)));
+    System.out.println("size: " + images.size());
+    return images;
   }
 }

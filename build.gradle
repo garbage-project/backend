@@ -32,6 +32,7 @@ subprojects {
 
 		// Utils
 		implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
+		implementation 'commons-io:commons-io:2.16.1'
 
 		compileOnly 'org.projectlombok:lombok'
 		runtimeOnly 'com.mysql:mysql-connector-j'
