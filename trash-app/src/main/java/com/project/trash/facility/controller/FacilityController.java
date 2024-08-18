@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +45,7 @@ public class FacilityController {
    * 리뷰 삭제
    */
   @DeleteMapping("/reviews/{reviewSeq}")
-  public ResponseEntity<?> deleteReview(@PathVariable(name = "reviewSeq") Long reviewSeq) {
+  public ResponseEntity<?> deleteReview(@PathVariable Long reviewSeq) {
     reviewCommandService.delete(reviewSeq);
     return ResponseEntity.ok(new SuccessResponse());
   }
@@ -60,10 +64,11 @@ public class FacilityController {
    * 시설물 등록
    */
   @PostMapping
-  public ResponseEntity<?> post(@RequestBody FacilityEntryRequest param) {
-    FacilityValidator.validate(param);
+  public ResponseEntity<?> post(@RequestPart FacilityEntryRequest param,
+      @RequestPart(required = false) List<MultipartFile> fileList) {
+    FacilityValidator.validate(param, fileList);
 
-    facilityCommandService.entry(param);
+    facilityCommandService.entry(param, fileList);
     return ResponseEntity.ok(new SuccessResponse());
   }
 

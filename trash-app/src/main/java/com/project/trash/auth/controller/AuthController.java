@@ -33,8 +33,7 @@ public class AuthController {
    */
   @SneakyThrows
   @GetMapping("/login/url")
-  public void getLoginUrl(@RequestParam(required = false, value = "socialType") String socialType,
-      HttpServletResponse response) {
+  public void getLoginUrl(@RequestParam(required = false) String socialType, HttpServletResponse response) {
     response.sendRedirect(authService.getAuthCodeRequestUrl(SocialType.fromCode(socialType)));
   }
 
@@ -42,8 +41,8 @@ public class AuthController {
    * 소셜 타입에 따른 AccessToken 반환
    */
   @GetMapping("/token")
-  public ResponseEntity<?> getToken(@RequestParam(required = false, value = "socialType") String socialType,
-      @RequestParam(required = false, value = "authCode") String authCode) {
+  public ResponseEntity<?> getToken(@RequestParam(required = false) String socialType,
+      @RequestParam(required = false) String authCode) {
     return ResponseEntity.ok(new DataResponse(authService.getAccessToken(SocialType.fromCode(socialType), authCode)));
   }
 

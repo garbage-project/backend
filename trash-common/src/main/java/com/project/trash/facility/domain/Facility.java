@@ -13,6 +13,7 @@ import org.springframework.data.convert.ValueConverter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,6 +74,10 @@ public class Facility {
   @ValueConverter(FacilityApprovalStatusConverter.class)
   private FacilityApprovalStatus approvalStatus = FacilityApprovalStatus.PENDING;
   /**
+   * 이미지 목록
+   */
+  private List<String> imageList;
+  /**
    * 등록 회원 일련번호
    */
   private Long memberSeq;
@@ -88,13 +93,14 @@ public class Facility {
   private LocalDateTime updatedAt;
 
   public Facility(FacilityType type, String location, String detailLocation, Decimal128 latitude, Decimal128 longitude,
-      String information, Long memberSeq) {
+      String information, List<String> imageList, Long memberSeq) {
     this.type = type;
     this.location = location;
     this.detailLocation = detailLocation;
     this.latitude = latitude;
     this.longitude = longitude;
     this.information = information;
+    this.imageList = imageList;
     this.memberSeq = memberSeq;
   }
 }

@@ -8,6 +8,9 @@ import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.review.request.ReviewEntryRequest;
 import com.project.trash.review.request.ReviewModifyRequest;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 import java.util.Set;
 
 import lombok.experimental.UtilityClass;
@@ -21,7 +24,7 @@ public class FacilityValidator {
   /**
    * 시설물 등록 요청 검증
    */
-  public void validate(FacilityEntryRequest param) {
+  public void validate(FacilityEntryRequest param, List<MultipartFile> fileList) {
     ValidatorUtils.validateEmpty(param.getType(), "facility.param_type_empty");
     if (!FacilityType.containCode(param.getType())) {
       throw new ValidationException("facility.param_type_invalid");
@@ -30,6 +33,19 @@ public class FacilityValidator {
     ValidatorUtils.validateEmpty(param.getDetailLocation(), "facility.param_detail_location_empty");
     ValidatorUtils.validateNull(param.getLatitude(), "facility.param_latitude_null");
     ValidatorUtils.validateNull(param.getLongitude(), "facility.param_longitude_null");
+
+    // 이미지
+    if (fileList != null) {
+      // 최대 3개
+      if (fileList.size() > 3) {
+        throw new ValidationException("facility.param_image_max_count");
+      }
+      for (MultipartFile file : fileList) {
+        if (file.isEmpty()) {
+          throw new ValidationException("file.not_empty");
+        }
+      }
+    }
   }
 
   /**
