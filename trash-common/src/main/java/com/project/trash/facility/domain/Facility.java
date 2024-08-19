@@ -115,5 +115,8 @@ public class Facility {
     this.longitude = longitude;
     this.information = information;
     this.images = images;
+
+    // 시설물 수정 시, 승인 대기 상태로 변경
+    this.approvalStatus = FacilityApprovalStatus.PENDING;
   }
 }
