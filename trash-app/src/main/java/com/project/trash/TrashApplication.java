@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.TimeZone;
+
+import jakarta.annotation.PostConstruct;
+
 @EnableJpaAuditing
 @ConfigurationPropertiesScan
 @SpringBootApplication
@@ -14,4 +18,8 @@ public class TrashApplication {
     SpringApplication.run(TrashApplication.class, args);
   }
 
+  @PostConstruct
+  public void init() {
+    TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+  }
 }

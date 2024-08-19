@@ -4,7 +4,9 @@
 package trash;
 
 
+import trash.tables.Admin;
 import trash.tables.Member;
+import trash.tables.Review;
 
 
 /**
@@ -14,7 +16,17 @@ import trash.tables.Member;
 public class Tables {
 
     /**
+     * 관리자 테이블
+     */
+    public static final Admin ADMIN = Admin.ADMIN;
+
+    /**
      * The table <code>trash.MEMBER</code>.
      */
     public static final Member MEMBER = Member.MEMBER;
+
+    /**
+     * 리뷰 테이블
+     */
+    public static final Review REVIEW = Review.REVIEW;
 }

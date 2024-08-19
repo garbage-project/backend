@@ -17,9 +17,9 @@ import lombok.experimental.UtilityClass;
 public class DateTimeUtils {
 
   /**
-   * 기본 Date 형식 (yyyy-MM-dd)
+   * 기본 Date 형식 (yyyy.MM.dd)
    */
-  public final String DEFAULT_DATE = "yyyy-MM-dd";
+  public final String DEFAULT_DATE = "yyyy.MM.dd";
   /**
    * 기본 DateTime 형식 (yyyy-MM-dd HH:mm:ss)
    */
