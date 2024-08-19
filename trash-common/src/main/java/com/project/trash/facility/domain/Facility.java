@@ -92,9 +92,10 @@ public class Facility {
   @LastModifiedDate
   private LocalDateTime updatedAt;
 
-  public Facility(FacilityType type, String location, String detailLocation, Decimal128 latitude, Decimal128 longitude,
-      String information, List<String> images, Long memberSeq) {
+  public Facility(FacilityType type, String name, String location, String detailLocation, Decimal128 latitude,
+      Decimal128 longitude, String information, List<String> images, Long memberSeq) {
     this.type = type;
+    this.name = name;
     this.location = location;
     this.detailLocation = detailLocation;
     this.latitude = latitude;
@@ -104,9 +105,10 @@ public class Facility {
     this.memberSeq = memberSeq;
   }
 
-  public void update(FacilityType type, String location, String detailLocation, Decimal128 latitude,
+  public void update(FacilityType type, String name, String location, String detailLocation, Decimal128 latitude,
       Decimal128 longitude, String information, List<String> images) {
     this.type = type;
+    this.name = name;
     this.location = location;
     this.detailLocation = detailLocation;
     this.latitude = latitude;
