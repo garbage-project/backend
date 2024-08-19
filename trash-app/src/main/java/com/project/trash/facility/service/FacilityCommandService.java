@@ -46,10 +46,9 @@ public class FacilityCommandService {
    */
   @Transactional
   public void entry(FacilityEntryRequest param, List<MultipartFile> addImages) {
-    facilityRepository.save(
-        new Facility(FacilityType.fromCode(param.getType()), param.getLocation(), param.getDetailLocation(),
-            new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()), param.getInformation(),
-            makeImages(addImages), MemberUtils.getMemberSeq()));
+    facilityRepository.save(new Facility(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
+        param.getDetailLocation(), new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()),
+        param.getInformation(), makeImages(addImages), MemberUtils.getMemberSeq()));
   }
 
   /**
@@ -59,9 +58,9 @@ public class FacilityCommandService {
   public void modify(FacilityModifyRequest param, List<MultipartFile> addImages) {
     Facility facility = facilityQueryService.getOne(param.getFacilityId(), MemberUtils.getMemberSeq());
 
-    facility.update(FacilityType.fromCode(param.getType()), param.getLocation(), param.getDetailLocation(),
-        new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()), param.getInformation(),
-        modifyImages(facility.getImages(), param.getImageIndexes(), addImages));
+    facility.update(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
+        param.getDetailLocation(), new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()),
+        param.getInformation(), modifyImages(facility.getImages(), param.getImageIndexes(), addImages));
 
     facilityRepository.save(facility);
   }

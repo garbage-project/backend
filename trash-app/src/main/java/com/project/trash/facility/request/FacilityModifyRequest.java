@@ -20,6 +20,10 @@ public class FacilityModifyRequest {
    */
   private String type;
   /**
+   * 시설물명
+   */
+  private String name;
+  /**
    * 위치
    */
   private String location;

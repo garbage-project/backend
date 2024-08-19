@@ -27,7 +27,7 @@ public class FacilityValidator {
    * 시설물 등록 요청 검증
    */
   public void validate(FacilityEntryRequest param, List<MultipartFile> images) {
-    validate(param.getType(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
+    validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
         param.getLongitude());
 
     // 이미지
@@ -48,7 +48,7 @@ public class FacilityValidator {
    * 시설물 수정 요청 검증
    */
   public void validate(FacilityModifyRequest param, List<MultipartFile> images) {
-    validate(param.getType(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
+    validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
         param.getLongitude());
 
     ValidatorUtils.validateEmpty(param.getFacilityId(), "facility.param_id_null");
@@ -99,12 +99,13 @@ public class FacilityValidator {
     ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
   }
 
-  private void validate(String type, String locaiton, String detailLocation, BigDecimal latitude,
+  private void validate(String type, String name, String locaiton, String detailLocation, BigDecimal latitude,
       BigDecimal longitude) {
     ValidatorUtils.validateEmpty(type, "facility.param_type_empty");
     if (!FacilityType.containCode(type)) {
       throw new ValidationException("facility.param_type_invalid");
     }
+    ValidatorUtils.validateEmpty(name, "facility.param_name_empty");
     ValidatorUtils.validateEmpty(locaiton, "facility.param_location_empty");
     ValidatorUtils.validateEmpty(detailLocation, "facility.param_detail_location_empty");
     ValidatorUtils.validateNull(latitude, "facility.param_latitude_null");

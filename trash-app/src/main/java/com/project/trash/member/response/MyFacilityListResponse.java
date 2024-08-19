@@ -24,9 +24,9 @@ public class MyFacilityListResponse {
    */
   private String type;
   /**
-   * 위치
+   * 시설물명
    */
-  private String location;
+  private String name;
   /**
    * 상세 위치
    */
@@ -36,11 +36,11 @@ public class MyFacilityListResponse {
    */
   private String information;
 
-  public MyFacilityListResponse(String facilityId, String type, String location, String detailLocation,
+  public MyFacilityListResponse(String facilityId, String type, String name, String detailLocation,
       String information) {
     this.facilityId = facilityId;
     this.type = type;
-    this.location = location;
+    this.name = name;
     this.detailLocation = detailLocation;
     this.information = information;
   }
