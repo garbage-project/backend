@@ -67,10 +67,25 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
+     * Setter for <code>trash.MEMBER.MBR_NCK_NM</code>. 닉네임
+     */
+    public MemberRecord setMbrNckNm(String value) {
+        set(3, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>trash.MEMBER.MBR_NCK_NM</code>. 닉네임
+     */
+    public String getMbrNckNm() {
+        return (String) get(3);
+    }
+
+    /**
      * Setter for <code>trash.MEMBER.MBR_GNDR</code>. 성별
      */
     public MemberRecord setMbrGndr(String value) {
-        set(3, value);
+        set(4, value);
         return this;
     }
 
@@ -78,14 +93,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>trash.MEMBER.MBR_GNDR</code>. 성별
      */
     public String getMbrGndr() {
-        return (String) get(3);
+        return (String) get(4);
     }
 
     /**
      * Setter for <code>trash.MEMBER.MBR_BRDT</code>. 생년월일
      */
     public MemberRecord setMbrBrdt(String value) {
-        set(4, value);
+        set(5, value);
         return this;
     }
 
@@ -93,14 +108,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>trash.MEMBER.MBR_BRDT</code>. 생년월일
      */
     public String getMbrBrdt() {
-        return (String) get(4);
+        return (String) get(5);
     }
 
     /**
      * Setter for <code>trash.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
     public MemberRecord setMbrSclId(String value) {
-        set(5, value);
+        set(6, value);
         return this;
     }
 
@@ -108,14 +123,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>trash.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
     public String getMbrSclId() {
-        return (String) get(5);
+        return (String) get(6);
     }
 
     /**
      * Setter for <code>trash.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
      */
     public MemberRecord setMbrSclTyp(String value) {
-        set(6, value);
+        set(7, value);
         return this;
     }
 
@@ -123,14 +138,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>trash.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
      */
     public String getMbrSclTyp() {
-        return (String) get(6);
+        return (String) get(7);
     }
 
     /**
      * Setter for <code>trash.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public MemberRecord setMbrVldYn(String value) {
-        set(7, value);
+        set(8, value);
         return this;
     }
 
@@ -138,14 +153,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>trash.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public String getMbrVldYn() {
-        return (String) get(7);
+        return (String) get(8);
     }
 
     /**
      * Setter for <code>trash.MEMBER.CRE_DTM</code>. 등록일시
      */
     public MemberRecord setCreDtm(LocalDateTime value) {
-        set(8, value);
+        set(9, value);
         return this;
     }
 
@@ -153,14 +168,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>trash.MEMBER.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
-        return (LocalDateTime) get(8);
+        return (LocalDateTime) get(9);
     }
 
     /**
      * Setter for <code>trash.MEMBER.UPD_DTM</code>. 수정일시
      */
     public MemberRecord setUpdDtm(LocalDateTime value) {
-        set(9, value);
+        set(10, value);
         return this;
     }
 
@@ -168,7 +183,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>trash.MEMBER.UPD_DTM</code>. 수정일시
      */
     public LocalDateTime getUpdDtm() {
-        return (LocalDateTime) get(9);
+        return (LocalDateTime) get(10);
     }
 
     // -------------------------------------------------------------------------
@@ -194,12 +209,13 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     /**
      * Create a detached, initialised MemberRecord
      */
-    public MemberRecord(ULong mbrSeq, String mbrEmail, String mbrNm, String mbrGndr, String mbrBrdt, String mbrSclId, String mbrSclTyp, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public MemberRecord(ULong mbrSeq, String mbrEmail, String mbrNm, String mbrNckNm, String mbrGndr, String mbrBrdt, String mbrSclId, String mbrSclTyp, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Member.MEMBER);
 
         setMbrSeq(mbrSeq);
         setMbrEmail(mbrEmail);
         setMbrNm(mbrNm);
+        setMbrNckNm(mbrNckNm);
         setMbrGndr(mbrGndr);
         setMbrBrdt(mbrBrdt);
         setMbrSclId(mbrSclId);
@@ -220,6 +236,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
             setMbrSeq(value.getMbrSeq());
             setMbrEmail(value.getMbrEmail());
             setMbrNm(value.getMbrNm());
+            setMbrNckNm(value.getMbrNckNm());
             setMbrGndr(value.getMbrGndr());
             setMbrBrdt(value.getMbrBrdt());
             setMbrSclId(value.getMbrSclId());

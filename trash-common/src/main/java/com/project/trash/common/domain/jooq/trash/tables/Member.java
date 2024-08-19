@@ -63,6 +63,11 @@ public class Member extends TableImpl<MemberRecord> {
     public final TableField<MemberRecord, String> MBR_NM = createField(DSL.name("MBR_NM"), SQLDataType.VARCHAR(10).nullable(false), this, "이름");
 
     /**
+     * The column <code>trash.MEMBER.MBR_NCK_NM</code>. 닉네임
+     */
+    public final TableField<MemberRecord, String> MBR_NCK_NM = createField(DSL.name("MBR_NCK_NM"), SQLDataType.VARCHAR(20), this, "닉네임");
+
+    /**
      * The column <code>trash.MEMBER.MBR_GNDR</code>. 성별
      */
     public final TableField<MemberRecord, String> MBR_GNDR = createField(DSL.name("MBR_GNDR"), SQLDataType.CHAR(1).nullable(false), this, "성별");
@@ -75,7 +80,7 @@ public class Member extends TableImpl<MemberRecord> {
     /**
      * The column <code>trash.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
-    public final TableField<MemberRecord, String> MBR_SCL_ID = createField(DSL.name("MBR_SCL_ID"), SQLDataType.VARCHAR(20).nullable(false), this, "소셜 ID");
+    public final TableField<MemberRecord, String> MBR_SCL_ID = createField(DSL.name("MBR_SCL_ID"), SQLDataType.VARCHAR(50).nullable(false), this, "소셜 ID");
 
     /**
      * The column <code>trash.MEMBER.MBR_SCL_TYP</code>. 소셜 타입

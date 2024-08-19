@@ -6,6 +6,7 @@ import com.project.trash.facility.domain.Facility;
 import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.response.FacilityListResponse;
+import com.project.trash.member.response.MyFacilityListResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,17 @@ public class FacilityQueryService {
     return facilityDao.select(param);
   }
 
+  /**
+   * 등록한 시설물 목록 조회
+   */
+  @Transactional(readOnly = true)
+  public List<MyFacilityListResponse> getList() {
+    return facilityDao.select();
+  }
+
+  /**
+   * 시설물 단일 조회
+   */
   @Transactional(readOnly = true)
   public Facility getOne(String facilityId, Long memberSeq) {
     return facilityRepository.findByFacilityIdAndMemberSeq(facilityId, memberSeq)

@@ -11,7 +11,9 @@ import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
+import trash.tables.Admin;
 import trash.tables.Member;
+import trash.tables.Review;
 
 
 /**
@@ -28,9 +30,19 @@ public class Trash extends SchemaImpl {
     public static final Trash TRASH = new Trash();
 
     /**
+     * 관리자 테이블
+     */
+    public final Admin ADMIN = Admin.ADMIN;
+
+    /**
      * The table <code>trash.MEMBER</code>.
      */
     public final Member MEMBER = Member.MEMBER;
+
+    /**
+     * 리뷰 테이블
+     */
+    public final Review REVIEW = Review.REVIEW;
 
     /**
      * No further instances allowed
@@ -48,7 +60,9 @@ public class Trash extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
-            Member.MEMBER
+            Admin.ADMIN,
+            Member.MEMBER,
+            Review.REVIEW
         );
     }
 }
