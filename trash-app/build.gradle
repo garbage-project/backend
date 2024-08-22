@@ -5,3 +5,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.4'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
 }
+
+task copyConfig(type: Copy) {
+    copy {
+        from(fileTree(dir: '../backend-config/app', include: '*.yml'))
+        into 'src/main/resources'
+    }
+}

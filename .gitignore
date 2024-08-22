@@ -36,5 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-trash-app/src/main/resources/application-secret.yml
-trash-admin/src/main/resources/application-secret.yml
+trash-app/src/main/resources/*.yml
+trash-admin/src/main/resources/*.yml
