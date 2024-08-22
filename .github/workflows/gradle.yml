@@ -1,0 +1,66 @@
+name: Java CI/CD with Gradle
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          token: ${{ secrets.GIT_TOKEN }}
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+
+      - name: Docker Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build & Push trash-app Docker image
+        script: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/trash-app:latest -f trash-app/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/trash-app:latest
+
+      - name: Build & Push trash-admin Docker image
+        script: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/trash-admin:latest -f trash-admin/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/trash-admin:latest
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }} # EC2 인스턴스 퍼블릭 DNS
+          username: ec2-user
+          key: ${{ secrets.EC2_PRIVATE_KEY }} # pem 키
+          script: |
+            docker stop trash-app || true
+            docker stop trash-admin || true
+            
+            docker rm trash-app || true
+            docker rm trash-admin || true
+            
+            docker pull ${{ secrets.DOCKER_USERNAME }}/trash-app:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/trash-admin:latest
+            
+            docker run -d --name trash-app -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/trash-app:latest
+            docker run -d --name trash-admin -p 8081:8080 ${{ secrets.DOCKER_USERNAME }}/trash-admin:latest

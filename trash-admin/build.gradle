@@ -3,3 +3,10 @@ jar.enabled = false
 dependencies {
     implementation project(":trash-common")
 }
+
+task copyConfig(type: Copy) {
+    copy {
+        from(fileTree(dir: '../backend-config/admin', include: '*.yml'))
+        into 'src/main/resources'
+    }
+}
