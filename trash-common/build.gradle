@@ -4,7 +4,7 @@ plugins {
 }
 
 bootJar.enabled = false
-jar.enabled = true
+jar.enabled = false
 
 dependencies {
     api 'org.springframework.boot:spring-boot-starter-security'
@@ -20,8 +20,6 @@ dependencies {
 
     // AWS
     api 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 jooq {
