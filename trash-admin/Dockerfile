@@ -1,6 +1,6 @@
 FROM openjdk:21
 
-WORKDIR /jar
+ENV TZ=Asia/Seoul
 
 # copy jar
 COPY build/libs/*.jar admin-server.jar
