@@ -39,9 +39,9 @@ public class ReviewQueryService {
     // 3. 시설물 조회
     List<Facility> facilities = facilityRepository.findAllById(facilityIds);
 
-    // 4. 시설물 ID와 위치 매핑
+    // 4. 시설물 ID와 시설물명 매핑
     Map<String, String> facilityMap =
-        facilities.stream().collect(Collectors.toMap(Facility::getFacilityId, Facility::getLocation));
+        facilities.stream().collect(Collectors.toMap(Facility::getFacilityId, Facility::getName));
 
     return reviews.stream()
                   .map(
