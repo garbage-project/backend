@@ -19,9 +19,9 @@ public class MyReviewListResponse {
    */
   private Long reviewSeq;
   /**
-   * 시설물 위치
+   * 시설물명
    */
-  private String location;
+  private String facilityName;
   /**
    * 리뷰 내용
    */
@@ -31,9 +31,9 @@ public class MyReviewListResponse {
    */
   private String createdDate;
 
-  public MyReviewListResponse(Long reviewSeq, String location, String content, LocalDateTime createdDate) {
+  public MyReviewListResponse(Long reviewSeq, String facilityName, String content, LocalDateTime createdDate) {
     this.reviewSeq = reviewSeq;
-    this.location = location;
+    this.facilityName = facilityName;
     this.content = content;
     this.createdDate = DateTimeUtils.convertToString(createdDate, DateTimeUtils.DEFAULT_DATE);
   }

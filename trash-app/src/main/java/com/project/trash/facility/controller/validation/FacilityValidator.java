@@ -99,14 +99,14 @@ public class FacilityValidator {
     ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
   }
 
-  private void validate(String type, String name, String locaiton, String detailLocation, BigDecimal latitude,
+  private void validate(String type, String name, String location, String detailLocation, BigDecimal latitude,
       BigDecimal longitude) {
     ValidatorUtils.validateEmpty(type, "facility.param_type_empty");
     if (!FacilityType.containCode(type)) {
       throw new ValidationException("facility.param_type_invalid");
     }
     ValidatorUtils.validateEmpty(name, "facility.param_name_empty");
-    ValidatorUtils.validateEmpty(locaiton, "facility.param_location_empty");
+    ValidatorUtils.validateEmpty(location, "facility.param_location_empty");
     ValidatorUtils.validateEmpty(detailLocation, "facility.param_detail_location_empty");
     ValidatorUtils.validateNull(latitude, "facility.param_latitude_null");
     ValidatorUtils.validateNull(longitude, "facility.param_longitude_null");
