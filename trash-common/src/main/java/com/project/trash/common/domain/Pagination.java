@@ -13,6 +13,7 @@ public class Pagination {
 
   private Long totalItems;
   private Integer totalPages;
+  private Integer currentPage;
   private Boolean hasNext;
   private Boolean hasPrevious;
   private Boolean isFirst;
@@ -28,6 +29,8 @@ public class Pagination {
   private void calculation(PageRequest param) {
     int size = param.getSize();
     int page = param.getPage();
+
+    this.currentPage = page;
 
     this.hasNext = NumberUtils.compare(totalItems - ((long) size * page), 0) > 0;
     this.hasPrevious = NumberUtils.compare(page, 1) > 0;

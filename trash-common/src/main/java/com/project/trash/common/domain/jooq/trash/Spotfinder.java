@@ -14,6 +14,7 @@ import org.jooq.impl.SchemaImpl;
 import trash.tables.Admin;
 import trash.tables.Member;
 import trash.tables.Notice;
+import trash.tables.Report;
 import trash.tables.Review;
 
 
@@ -46,6 +47,11 @@ public class Spotfinder extends SchemaImpl {
     public final Notice NOTICE = Notice.NOTICE;
 
     /**
+     * 신고 테이블
+     */
+    public final Report REPORT = Report.REPORT;
+
+    /**
      * 리뷰 테이블
      */
     public final Review REVIEW = Review.REVIEW;
@@ -69,6 +75,7 @@ public class Spotfinder extends SchemaImpl {
             Admin.ADMIN,
             Member.MEMBER,
             Notice.NOTICE,
+            Report.REPORT,
             Review.REVIEW
         );
     }

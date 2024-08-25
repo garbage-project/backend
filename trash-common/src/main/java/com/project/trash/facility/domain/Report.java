@@ -1,4 +1,4 @@
-package com.project.trash.review.domain;
+package com.project.trash.facility.domain;
 
 import com.project.trash.common.domain.BaseTimeEntity;
 
@@ -12,28 +12,35 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * 리뷰 엔티티
+ * 신고 엔티티
  */
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "REVIEW")
-public class Review extends BaseTimeEntity {
+@Table(name = "REPORT")
+public class Report extends BaseTimeEntity {
 
   /**
-   * 리뷰 일련번호
+   * 신고 일련번호
    */
   @Id
-  @Column(name = "RVW_SEQ", nullable = false)
+  @Column(name = "RPT_SEQ", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long reviewSeq;
+  private Long reportSeq;
   /**
-   * 내용
+   * 신고 내용
    */
-  @Column(name = "RVW_CTT", nullable = false)
+  @Column(name = "RPT_CTT", nullable = false)
   private String content;
+  /**
+   * 답변
+   */
+  @Setter
+  @Column(name = "RPT_ANS")
+  private String answer;
   /**
    * 시설물 ID
    */
@@ -46,12 +53,8 @@ public class Review extends BaseTimeEntity {
   @Column(name = "MBR_SEQ", updatable = false, nullable = false)
   private Long memberSeq;
 
-  public Review(String content, String facilityId) {
+  public Report(String content, String facilityId) {
     this.content = content;
     this.facilityId = facilityId;
-  }
-
-  public void update(String content) {
-    this.content = content;
   }
 }

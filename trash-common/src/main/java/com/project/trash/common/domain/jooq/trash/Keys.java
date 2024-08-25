@@ -12,10 +12,12 @@ import org.jooq.impl.Internal;
 import trash.tables.Admin;
 import trash.tables.Member;
 import trash.tables.Notice;
+import trash.tables.Report;
 import trash.tables.Review;
 import trash.tables.records.AdminRecord;
 import trash.tables.records.MemberRecord;
 import trash.tables.records.NoticeRecord;
+import trash.tables.records.ReportRecord;
 import trash.tables.records.ReviewRecord;
 
 
@@ -33,5 +35,6 @@ public class Keys {
     public static final UniqueKey<AdminRecord> KEY_ADMIN_PRIMARY = Internal.createUniqueKey(Admin.ADMIN, DSL.name("KEY_ADMIN_PRIMARY"), new TableField[] { Admin.ADMIN.ADM_ID }, true);
     public static final UniqueKey<MemberRecord> KEY_MEMBER_PRIMARY = Internal.createUniqueKey(Member.MEMBER, DSL.name("KEY_MEMBER_PRIMARY"), new TableField[] { Member.MEMBER.MBR_SEQ }, true);
     public static final UniqueKey<NoticeRecord> KEY_NOTICE_PRIMARY = Internal.createUniqueKey(Notice.NOTICE, DSL.name("KEY_NOTICE_PRIMARY"), new TableField[] { Notice.NOTICE.NTC_SEQ }, true);
+    public static final UniqueKey<ReportRecord> KEY_REPORT_PRIMARY = Internal.createUniqueKey(Report.REPORT, DSL.name("KEY_REPORT_PRIMARY"), new TableField[] { Report.REPORT.RPT_SEQ }, true);
     public static final UniqueKey<ReviewRecord> KEY_REVIEW_PRIMARY = Internal.createUniqueKey(Review.REVIEW, DSL.name("KEY_REVIEW_PRIMARY"), new TableField[] { Review.REVIEW.RVW_SEQ }, true);
 }

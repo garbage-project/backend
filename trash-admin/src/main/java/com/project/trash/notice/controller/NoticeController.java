@@ -1,5 +1,6 @@
 package com.project.trash.notice.controller;
 
+import com.project.trash.common.response.DataResponse;
 import com.project.trash.common.response.PageListResponse;
 import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.notice.controller.validation.NoticeValidator;
@@ -44,6 +45,14 @@ public class NoticeController {
   public ResponseEntity<?> delete(@PathVariable Long noticeSeq) {
     noticeCommandService.delete(noticeSeq);
     return ResponseEntity.ok(new SuccessResponse());
+  }
+
+  /**
+   * 공지 상세 조회
+   */
+  @GetMapping("/{noticeSeq}")
+  public ResponseEntity<?> getDetail(@PathVariable Long noticeSeq) {
+    return ResponseEntity.ok(new DataResponse(noticeQueryService.getDetail(noticeSeq)));
   }
 
   /**

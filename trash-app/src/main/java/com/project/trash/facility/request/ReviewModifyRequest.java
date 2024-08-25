@@ -1,4 +1,4 @@
-package com.project.trash.review.request;
+package com.project.trash.facility.request;
 
 import lombok.Getter;
 
@@ -7,7 +7,7 @@ import lombok.Getter;
  */
 @Getter
 public class ReviewModifyRequest {
-  
+
   /**
    * 리뷰 일련번호
    */

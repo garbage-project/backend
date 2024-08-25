@@ -44,7 +44,8 @@ public class SecurityConfig {
                                                        .permitAll()
                                                        .requestMatchers("/auth/**")
                                                        .anonymous()
-                                                       .requestMatchers("/members/**", "/facilities/reviews/**")
+                                                       .requestMatchers("/members/**", "/facilities/reviews/**",
+                                                           "/facilities/reports/**")
                                                        .authenticated()
                                                        .anyRequest()
                                                        .authenticated())

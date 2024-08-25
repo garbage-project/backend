@@ -7,6 +7,7 @@ package trash;
 import trash.tables.Admin;
 import trash.tables.Member;
 import trash.tables.Notice;
+import trash.tables.Report;
 import trash.tables.Review;
 
 
@@ -30,6 +31,11 @@ public class Tables {
      * The table <code>spotfinder.NOTICE</code>.
      */
     public static final Notice NOTICE = Notice.NOTICE;
+
+    /**
+     * 신고 테이블
+     */
+    public static final Report REPORT = Report.REPORT;
 
     /**
      * 리뷰 테이블

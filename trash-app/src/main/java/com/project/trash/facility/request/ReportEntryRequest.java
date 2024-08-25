@@ -1,19 +1,19 @@
-package com.project.trash.review.request;
+package com.project.trash.facility.request;
 
 import lombok.Getter;
 
 /**
- * 라뷰 등록 요청
+ * 신고 등록 요청
  */
 @Getter
-public class ReviewEntryRequest {
+public class ReportEntryRequest {
 
   /**
    * 시설물 ID
    */
   private String facilityId;
   /**
-   * 리뷰 내용
+   * 신고 내용
    */
   private String content;
 }

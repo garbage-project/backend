@@ -1,11 +1,11 @@
-package com.project.trash.review.service;
+package com.project.trash.facility.service;
 
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.facility.domain.Facility;
+import com.project.trash.facility.domain.Review;
 import com.project.trash.facility.repository.FacilityRepository;
+import com.project.trash.facility.repository.ReviewRepository;
 import com.project.trash.member.response.MyReviewListResponse;
-import com.project.trash.review.domain.Review;
-import com.project.trash.review.repository.ReviewRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

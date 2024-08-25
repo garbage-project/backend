@@ -5,6 +5,7 @@ import com.project.trash.notice.dao.NoticeDao;
 import com.project.trash.notice.domain.Notice;
 import com.project.trash.notice.repository.NoticeRepository;
 import com.project.trash.notice.request.NoticeListRequest;
+import com.project.trash.notice.response.NoticeDetailResponse;
 import com.project.trash.notice.response.NoticeListResponse;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -24,6 +25,14 @@ public class NoticeQueryService {
 
   private final NoticeRepository noticeRepository;
   private final NoticeDao noticeDao;
+
+  /**
+   * 공지 상세 조회
+   */
+  @Transactional(readOnly = true)
+  public NoticeDetailResponse getDetail(Long noticeSeq) {
+    return new NoticeDetailResponse(getOne(noticeSeq));
+  }
 
   /**
    * 공지 목록 조회
