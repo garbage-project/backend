@@ -41,6 +41,11 @@ public class Member extends BaseTimeEntity {
   @Column(name = "MBR_NM", nullable = false)
   private String name;
   /**
+   * 닉네임
+   */
+  @Column(name = "MBR_NCK_NM", nullable = false)
+  private String nickname = "";
+  /**
    * 성별
    */
   @Convert(converter = GenderType.TypeCodeConverter.class)

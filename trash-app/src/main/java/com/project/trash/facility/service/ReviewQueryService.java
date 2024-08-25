@@ -6,6 +6,7 @@ import com.project.trash.facility.domain.Review;
 import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.repository.ReviewRepository;
 import com.project.trash.member.response.MyReviewListResponse;
+import com.project.trash.utils.MemberUtils;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +31,8 @@ public class ReviewQueryService {
    * 등록한 리뷰 목록 조회
    */
   public List<MyReviewListResponse> getList() {
-    // 1. 리뷰 조회
-    List<Review> reviews = reviewRepository.findAll();
+    // 1. 리뷰 목록 조회
+    List<Review> reviews = reviewRepository.findAllByMemberSeq(MemberUtils.getMemberSeq());
 
     // 2. 시설물 ID 목록 추출
     List<String> facilityIds = reviews.stream().map(Review::getFacilityId).distinct().toList();
