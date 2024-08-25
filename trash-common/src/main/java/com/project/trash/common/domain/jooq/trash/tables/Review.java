@@ -22,7 +22,7 @@ import org.jooq.impl.TableImpl;
 import org.jooq.types.ULong;
 
 import trash.Keys;
-import trash.Trash;
+import trash.Spotfinder;
 import trash.tables.records.ReviewRecord;
 
 
@@ -35,7 +35,7 @@ public class Review extends TableImpl<ReviewRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>trash.REVIEW</code>
+     * The reference instance of <code>spotfinder.REVIEW</code>
      */
     public static final Review REVIEW = new Review();
 
@@ -48,32 +48,32 @@ public class Review extends TableImpl<ReviewRecord> {
     }
 
     /**
-     * The column <code>trash.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * The column <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
      */
     public final TableField<ReviewRecord, ULong> RVW_SEQ = createField(DSL.name("RVW_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "리뷰 일련번호");
 
     /**
-     * The column <code>trash.REVIEW.RVW_CTT</code>. 리뷰 내용
+     * The column <code>spotfinder.REVIEW.RVW_CTT</code>. 리뷰 내용
      */
     public final TableField<ReviewRecord, String> RVW_CTT = createField(DSL.name("RVW_CTT"), SQLDataType.VARCHAR(100).nullable(false), this, "리뷰 내용");
 
     /**
-     * The column <code>trash.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * The column <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
      */
     public final TableField<ReviewRecord, ULong> MBR_SEQ = createField(DSL.name("MBR_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "회원 일련번호");
 
     /**
-     * The column <code>trash.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * The column <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
     public final TableField<ReviewRecord, String> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.VARCHAR(30).nullable(false), this, "시설물 ID");
 
     /**
-     * The column <code>trash.REVIEW.CRE_DTM</code>. 등록일시
+     * The column <code>spotfinder.REVIEW.CRE_DTM</code>. 등록일시
      */
     public final TableField<ReviewRecord, LocalDateTime> CRE_DTM = createField(DSL.name("CRE_DTM"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "등록일시");
 
     /**
-     * The column <code>trash.REVIEW.UPD_DTM</code>. 수정일시
+     * The column <code>spotfinder.REVIEW.UPD_DTM</code>. 수정일시
      */
     public final TableField<ReviewRecord, LocalDateTime> UPD_DTM = createField(DSL.name("UPD_DTM"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
 
@@ -86,21 +86,21 @@ public class Review extends TableImpl<ReviewRecord> {
     }
 
     /**
-     * Create an aliased <code>trash.REVIEW</code> table reference
+     * Create an aliased <code>spotfinder.REVIEW</code> table reference
      */
     public Review(String alias) {
         this(DSL.name(alias), REVIEW);
     }
 
     /**
-     * Create an aliased <code>trash.REVIEW</code> table reference
+     * Create an aliased <code>spotfinder.REVIEW</code> table reference
      */
     public Review(Name alias) {
         this(alias, REVIEW);
     }
 
     /**
-     * Create a <code>trash.REVIEW</code> table reference
+     * Create a <code>spotfinder.REVIEW</code> table reference
      */
     public Review() {
         this(DSL.name("REVIEW"), null);
@@ -112,7 +112,7 @@ public class Review extends TableImpl<ReviewRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Trash.TRASH;
+        return aliased() ? null : Spotfinder.SPOTFINDER;
     }
 
     @Override

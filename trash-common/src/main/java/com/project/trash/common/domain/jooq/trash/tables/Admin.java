@@ -18,7 +18,7 @@ import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 import trash.Keys;
-import trash.Trash;
+import trash.Spotfinder;
 import trash.tables.records.AdminRecord;
 
 
@@ -31,7 +31,7 @@ public class Admin extends TableImpl<AdminRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>trash.ADMIN</code>
+     * The reference instance of <code>spotfinder.ADMIN</code>
      */
     public static final Admin ADMIN = new Admin();
 
@@ -44,12 +44,12 @@ public class Admin extends TableImpl<AdminRecord> {
     }
 
     /**
-     * The column <code>trash.ADMIN.ADM_ID</code>. ID
+     * The column <code>spotfinder.ADMIN.ADM_ID</code>. ID
      */
     public final TableField<AdminRecord, String> ADM_ID = createField(DSL.name("ADM_ID"), SQLDataType.VARCHAR(20).nullable(false), this, "ID");
 
     /**
-     * The column <code>trash.ADMIN.ADM_PWD</code>. 비밀번호
+     * The column <code>spotfinder.ADMIN.ADM_PWD</code>. 비밀번호
      */
     public final TableField<AdminRecord, String> ADM_PWD = createField(DSL.name("ADM_PWD"), SQLDataType.VARCHAR(100).nullable(false), this, "비밀번호");
 
@@ -62,21 +62,21 @@ public class Admin extends TableImpl<AdminRecord> {
     }
 
     /**
-     * Create an aliased <code>trash.ADMIN</code> table reference
+     * Create an aliased <code>spotfinder.ADMIN</code> table reference
      */
     public Admin(String alias) {
         this(DSL.name(alias), ADMIN);
     }
 
     /**
-     * Create an aliased <code>trash.ADMIN</code> table reference
+     * Create an aliased <code>spotfinder.ADMIN</code> table reference
      */
     public Admin(Name alias) {
         this(alias, ADMIN);
     }
 
     /**
-     * Create a <code>trash.ADMIN</code> table reference
+     * Create a <code>spotfinder.ADMIN</code> table reference
      */
     public Admin() {
         this(DSL.name("ADMIN"), null);
@@ -88,7 +88,7 @@ public class Admin extends TableImpl<AdminRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Trash.TRASH;
+        return aliased() ? null : Spotfinder.SPOTFINDER;
     }
 
     @Override

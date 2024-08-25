@@ -6,11 +6,13 @@ import com.project.trash.facility.controller.validation.FacilityValidator;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
+import com.project.trash.facility.request.ReportEntryRequest;
+import com.project.trash.facility.request.ReviewEntryRequest;
+import com.project.trash.facility.request.ReviewModifyRequest;
 import com.project.trash.facility.service.FacilityCommandService;
 import com.project.trash.facility.service.FacilityQueryService;
-import com.project.trash.review.request.ReviewEntryRequest;
-import com.project.trash.review.request.ReviewModifyRequest;
-import com.project.trash.review.service.ReviewCommandService;
+import com.project.trash.facility.service.ReportCommandService;
+import com.project.trash.facility.service.ReviewCommandService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +43,7 @@ public class FacilityController {
   private final FacilityQueryService facilityQueryService;
 
   private final ReviewCommandService reviewCommandService;
+  private final ReportCommandService reportCommandService;
 
   /**
    * 시설물 삭제
@@ -79,6 +82,17 @@ public class FacilityController {
     FacilityValidator.validate(param, images);
 
     facilityCommandService.entry(param, images);
+    return ResponseEntity.ok(new SuccessResponse());
+  }
+
+  /**
+   * 신고 등록
+   */
+  @PostMapping("/reports")
+  public ResponseEntity<?> postReport(@RequestBody ReportEntryRequest param) {
+    FacilityValidator.validate(param);
+
+    reportCommandService.entry(param);
     return ResponseEntity.ok(new SuccessResponse());
   }
 

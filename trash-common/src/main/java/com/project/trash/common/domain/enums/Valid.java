@@ -26,6 +26,10 @@ public enum Valid implements Codable {
     return EnumSet.allOf(Valid.class).stream().anyMatch(e -> e.getCode().equals(code));
   }
 
+  public static Boolean convertToBoolean(String code) {
+    return Valid.TRUE.getCode().equalsIgnoreCase(code);
+  }
+
   public static Valid fromCode(final String code) {
     return Codable.fromCode(Valid.class, code);
   }

@@ -19,7 +19,7 @@ public class AdminRecord extends UpdatableRecordImpl<AdminRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>trash.ADMIN.ADM_ID</code>. ID
+     * Setter for <code>spotfinder.ADMIN.ADM_ID</code>. ID
      */
     public AdminRecord setAdmId(String value) {
         set(0, value);
@@ -27,14 +27,14 @@ public class AdminRecord extends UpdatableRecordImpl<AdminRecord> {
     }
 
     /**
-     * Getter for <code>trash.ADMIN.ADM_ID</code>. ID
+     * Getter for <code>spotfinder.ADMIN.ADM_ID</code>. ID
      */
     public String getAdmId() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>trash.ADMIN.ADM_PWD</code>. 비밀번호
+     * Setter for <code>spotfinder.ADMIN.ADM_PWD</code>. 비밀번호
      */
     public AdminRecord setAdmPwd(String value) {
         set(1, value);
@@ -42,7 +42,7 @@ public class AdminRecord extends UpdatableRecordImpl<AdminRecord> {
     }
 
     /**
-     * Getter for <code>trash.ADMIN.ADM_PWD</code>. 비밀번호
+     * Getter for <code>spotfinder.ADMIN.ADM_PWD</code>. 비밀번호
      */
     public String getAdmPwd() {
         return (String) get(1);

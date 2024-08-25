@@ -71,77 +71,77 @@ public class Member implements Serializable {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.MEMBER.MBR_SEQ</code>. 회원 일련번호
      */
     public ULong getMbrSeq() {
         return this.mbrSeq;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_EMAIL</code>. 이메일
+     * Getter for <code>spotfinder.MEMBER.MBR_EMAIL</code>. 이메일
      */
     public String getMbrEmail() {
         return this.mbrEmail;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_NM</code>. 이름
+     * Getter for <code>spotfinder.MEMBER.MBR_NM</code>. 이름
      */
     public String getMbrNm() {
         return this.mbrNm;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_NCK_NM</code>. 닉네임
+     * Getter for <code>spotfinder.MEMBER.MBR_NCK_NM</code>. 닉네임
      */
     public String getMbrNckNm() {
         return this.mbrNckNm;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_GNDR</code>. 성별
+     * Getter for <code>spotfinder.MEMBER.MBR_GNDR</code>. 성별
      */
     public String getMbrGndr() {
         return this.mbrGndr;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_BRDT</code>. 생년월일
+     * Getter for <code>spotfinder.MEMBER.MBR_BRDT</code>. 생년월일
      */
     public String getMbrBrdt() {
         return this.mbrBrdt;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_SCL_ID</code>. 소셜 ID
+     * Getter for <code>spotfinder.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
     public String getMbrSclId() {
         return this.mbrSclId;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
+     * Getter for <code>spotfinder.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
      */
     public String getMbrSclTyp() {
         return this.mbrSclTyp;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_VLD_YN</code>. 유효여부
+     * Getter for <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public String getMbrVldYn() {
         return this.mbrVldYn;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.CRE_DTM</code>. 등록일시
+     * Getter for <code>spotfinder.MEMBER.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
         return this.creDtm;
     }
 
     /**
-     * Getter for <code>trash.MEMBER.UPD_DTM</code>. 수정일시
+     * Getter for <code>spotfinder.MEMBER.UPD_DTM</code>. 수정일시
      */
     public LocalDateTime getUpdDtm() {
         return this.updDtm;

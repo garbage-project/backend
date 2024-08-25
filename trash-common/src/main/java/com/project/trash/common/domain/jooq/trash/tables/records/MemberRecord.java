@@ -22,7 +22,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_SEQ</code>. 회원 일련번호
+     * Setter for <code>spotfinder.MEMBER.MBR_SEQ</code>. 회원 일련번호
      */
     public MemberRecord setMbrSeq(ULong value) {
         set(0, value);
@@ -30,14 +30,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.MEMBER.MBR_SEQ</code>. 회원 일련번호
      */
     public ULong getMbrSeq() {
         return (ULong) get(0);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_EMAIL</code>. 이메일
+     * Setter for <code>spotfinder.MEMBER.MBR_EMAIL</code>. 이메일
      */
     public MemberRecord setMbrEmail(String value) {
         set(1, value);
@@ -45,14 +45,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_EMAIL</code>. 이메일
+     * Getter for <code>spotfinder.MEMBER.MBR_EMAIL</code>. 이메일
      */
     public String getMbrEmail() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_NM</code>. 이름
+     * Setter for <code>spotfinder.MEMBER.MBR_NM</code>. 이름
      */
     public MemberRecord setMbrNm(String value) {
         set(2, value);
@@ -60,14 +60,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_NM</code>. 이름
+     * Getter for <code>spotfinder.MEMBER.MBR_NM</code>. 이름
      */
     public String getMbrNm() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_NCK_NM</code>. 닉네임
+     * Setter for <code>spotfinder.MEMBER.MBR_NCK_NM</code>. 닉네임
      */
     public MemberRecord setMbrNckNm(String value) {
         set(3, value);
@@ -75,14 +75,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_NCK_NM</code>. 닉네임
+     * Getter for <code>spotfinder.MEMBER.MBR_NCK_NM</code>. 닉네임
      */
     public String getMbrNckNm() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_GNDR</code>. 성별
+     * Setter for <code>spotfinder.MEMBER.MBR_GNDR</code>. 성별
      */
     public MemberRecord setMbrGndr(String value) {
         set(4, value);
@@ -90,14 +90,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_GNDR</code>. 성별
+     * Getter for <code>spotfinder.MEMBER.MBR_GNDR</code>. 성별
      */
     public String getMbrGndr() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_BRDT</code>. 생년월일
+     * Setter for <code>spotfinder.MEMBER.MBR_BRDT</code>. 생년월일
      */
     public MemberRecord setMbrBrdt(String value) {
         set(5, value);
@@ -105,14 +105,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_BRDT</code>. 생년월일
+     * Getter for <code>spotfinder.MEMBER.MBR_BRDT</code>. 생년월일
      */
     public String getMbrBrdt() {
         return (String) get(5);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_SCL_ID</code>. 소셜 ID
+     * Setter for <code>spotfinder.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
     public MemberRecord setMbrSclId(String value) {
         set(6, value);
@@ -120,14 +120,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_SCL_ID</code>. 소셜 ID
+     * Getter for <code>spotfinder.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
     public String getMbrSclId() {
         return (String) get(6);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
+     * Setter for <code>spotfinder.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
      */
     public MemberRecord setMbrSclTyp(String value) {
         set(7, value);
@@ -135,14 +135,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
+     * Getter for <code>spotfinder.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
      */
     public String getMbrSclTyp() {
         return (String) get(7);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.MBR_VLD_YN</code>. 유효여부
+     * Setter for <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public MemberRecord setMbrVldYn(String value) {
         set(8, value);
@@ -150,14 +150,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.MBR_VLD_YN</code>. 유효여부
+     * Getter for <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public String getMbrVldYn() {
         return (String) get(8);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.CRE_DTM</code>. 등록일시
+     * Setter for <code>spotfinder.MEMBER.CRE_DTM</code>. 등록일시
      */
     public MemberRecord setCreDtm(LocalDateTime value) {
         set(9, value);
@@ -165,14 +165,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.CRE_DTM</code>. 등록일시
+     * Getter for <code>spotfinder.MEMBER.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
         return (LocalDateTime) get(9);
     }
 
     /**
-     * Setter for <code>trash.MEMBER.UPD_DTM</code>. 수정일시
+     * Setter for <code>spotfinder.MEMBER.UPD_DTM</code>. 수정일시
      */
     public MemberRecord setUpdDtm(LocalDateTime value) {
         set(10, value);
@@ -180,7 +180,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Getter for <code>trash.MEMBER.UPD_DTM</code>. 수정일시
+     * Getter for <code>spotfinder.MEMBER.UPD_DTM</code>. 수정일시
      */
     public LocalDateTime getUpdDtm() {
         return (LocalDateTime) get(10);

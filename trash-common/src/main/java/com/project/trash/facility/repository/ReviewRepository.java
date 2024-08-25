@@ -1,6 +1,6 @@
-package com.project.trash.review.repository;
+package com.project.trash.facility.repository;
 
-import com.project.trash.review.domain.Review;
+import com.project.trash.facility.domain.Review;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

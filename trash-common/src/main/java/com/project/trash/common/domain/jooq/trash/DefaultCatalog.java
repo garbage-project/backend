@@ -26,9 +26,9 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>trash</code>.
+     * The schema <code>spotfinder</code>.
      */
-    public final Trash TRASH = Trash.TRASH;
+    public final Spotfinder SPOTFINDER = Spotfinder.SPOTFINDER;
 
     /**
      * No further instances allowed
@@ -40,7 +40,7 @@ public class DefaultCatalog extends CatalogImpl {
     @Override
     public final List<Schema> getSchemas() {
         return Arrays.asList(
-            Trash.TRASH
+            Spotfinder.SPOTFINDER
         );
     }
 

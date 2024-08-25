@@ -3,8 +3,8 @@ package com.project.trash.member.controller;
 import com.project.trash.common.response.DataResponse;
 import com.project.trash.common.response.ListResponse;
 import com.project.trash.facility.service.FacilityQueryService;
+import com.project.trash.facility.service.ReviewQueryService;
 import com.project.trash.member.service.MemberQueryService;
-import com.project.trash.review.service.ReviewQueryService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

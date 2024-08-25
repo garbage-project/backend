@@ -31,10 +31,10 @@ public class MyReviewListResponse {
    */
   private String createdDate;
 
-  public MyReviewListResponse(Long reviewSeq, String facilityName, String content, LocalDateTime createdDate) {
+  public MyReviewListResponse(Long reviewSeq, String facilityName, String content, LocalDateTime createdAt) {
     this.reviewSeq = reviewSeq;
     this.facilityName = facilityName;
     this.content = content;
-    this.createdDate = DateTimeUtils.convertToString(createdDate, DateTimeUtils.DEFAULT_DATE);
+    this.createdDate = DateTimeUtils.convertToString(createdAt, DateTimeUtils.DEFAULT_DATE);
   }
 }

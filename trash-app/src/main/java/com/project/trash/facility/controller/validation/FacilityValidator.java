@@ -6,8 +6,9 @@ import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
-import com.project.trash.review.request.ReviewEntryRequest;
-import com.project.trash.review.request.ReviewModifyRequest;
+import com.project.trash.facility.request.ReportEntryRequest;
+import com.project.trash.facility.request.ReviewEntryRequest;
+import com.project.trash.facility.request.ReviewModifyRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -97,6 +98,14 @@ public class FacilityValidator {
   public void validate(ReviewModifyRequest param) {
     ValidatorUtils.validateNull(param.getReviewSeq(), "review.param_seq_null");
     ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
+  }
+
+  /**
+   * 신고 등록 요청 검증
+   */
+  public void validate(ReportEntryRequest param) {
+    ValidatorUtils.validateEmpty(param.getFacilityId(), "facility.param_id_null");
+    ValidatorUtils.validateEmpty(param.getContent(), "report.param_content_empty");
   }
 
   private void validate(String type, String name, String location, String detailLocation, BigDecimal latitude,
