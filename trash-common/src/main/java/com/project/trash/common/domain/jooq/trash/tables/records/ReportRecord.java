@@ -126,6 +126,21 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
         return (LocalDateTime) get(6);
     }
 
+    /**
+     * Setter for <code>spotfinder.REPORT.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public ReportRecord setRptSttYn(String value) {
+        set(7, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>spotfinder.REPORT.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public String getRptSttYn() {
+        return (String) get(7);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -149,7 +164,7 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
     /**
      * Create a detached, initialised ReportRecord
      */
-    public ReportRecord(ULong rptSeq, String fcltyId, ULong mbrSeq, String rptCtt, String rptAns, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public ReportRecord(ULong rptSeq, String fcltyId, ULong mbrSeq, String rptCtt, String rptAns, LocalDateTime creDtm, LocalDateTime updDtm, String rptSttYn) {
         super(Report.REPORT);
 
         setRptSeq(rptSeq);
@@ -159,6 +174,7 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
         setRptAns(rptAns);
         setCreDtm(creDtm);
         setUpdDtm(updDtm);
+        setRptSttYn(rptSttYn);
         resetChangedOnNotNull();
     }
 
@@ -176,6 +192,7 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
             setRptAns(value.getRptAns());
             setCreDtm(value.getCreDtm());
             setUpdDtm(value.getUpdDtm());
+            setRptSttYn(value.getRptSttYn());
             resetChangedOnNotNull();
         }
     }

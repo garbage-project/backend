@@ -1,6 +1,5 @@
 package com.project.trash.report.dao;
 
-import com.project.trash.common.domain.enums.Valid;
 import com.project.trash.common.utils.DateTimeUtils;
 import com.project.trash.report.request.ReportListRequest;
 import com.project.trash.report.response.ReportListResponse;
@@ -21,7 +20,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import trash.tables.records.ReportRecord;
 
-import static org.jooq.impl.DSL.when;
 import static trash.Tables.MEMBER;
 import static trash.Tables.REPORT;
 
@@ -96,9 +94,8 @@ public class ReportDao {
    * 신고 목록 조회
    */
   public List<ReportListResponse> select(ReportListRequest param) {
-    return dsl.select(REPORT.RPT_SEQ, REPORT.RPT_CTT,
-                  when(REPORT.RPT_ANS.isNull(), Valid.FALSE.getCode()).otherwise(Valid.TRUE.getCode()), REPORT.MBR_SEQ,
-                  REPORT.FCLTY_ID, REPORT.CRE_DTM)
+    return dsl.select(REPORT.RPT_SEQ, REPORT.RPT_CTT, REPORT.RPT_STT_YN, REPORT.MBR_SEQ, REPORT.FCLTY_ID,
+                  REPORT.CRE_DTM)
               .from(REPORT)
               .where(getConditions(param))
               .orderBy(REPORT.CRE_DTM.desc())

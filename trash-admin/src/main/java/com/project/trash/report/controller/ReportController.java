@@ -4,8 +4,8 @@ import com.project.trash.common.response.DataResponse;
 import com.project.trash.common.response.PageListResponse;
 import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.report.controller.validation.ReportValidator;
-import com.project.trash.report.request.ReportAnswerRequest;
 import com.project.trash.report.request.ReportListRequest;
+import com.project.trash.report.request.ReportModifyRequest;
 import com.project.trash.report.response.ReportListResponse;
 import com.project.trash.report.service.ReportCommandService;
 import com.project.trash.report.service.ReportQueryService;
@@ -55,10 +55,10 @@ public class ReportController {
   }
 
   /**
-   * 신고 답변
+   * 신고 수정
    */
-  @PutMapping("/answer")
-  public ResponseEntity<?> putAnswer(@RequestBody ReportAnswerRequest param) {
+  @PutMapping
+  public ResponseEntity<?> put(@RequestBody ReportModifyRequest param) {
     ReportValidator.validate(param);
 
     reportCommandService.modify(param);

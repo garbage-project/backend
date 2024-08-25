@@ -1,10 +1,11 @@
 package com.project.trash.report.controller.validation;
 
+import com.project.trash.common.domain.enums.Valid;
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.common.utils.DateTimeUtils;
 import com.project.trash.common.utils.ValidatorUtils;
-import com.project.trash.report.request.ReportAnswerRequest;
 import com.project.trash.report.request.ReportListRequest;
+import com.project.trash.report.request.ReportModifyRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,10 +35,15 @@ public class ReportValidator {
   }
 
   /**
-   * 신고 답변 요청 검증
+   * 신고 수정 요청 검증
    */
-  public void validate(ReportAnswerRequest param) {
+  public void validate(ReportModifyRequest param) {
+    // 신고 일련번호
     ValidatorUtils.validateNull(param.getReportSeq(), "report.param_seq_null");
-    ValidatorUtils.validateEmpty(param.getAnswer(), "report.param_answer_empty");
+    // 신고 처리상태
+    ValidatorUtils.validateEmpty(param.getStatus(), "report.param_status_empty");
+    if (!Valid.containCode(param.getStatus())) {
+      throw new ValidationException("report.param_status_invalid");
+    }
   }
 }
