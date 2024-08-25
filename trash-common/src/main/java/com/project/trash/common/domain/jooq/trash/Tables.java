@@ -6,11 +6,12 @@ package trash;
 
 import trash.tables.Admin;
 import trash.tables.Member;
+import trash.tables.Notice;
 import trash.tables.Review;
 
 
 /**
- * Convenience access to all tables in trash.
+ * Convenience access to all tables in spotfinder.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes", "this-escape" })
 public class Tables {
@@ -21,9 +22,14 @@ public class Tables {
     public static final Admin ADMIN = Admin.ADMIN;
 
     /**
-     * The table <code>trash.MEMBER</code>.
+     * The table <code>spotfinder.MEMBER</code>.
      */
     public static final Member MEMBER = Member.MEMBER;
+
+    /**
+     * The table <code>spotfinder.NOTICE</code>.
+     */
+    public static final Notice NOTICE = Notice.NOTICE;
 
     /**
      * 리뷰 테이블

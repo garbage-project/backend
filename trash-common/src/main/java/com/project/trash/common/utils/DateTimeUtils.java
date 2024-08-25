@@ -19,11 +19,26 @@ public class DateTimeUtils {
   /**
    * 기본 Date 형식 (yyyy.MM.dd)
    */
-  public final String DEFAULT_DATE = "yyyy.MM.dd";
+  public final String DEFAULT_DATE = "yyyy-MM-dd";
   /**
    * 기본 DateTime 형식 (yyyy-MM-dd HH:mm:ss)
    */
   public final String DEFAULT_DATETIME = "yyyy-MM-dd HH:mm:ss";
+  /**
+   * 조회 기본 DateTime 형식 (yyyy-MM-dd HH:mm)
+   */
+  public final String DISPLAY_DEFAULT_DATETIME = "yyyy-MM-dd HH:mm";
+
+  /**
+   * LocalDate 문자열 -> LocalDateTime
+   */
+  public LocalDateTime convertDateStringToDateTime(String dateString) {
+    if (StringUtils.isBlank(dateString)) {
+      return null;
+    }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE);
+    return LocalDate.parse(dateString, formatter).atStartOfDay();
+  }
 
   /**
    * yyyy-MM-dd 문자열 -> LocalDate
@@ -77,21 +92,25 @@ public class DateTimeUtils {
   }
 
   /**
-   * 시작일시가 종료일시보다 앞 시간인지 확인
+   * 시작날짜가 종료날짜보다 앞 날짜인지 확인
    *
-   * @param start 시작일시
-   * @param end   종료일시
+   * @param start 시작날짜
+   * @param end   종료날짜
    * @return 시작일시 유효여부
    */
-  public boolean isBeforeDateTime(String start, String end) {
+  public boolean isBeforeDate(String start, String end) {
     if (StringUtils.isBlank(start) || StringUtils.isBlank(end)) {
       return true;
     }
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATETIME);
-    LocalDateTime startDateTime = LocalDateTime.parse(start, formatter);
-    LocalDateTime endDateTime = LocalDateTime.parse(end, formatter);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE);
+    LocalDate startDate = LocalDate.parse(start, formatter);
+    LocalDate endDate = LocalDate.parse(end, formatter);
 
-    return startDateTime.isEqual(endDateTime) || startDateTime.isBefore(endDateTime);
+    return startDate.isEqual(endDate) || startDate.isBefore(endDate);
+  }
+
+  public boolean validFormat(String dateString) {
+    return validFormat(dateString, DEFAULT_DATE);
   }
 
   /**

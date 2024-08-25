@@ -34,7 +34,7 @@ jooq {
                 logging = org.jooq.meta.jaxb.Logging.DEBUG
                 jdbc {
                     driver = 'com.mysql.jdbc.Driver'
-                    url = 'jdbc:mysql://localhost:3306/trash'
+                    url = 'jdbc:mysql://localhost:3306/spotfinder'
                     user = 'root'
                     password = '1234'
                 }
@@ -42,7 +42,7 @@ jooq {
                     name = 'org.jooq.codegen.DefaultGenerator'
                     database {
                         name = 'org.jooq.meta.mysql.MySQLDatabase'
-                        inputSchema = 'trash'
+                        inputSchema = 'spotfinder'
                         forcedTypes {
                             forcedType {
                                 name = 'varchar'

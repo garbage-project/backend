@@ -41,6 +41,8 @@ public class SecurityConfig {
                                                        .permitAll()
                                                        .requestMatchers("/auth/**")
                                                        .anonymous()
+                                                       .requestMatchers("/notices/**")
+                                                       .authenticated()
                                                        .anyRequest()
                                                        .denyAll())
         .addFilterBefore(new JwtAuthenticationFilter(jwtService, adminQueryService),

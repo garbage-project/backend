@@ -22,7 +22,7 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>trash.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * Setter for <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
      */
     public ReviewRecord setRvwSeq(ULong value) {
         set(0, value);
@@ -30,14 +30,14 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Getter for <code>trash.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * Getter for <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
      */
     public ULong getRvwSeq() {
         return (ULong) get(0);
     }
 
     /**
-     * Setter for <code>trash.REVIEW.RVW_CTT</code>. 리뷰 내용
+     * Setter for <code>spotfinder.REVIEW.RVW_CTT</code>. 리뷰 내용
      */
     public ReviewRecord setRvwCtt(String value) {
         set(1, value);
@@ -45,14 +45,14 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Getter for <code>trash.REVIEW.RVW_CTT</code>. 리뷰 내용
+     * Getter for <code>spotfinder.REVIEW.RVW_CTT</code>. 리뷰 내용
      */
     public String getRvwCtt() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>trash.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * Setter for <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
      */
     public ReviewRecord setMbrSeq(ULong value) {
         set(2, value);
@@ -60,14 +60,14 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Getter for <code>trash.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
      */
     public ULong getMbrSeq() {
         return (ULong) get(2);
     }
 
     /**
-     * Setter for <code>trash.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * Setter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
     public ReviewRecord setFcltyId(String value) {
         set(3, value);
@@ -75,14 +75,14 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Getter for <code>trash.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * Getter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
     public String getFcltyId() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>trash.REVIEW.CRE_DTM</code>. 등록일시
+     * Setter for <code>spotfinder.REVIEW.CRE_DTM</code>. 등록일시
      */
     public ReviewRecord setCreDtm(LocalDateTime value) {
         set(4, value);
@@ -90,14 +90,14 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Getter for <code>trash.REVIEW.CRE_DTM</code>. 등록일시
+     * Getter for <code>spotfinder.REVIEW.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
         return (LocalDateTime) get(4);
     }
 
     /**
-     * Setter for <code>trash.REVIEW.UPD_DTM</code>. 수정일시
+     * Setter for <code>spotfinder.REVIEW.UPD_DTM</code>. 수정일시
      */
     public ReviewRecord setUpdDtm(LocalDateTime value) {
         set(5, value);
@@ -105,7 +105,7 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Getter for <code>trash.REVIEW.UPD_DTM</code>. 수정일시
+     * Getter for <code>spotfinder.REVIEW.UPD_DTM</code>. 수정일시
      */
     public LocalDateTime getUpdDtm() {
         return (LocalDateTime) get(5);

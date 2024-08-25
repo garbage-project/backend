@@ -51,42 +51,42 @@ public class Review implements Serializable {
     }
 
     /**
-     * Getter for <code>trash.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * Getter for <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
      */
     public ULong getRvwSeq() {
         return this.rvwSeq;
     }
 
     /**
-     * Getter for <code>trash.REVIEW.RVW_CTT</code>. 리뷰 내용
+     * Getter for <code>spotfinder.REVIEW.RVW_CTT</code>. 리뷰 내용
      */
     public String getRvwCtt() {
         return this.rvwCtt;
     }
 
     /**
-     * Getter for <code>trash.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
      */
     public ULong getMbrSeq() {
         return this.mbrSeq;
     }
 
     /**
-     * Getter for <code>trash.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * Getter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
     public String getFcltyId() {
         return this.fcltyId;
     }
 
     /**
-     * Getter for <code>trash.REVIEW.CRE_DTM</code>. 등록일시
+     * Getter for <code>spotfinder.REVIEW.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
         return this.creDtm;
     }
 
     /**
-     * Getter for <code>trash.REVIEW.UPD_DTM</code>. 수정일시
+     * Getter for <code>spotfinder.REVIEW.UPD_DTM</code>. 수정일시
      */
     public LocalDateTime getUpdDtm() {
         return this.updDtm;

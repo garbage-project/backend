@@ -32,14 +32,14 @@ public class Admin implements Serializable {
     }
 
     /**
-     * Getter for <code>trash.ADMIN.ADM_ID</code>. ID
+     * Getter for <code>spotfinder.ADMIN.ADM_ID</code>. ID
      */
     public String getAdmId() {
         return this.admId;
     }
 
     /**
-     * Getter for <code>trash.ADMIN.ADM_PWD</code>. 비밀번호
+     * Getter for <code>spotfinder.ADMIN.ADM_PWD</code>. 비밀번호
      */
     public String getAdmPwd() {
         return this.admPwd;
