@@ -77,6 +77,11 @@ public class Review extends TableImpl<ReviewRecord> {
      */
     public final TableField<ReviewRecord, LocalDateTime> UPD_DTM = createField(DSL.name("UPD_DTM"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
 
+    /**
+     * The column <code>spotfinder.REVIEW.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public final TableField<ReviewRecord, String> RPT_STT_YN = createField(DSL.name("RPT_STT_YN"), SQLDataType.CHAR(1).nullable(false), this, "신고 처리상태");
+
     private Review(Name alias, Table<ReviewRecord> aliased) {
         this(alias, aliased, null);
     }

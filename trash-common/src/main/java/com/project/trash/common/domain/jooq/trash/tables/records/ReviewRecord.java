@@ -111,6 +111,21 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
         return (LocalDateTime) get(5);
     }
 
+    /**
+     * Setter for <code>spotfinder.REVIEW.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public ReviewRecord setRptSttYn(String value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>spotfinder.REVIEW.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public String getRptSttYn() {
+        return (String) get(6);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -134,7 +149,7 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     /**
      * Create a detached, initialised ReviewRecord
      */
-    public ReviewRecord(ULong rvwSeq, String rvwCtt, ULong mbrSeq, String fcltyId, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public ReviewRecord(ULong rvwSeq, String rvwCtt, ULong mbrSeq, String fcltyId, LocalDateTime creDtm, LocalDateTime updDtm, String rptSttYn) {
         super(Review.REVIEW);
 
         setRvwSeq(rvwSeq);
@@ -143,6 +158,7 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
         setFcltyId(fcltyId);
         setCreDtm(creDtm);
         setUpdDtm(updDtm);
+        setRptSttYn(rptSttYn);
         resetChangedOnNotNull();
     }
 
@@ -159,6 +175,7 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
             setFcltyId(value.getFcltyId());
             setCreDtm(value.getCreDtm());
             setUpdDtm(value.getUpdDtm());
+            setRptSttYn(value.getRptSttYn());
             resetChangedOnNotNull();
         }
     }

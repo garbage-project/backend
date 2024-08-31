@@ -1,7 +1,8 @@
 package com.project.trash.report.service;
 
+import com.project.trash.common.domain.enums.Valid;
 import com.project.trash.facility.domain.Report;
-import com.project.trash.report.request.ReportAnswerRequest;
+import com.project.trash.report.request.ReportModifyRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +19,12 @@ public class ReportCommandService {
   private final ReportQueryService reportQueryService;
 
   /**
-   * 신고 답변 수정
+   * 신고 수정
    */
   @Transactional
-  public void modify(ReportAnswerRequest param) {
+  public void modify(ReportModifyRequest param) {
     Report report = reportQueryService.getOne(param.getReportSeq());
 
-    report.setAnswer(param.getAnswer());
+    report.update(param.getAnswer(), Valid.convertToBoolean(param.getStatus()));
   }
 }

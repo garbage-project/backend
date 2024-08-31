@@ -21,6 +21,10 @@ public class DateTimeUtils {
    */
   public final String DEFAULT_DATE = "yyyy-MM-dd";
   /**
+   * 기본 년월일 형식 (yyyyMMdd)
+   */
+  public final String DEFAULT_DAY = "yyyyMMdd";
+  /**
    * 기본 DateTime 형식 (yyyy-MM-dd HH:mm:ss)
    */
   public final String DEFAULT_DATETIME = "yyyy-MM-dd HH:mm:ss";
@@ -28,6 +32,17 @@ public class DateTimeUtils {
    * 조회 기본 DateTime 형식 (yyyy-MM-dd HH:mm)
    */
   public final String DISPLAY_DEFAULT_DATETIME = "yyyy-MM-dd HH:mm";
+
+  /**
+   * LocalDate 문자열 -> 다른 패턴의 LocalDate 문자열
+   */
+  public String convertDateStringToDateString(String dateString, String fromPattern, String toPattern) {
+    if (StringUtils.isBlank(dateString)) {
+      return null;
+    }
+    LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(fromPattern));
+    return date.format(DateTimeFormatter.ofPattern(toPattern));
+  }
 
   /**
    * LocalDate 문자열 -> LocalDateTime
@@ -45,6 +60,14 @@ public class DateTimeUtils {
    */
   public LocalDate convertToDate(String dateString) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE, Locale.KOREA);
+    return LocalDate.parse(dateString, formatter);
+  }
+
+  /**
+   * LocalDate 문자열 -> LocalDate
+   */
+  public LocalDate convertToDate(String dateString, String pattern) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, Locale.KOREA);
     return LocalDate.parse(dateString, formatter);
   }
 

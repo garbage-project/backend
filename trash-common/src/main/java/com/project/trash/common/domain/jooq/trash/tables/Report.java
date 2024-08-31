@@ -82,6 +82,11 @@ public class Report extends TableImpl<ReportRecord> {
      */
     public final TableField<ReportRecord, LocalDateTime> UPD_DTM = createField(DSL.name("UPD_DTM"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
 
+    /**
+     * The column <code>spotfinder.REPORT.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public final TableField<ReportRecord, String> RPT_STT_YN = createField(DSL.name("RPT_STT_YN"), SQLDataType.CHAR(1).nullable(false), this, "신고 처리상태");
+
     private Report(Name alias, Table<ReportRecord> aliased) {
         this(alias, aliased, null);
     }

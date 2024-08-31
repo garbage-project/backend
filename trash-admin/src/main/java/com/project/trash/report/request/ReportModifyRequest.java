@@ -6,12 +6,16 @@ import lombok.Getter;
  * 신고 답변 요청
  */
 @Getter
-public class ReportAnswerRequest {
+public class ReportModifyRequest {
 
   /**
    * 신고 일련번호
    */
   private Long reportSeq;
+  /**
+   * 상태
+   */
+  private String status;
   /**
    * 답변
    */

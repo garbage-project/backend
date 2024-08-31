@@ -50,7 +50,7 @@ public class ReportDetailResponse {
    */
   private final String nickname;
   /**
-   * 시설물 상세 정보
+   * 시설물 정보
    */
   private final FacilityDetail facility;
 

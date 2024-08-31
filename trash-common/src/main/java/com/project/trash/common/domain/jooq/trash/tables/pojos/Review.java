@@ -24,6 +24,7 @@ public class Review implements Serializable {
     private final String fcltyId;
     private final LocalDateTime creDtm;
     private final LocalDateTime updDtm;
+    private final String rptSttYn;
 
     public Review(Review value) {
         this.rvwSeq = value.rvwSeq;
@@ -32,6 +33,7 @@ public class Review implements Serializable {
         this.fcltyId = value.fcltyId;
         this.creDtm = value.creDtm;
         this.updDtm = value.updDtm;
+        this.rptSttYn = value.rptSttYn;
     }
 
     public Review(
@@ -40,7 +42,8 @@ public class Review implements Serializable {
         ULong mbrSeq,
         String fcltyId,
         LocalDateTime creDtm,
-        LocalDateTime updDtm
+        LocalDateTime updDtm,
+        String rptSttYn
     ) {
         this.rvwSeq = rvwSeq;
         this.rvwCtt = rvwCtt;
@@ -48,6 +51,7 @@ public class Review implements Serializable {
         this.fcltyId = fcltyId;
         this.creDtm = creDtm;
         this.updDtm = updDtm;
+        this.rptSttYn = rptSttYn;
     }
 
     /**
@@ -90,6 +94,13 @@ public class Review implements Serializable {
      */
     public LocalDateTime getUpdDtm() {
         return this.updDtm;
+    }
+
+    /**
+     * Getter for <code>spotfinder.REVIEW.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public String getRptSttYn() {
+        return this.rptSttYn;
     }
 
     @Override
@@ -137,6 +148,12 @@ public class Review implements Serializable {
         }
         else if (!this.updDtm.equals(other.updDtm))
             return false;
+        if (this.rptSttYn == null) {
+            if (other.rptSttYn != null)
+                return false;
+        }
+        else if (!this.rptSttYn.equals(other.rptSttYn))
+            return false;
         return true;
     }
 
@@ -150,6 +167,7 @@ public class Review implements Serializable {
         result = prime * result + ((this.fcltyId == null) ? 0 : this.fcltyId.hashCode());
         result = prime * result + ((this.creDtm == null) ? 0 : this.creDtm.hashCode());
         result = prime * result + ((this.updDtm == null) ? 0 : this.updDtm.hashCode());
+        result = prime * result + ((this.rptSttYn == null) ? 0 : this.rptSttYn.hashCode());
         return result;
     }
 
@@ -163,6 +181,7 @@ public class Review implements Serializable {
         sb.append(", ").append(fcltyId);
         sb.append(", ").append(creDtm);
         sb.append(", ").append(updDtm);
+        sb.append(", ").append(rptSttYn);
 
         sb.append(")");
         return sb.toString();

@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * 신고 엔티티
@@ -38,9 +37,13 @@ public class Report extends BaseTimeEntity {
   /**
    * 답변
    */
-  @Setter
   @Column(name = "RPT_ANS")
   private String answer;
+  /**
+   * 처리상태
+   */
+  @Column(name = "RPT_STT_YN", nullable = false)
+  private Boolean status = Boolean.FALSE;
   /**
    * 시설물 ID
    */
@@ -56,5 +59,10 @@ public class Report extends BaseTimeEntity {
   public Report(String content, String facilityId) {
     this.content = content;
     this.facilityId = facilityId;
+  }
+
+  public void update(String answer, Boolean status) {
+    this.answer = answer;
+    this.status = status;
   }
 }
