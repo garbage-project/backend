@@ -28,5 +28,7 @@ public class Admin {
   @Column(name = "ADM_PWD", nullable = false)
   private String password;
 
-
+  public void update(String password) {
+    this.password = password;
+  }
 }
