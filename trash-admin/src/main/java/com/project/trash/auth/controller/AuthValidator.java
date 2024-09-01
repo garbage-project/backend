@@ -1,4 +1,4 @@
-package com.project.trash.auth.controller.validation;
+package com.project.trash.auth.controller;
 
 import com.project.trash.auth.request.LoginRequest;
 import com.project.trash.common.utils.ValidatorUtils;

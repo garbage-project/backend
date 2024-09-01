@@ -1,6 +1,5 @@
 package com.project.trash.auth.controller;
 
-import com.project.trash.auth.controller.validation.AuthValidator;
 import com.project.trash.auth.request.LoginRequest;
 import com.project.trash.auth.service.AuthService;
 import com.project.trash.common.response.DataResponse;

@@ -1,6 +1,8 @@
 package com.project.trash.review.service;
 
+import com.project.trash.common.exception.ValidationException;
 import com.project.trash.facility.domain.Facility;
+import com.project.trash.facility.domain.Review;
 import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.repository.ReviewRepository;
 import com.project.trash.member.request.MemberReviewListRequest;
@@ -52,7 +54,15 @@ public class ReviewQueryService {
                                                  .map(review -> new MemberReviewListResponse(review,
                                                      facilityMap.get(review.getFcltyId())))
                                                  .toList();
-    
+
     return Pair.of(list, reviewDao.count(param.getMemberSeq()));
+  }
+
+  /**
+   * 리뷰 조회
+   */
+  @Transactional(readOnly = true)
+  public Review getOne(Long reviewSeq) {
+    return reviewRepository.findById(reviewSeq).orElseThrow(() -> new ValidationException("review.not_found"));
   }
 }
