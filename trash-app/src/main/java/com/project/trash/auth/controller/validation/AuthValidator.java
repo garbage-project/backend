@@ -1,6 +1,7 @@
 package com.project.trash.auth.controller.validation;
 
 import com.project.trash.auth.request.LoginRequest;
+import com.project.trash.auth.request.ReissueRequest;
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.common.utils.ValidatorUtils;
 import com.project.trash.member.domain.enums.SocialType;
@@ -23,5 +24,13 @@ public class AuthValidator {
     }
     ValidatorUtils.validateEmpty(param.getAccessToken(), "auth.param_access_token_empty");
     ValidatorUtils.validateEmpty(param.getSocialId(), "auth.param_social_id_empty");
+  }
+
+  /**
+   * 엑세스 토큰 재발급 유효성 검증
+   */
+  public void validate(ReissueRequest param) {
+    ValidatorUtils.validateEmpty(param.getSocialId(), "auth.param_social_id_empty");
+    ValidatorUtils.validateEmpty(param.getRefreshToken(), "auth.param_refresh_token_empty");
   }
 }

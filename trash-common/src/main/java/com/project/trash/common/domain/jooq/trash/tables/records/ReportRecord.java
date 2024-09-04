@@ -97,40 +97,10 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
     }
 
     /**
-     * Setter for <code>spotfinder.REPORT.CRE_DTM</code>. 등록일시
-     */
-    public ReportRecord setCreDtm(LocalDateTime value) {
-        set(5, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>spotfinder.REPORT.CRE_DTM</code>. 등록일시
-     */
-    public LocalDateTime getCreDtm() {
-        return (LocalDateTime) get(5);
-    }
-
-    /**
-     * Setter for <code>spotfinder.REPORT.UPD_DTM</code>. 수정일시
-     */
-    public ReportRecord setUpdDtm(LocalDateTime value) {
-        set(6, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>spotfinder.REPORT.UPD_DTM</code>. 수정일시
-     */
-    public LocalDateTime getUpdDtm() {
-        return (LocalDateTime) get(6);
-    }
-
-    /**
      * Setter for <code>spotfinder.REPORT.RPT_STT_YN</code>. 신고 처리상태
      */
     public ReportRecord setRptSttYn(String value) {
-        set(7, value);
+        set(5, value);
         return this;
     }
 
@@ -138,7 +108,37 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
      * Getter for <code>spotfinder.REPORT.RPT_STT_YN</code>. 신고 처리상태
      */
     public String getRptSttYn() {
-        return (String) get(7);
+        return (String) get(5);
+    }
+
+    /**
+     * Setter for <code>spotfinder.REPORT.CRE_DTM</code>. 등록일시
+     */
+    public ReportRecord setCreDtm(LocalDateTime value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>spotfinder.REPORT.CRE_DTM</code>. 등록일시
+     */
+    public LocalDateTime getCreDtm() {
+        return (LocalDateTime) get(6);
+    }
+
+    /**
+     * Setter for <code>spotfinder.REPORT.UPD_DTM</code>. 수정일시
+     */
+    public ReportRecord setUpdDtm(LocalDateTime value) {
+        set(7, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>spotfinder.REPORT.UPD_DTM</code>. 수정일시
+     */
+    public LocalDateTime getUpdDtm() {
+        return (LocalDateTime) get(7);
     }
 
     // -------------------------------------------------------------------------
@@ -164,7 +164,7 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
     /**
      * Create a detached, initialised ReportRecord
      */
-    public ReportRecord(ULong rptSeq, String fcltyId, ULong mbrSeq, String rptCtt, String rptAns, LocalDateTime creDtm, LocalDateTime updDtm, String rptSttYn) {
+    public ReportRecord(ULong rptSeq, String fcltyId, ULong mbrSeq, String rptCtt, String rptAns, String rptSttYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Report.REPORT);
 
         setRptSeq(rptSeq);
@@ -172,9 +172,9 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
         setMbrSeq(mbrSeq);
         setRptCtt(rptCtt);
         setRptAns(rptAns);
+        setRptSttYn(rptSttYn);
         setCreDtm(creDtm);
         setUpdDtm(updDtm);
-        setRptSttYn(rptSttYn);
         resetChangedOnNotNull();
     }
 
@@ -190,9 +190,9 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
             setMbrSeq(value.getMbrSeq());
             setRptCtt(value.getRptCtt());
             setRptAns(value.getRptAns());
+            setRptSttYn(value.getRptSttYn());
             setCreDtm(value.getCreDtm());
             setUpdDtm(value.getUpdDtm());
-            setRptSttYn(value.getRptSttYn());
             resetChangedOnNotNull();
         }
     }

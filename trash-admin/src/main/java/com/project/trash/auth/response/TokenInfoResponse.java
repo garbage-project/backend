@@ -3,15 +3,15 @@ package com.project.trash.auth.response;
 import lombok.Getter;
 
 /**
- * 로그인 결과 반환
+ * 토큰 정보 반환
  */
 @Getter
-public class LoginResponse {
+public class TokenInfoResponse {
 
   /**
-   * 소셜 ID
+   * ID
    */
-  private final String socialId;
+  private final String id;
   /**
    * 엑세스 토큰
    */
@@ -29,9 +29,9 @@ public class LoginResponse {
    */
   private final Integer refreshExpiration;
 
-  public LoginResponse(String socialId, String accessToken, Integer accessExpiration, String refreshToken,
+  public TokenInfoResponse(String id, String accessToken, Integer accessExpiration, String refreshToken,
       Integer refreshExpiration) {
-    this.socialId = socialId;
+    this.id = id;
     this.accessToken = accessToken;
     this.accessExpiration = accessExpiration;
     this.refreshToken = refreshToken;

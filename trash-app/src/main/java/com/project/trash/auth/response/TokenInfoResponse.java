@@ -6,12 +6,12 @@ import lombok.Getter;
  * 로그인 결과 반환
  */
 @Getter
-public class LoginResponse {
+public class TokenInfoResponse {
 
   /**
-   * ID
+   * 소셜 ID
    */
-  private final String id;
+  private final String socialId;
   /**
    * 엑세스 토큰
    */
@@ -29,9 +29,9 @@ public class LoginResponse {
    */
   private final Integer refreshExpiration;
 
-  public LoginResponse(String id, String accessToken, Integer accessExpiration, String refreshToken,
+  public TokenInfoResponse(String socialId, String accessToken, Integer accessExpiration, String refreshToken,
       Integer refreshExpiration) {
-    this.id = id;
+    this.socialId = socialId;
     this.accessToken = accessToken;
     this.accessExpiration = accessExpiration;
     this.refreshToken = refreshToken;

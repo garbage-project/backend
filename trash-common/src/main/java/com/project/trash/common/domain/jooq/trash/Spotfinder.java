@@ -16,6 +16,7 @@ import trash.tables.Member;
 import trash.tables.Notice;
 import trash.tables.Report;
 import trash.tables.Review;
+import trash.tables.Token;
 
 
 /**
@@ -57,6 +58,11 @@ public class Spotfinder extends SchemaImpl {
     public final Review REVIEW = Review.REVIEW;
 
     /**
+     * The table <code>spotfinder.TOKEN</code>.
+     */
+    public final Token TOKEN = Token.TOKEN;
+
+    /**
      * No further instances allowed
      */
     private Spotfinder() {
@@ -76,7 +82,8 @@ public class Spotfinder extends SchemaImpl {
             Member.MEMBER,
             Notice.NOTICE,
             Report.REPORT,
-            Review.REVIEW
+            Review.REVIEW,
+            Token.TOKEN
         );
     }
 }

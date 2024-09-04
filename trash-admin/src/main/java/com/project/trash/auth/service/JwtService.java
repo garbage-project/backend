@@ -1,5 +1,6 @@
 package com.project.trash.auth.service;
 
+import com.project.trash.admin.domain.Admin;
 import com.project.trash.auth.config.JwtConfig;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -81,6 +82,11 @@ public class JwtService {
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+  }
+
+  public boolean isTokenValid(String token, Admin admin) {
+    final String username = extractUsername(token);
+    return (username.equals(admin.getId())) && !isTokenExpired(token);
   }
 
   private Claims extractAllClaims(String token) {

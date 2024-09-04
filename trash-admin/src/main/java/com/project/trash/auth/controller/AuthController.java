@@ -1,6 +1,7 @@
 package com.project.trash.auth.controller;
 
 import com.project.trash.auth.request.LoginRequest;
+import com.project.trash.auth.request.ReissueRequest;
 import com.project.trash.auth.service.AuthService;
 import com.project.trash.common.response.DataResponse;
 
@@ -30,5 +31,15 @@ public class AuthController {
     AuthValidator.validate(param);
 
     return ResponseEntity.ok(new DataResponse(authService.login(param)));
+  }
+
+  /**
+   * 엑세스 토큰 재발급
+   */
+  @PostMapping("/reissue")
+  public ResponseEntity<?> postReissue(@RequestBody ReissueRequest param) {
+    AuthValidator.validate(param);
+
+    return ResponseEntity.ok(new DataResponse(authService.reissue(param)));
   }
 }
