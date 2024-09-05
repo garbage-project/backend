@@ -1,5 +1,6 @@
 package com.project.trash.auth.service;
 
+import com.project.trash.admin.domain.Admin;
 import com.project.trash.auth.config.JwtConfig;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -15,7 +16,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -56,19 +56,6 @@ public class JwtService {
   }
 
   /**
-   * Authorization 헤더에서 엑세스 토큰 추출
-   */
-  public String extractToken(HttpServletRequest request) {
-    String authorizationHeader = request.getHeader("Authorization");
-
-    if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-      return null;
-    }
-
-    return authorizationHeader.substring(7);
-  }
-
-  /**
    * 토큰에서 고유값 추출
    */
   public String extractUsername(String token) {
@@ -81,6 +68,11 @@ public class JwtService {
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+  }
+
+  public boolean isTokenValid(String token, Admin admin) {
+    final String username = extractUsername(token);
+    return (username.equals(admin.getId())) && !isTokenExpired(token);
   }
 
   private Claims extractAllClaims(String token) {

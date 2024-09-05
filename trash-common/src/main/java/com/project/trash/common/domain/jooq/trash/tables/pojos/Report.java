@@ -23,9 +23,9 @@ public class Report implements Serializable {
     private final ULong mbrSeq;
     private final String rptCtt;
     private final String rptAns;
+    private final String rptSttYn;
     private final LocalDateTime creDtm;
     private final LocalDateTime updDtm;
-    private final String rptSttYn;
 
     public Report(Report value) {
         this.rptSeq = value.rptSeq;
@@ -33,9 +33,9 @@ public class Report implements Serializable {
         this.mbrSeq = value.mbrSeq;
         this.rptCtt = value.rptCtt;
         this.rptAns = value.rptAns;
+        this.rptSttYn = value.rptSttYn;
         this.creDtm = value.creDtm;
         this.updDtm = value.updDtm;
-        this.rptSttYn = value.rptSttYn;
     }
 
     public Report(
@@ -44,18 +44,18 @@ public class Report implements Serializable {
         ULong mbrSeq,
         String rptCtt,
         String rptAns,
+        String rptSttYn,
         LocalDateTime creDtm,
-        LocalDateTime updDtm,
-        String rptSttYn
+        LocalDateTime updDtm
     ) {
         this.rptSeq = rptSeq;
         this.fcltyId = fcltyId;
         this.mbrSeq = mbrSeq;
         this.rptCtt = rptCtt;
         this.rptAns = rptAns;
+        this.rptSttYn = rptSttYn;
         this.creDtm = creDtm;
         this.updDtm = updDtm;
-        this.rptSttYn = rptSttYn;
     }
 
     /**
@@ -94,6 +94,13 @@ public class Report implements Serializable {
     }
 
     /**
+     * Getter for <code>spotfinder.REPORT.RPT_STT_YN</code>. 신고 처리상태
+     */
+    public String getRptSttYn() {
+        return this.rptSttYn;
+    }
+
+    /**
      * Getter for <code>spotfinder.REPORT.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
@@ -105,13 +112,6 @@ public class Report implements Serializable {
      */
     public LocalDateTime getUpdDtm() {
         return this.updDtm;
-    }
-
-    /**
-     * Getter for <code>spotfinder.REPORT.RPT_STT_YN</code>. 신고 처리상태
-     */
-    public String getRptSttYn() {
-        return this.rptSttYn;
     }
 
     @Override
@@ -153,6 +153,12 @@ public class Report implements Serializable {
         }
         else if (!this.rptAns.equals(other.rptAns))
             return false;
+        if (this.rptSttYn == null) {
+            if (other.rptSttYn != null)
+                return false;
+        }
+        else if (!this.rptSttYn.equals(other.rptSttYn))
+            return false;
         if (this.creDtm == null) {
             if (other.creDtm != null)
                 return false;
@@ -164,12 +170,6 @@ public class Report implements Serializable {
                 return false;
         }
         else if (!this.updDtm.equals(other.updDtm))
-            return false;
-        if (this.rptSttYn == null) {
-            if (other.rptSttYn != null)
-                return false;
-        }
-        else if (!this.rptSttYn.equals(other.rptSttYn))
             return false;
         return true;
     }
@@ -183,9 +183,9 @@ public class Report implements Serializable {
         result = prime * result + ((this.mbrSeq == null) ? 0 : this.mbrSeq.hashCode());
         result = prime * result + ((this.rptCtt == null) ? 0 : this.rptCtt.hashCode());
         result = prime * result + ((this.rptAns == null) ? 0 : this.rptAns.hashCode());
+        result = prime * result + ((this.rptSttYn == null) ? 0 : this.rptSttYn.hashCode());
         result = prime * result + ((this.creDtm == null) ? 0 : this.creDtm.hashCode());
         result = prime * result + ((this.updDtm == null) ? 0 : this.updDtm.hashCode());
-        result = prime * result + ((this.rptSttYn == null) ? 0 : this.rptSttYn.hashCode());
         return result;
     }
 
@@ -198,9 +198,9 @@ public class Report implements Serializable {
         sb.append(", ").append(mbrSeq);
         sb.append(", ").append(rptCtt);
         sb.append(", ").append(rptAns);
+        sb.append(", ").append(rptSttYn);
         sb.append(", ").append(creDtm);
         sb.append(", ").append(updDtm);
-        sb.append(", ").append(rptSttYn);
 
         sb.append(")");
         return sb.toString();

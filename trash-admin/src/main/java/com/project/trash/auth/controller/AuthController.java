@@ -1,6 +1,7 @@
 package com.project.trash.auth.controller;
 
 import com.project.trash.auth.request.LoginRequest;
+import com.project.trash.auth.request.ReissueRequest;
 import com.project.trash.auth.service.AuthService;
 import com.project.trash.common.response.DataResponse;
 
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -26,9 +29,19 @@ public class AuthController {
    * 로그인
    */
   @PostMapping("/login")
-  public ResponseEntity<?> postLogin(@RequestBody LoginRequest param) {
+  public ResponseEntity<?> postLogin(@RequestBody LoginRequest param, HttpServletResponse response) {
     AuthValidator.validate(param);
 
-    return ResponseEntity.ok(new DataResponse(authService.login(param)));
+    return ResponseEntity.ok(new DataResponse(authService.login(param, response)));
+  }
+
+  /**
+   * 엑세스 토큰 재발급
+   */
+  @PostMapping("/reissue")
+  public ResponseEntity<?> postReissue(@RequestBody ReissueRequest param, HttpServletRequest request) {
+    AuthValidator.validate(param);
+
+    return ResponseEntity.ok(new DataResponse(authService.reissue(param, request)));
   }
 }

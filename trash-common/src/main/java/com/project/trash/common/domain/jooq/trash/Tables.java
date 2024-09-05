@@ -9,6 +9,7 @@ import trash.tables.Member;
 import trash.tables.Notice;
 import trash.tables.Report;
 import trash.tables.Review;
+import trash.tables.Token;
 
 
 /**
@@ -41,4 +42,9 @@ public class Tables {
      * 리뷰 테이블
      */
     public static final Review REVIEW = Review.REVIEW;
+
+    /**
+     * The table <code>spotfinder.TOKEN</code>.
+     */
+    public static final Token TOKEN = Token.TOKEN;
 }

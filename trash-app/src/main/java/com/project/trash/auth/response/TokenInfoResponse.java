@@ -6,7 +6,7 @@ import lombok.Getter;
  * 로그인 결과 반환
  */
 @Getter
-public class LoginResponse {
+public class TokenInfoResponse {
 
   /**
    * 소셜 ID
@@ -29,7 +29,7 @@ public class LoginResponse {
    */
   private final Integer refreshExpiration;
 
-  public LoginResponse(String socialId, String accessToken, Integer accessExpiration, String refreshToken,
+  public TokenInfoResponse(String socialId, String accessToken, Integer accessExpiration, String refreshToken,
       Integer refreshExpiration) {
     this.socialId = socialId;
     this.accessToken = accessToken;

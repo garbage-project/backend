@@ -1,6 +1,7 @@
 package com.project.trash.auth.service;
 
 import com.project.trash.auth.config.JwtConfig;
+import com.project.trash.member.domain.Member;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -81,6 +82,11 @@ public class JwtService {
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String socialId = extractSocialId(token);
     return (socialId.equals(userDetails.getUsername())) && !isTokenExpired(token);
+  }
+
+  public boolean isTokenValid(String token, Member member) {
+    final String socialId = extractSocialId(token);
+    return (socialId.equals(member.getSocialId())) && !isTokenExpired(token);
   }
 
   private Claims extractAllClaims(String token) {
