@@ -3,6 +3,7 @@ package com.project.trash.auth.filter;
 import com.project.trash.admin.domain.AdminDetail;
 import com.project.trash.admin.service.AdminQueryService;
 import com.project.trash.auth.service.JwtService;
+import com.project.trash.common.utils.CookieUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +31,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
-    String accessToken = jwtService.extractToken(request);
+    String accessToken = CookieUtils.getCookie(request, "accessToken");
+
     if (StringUtils.isBlank(accessToken)) {
       filterChain.doFilter(request, response);
       return;

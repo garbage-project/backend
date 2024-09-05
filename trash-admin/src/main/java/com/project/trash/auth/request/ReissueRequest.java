@@ -9,5 +9,4 @@ import lombok.Getter;
 public class ReissueRequest {
 
   private String id;
-  private String refreshToken;
 }

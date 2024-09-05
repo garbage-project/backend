@@ -25,6 +25,5 @@ public class AuthValidator {
    */
   public void validate(ReissueRequest param) {
     ValidatorUtils.validateEmpty(param.getId(), "auth.param_id_empty");
-    ValidatorUtils.validateEmpty(param.getRefreshToken(), "auth.param_refresh_token_empty");
   }
 }

@@ -1,6 +1,7 @@
 package com.project.trash.common.domain;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class BaseTimeEntity {
   /**
    * 수정일시
    */
-  @CreatedDate
+  @LastModifiedDate
   @Column(name = "UPD_DTM", nullable = false)
   protected LocalDateTime updatedAt;
 }
