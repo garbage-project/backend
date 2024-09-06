@@ -1,6 +1,8 @@
 package com.project.trash.admin.controller;
 
 import com.project.trash.admin.request.AdminModifyRequest;
+import com.project.trash.admin.request.LoginRequest;
+import com.project.trash.admin.request.ReissueRequest;
 import com.project.trash.common.utils.ValidatorUtils;
 
 import lombok.experimental.UtilityClass;
@@ -15,6 +17,21 @@ public class AdminValidator {
    * 관리자 수정 요청 검증
    */
   public void validate(AdminModifyRequest param) {
-    ValidatorUtils.validateEmpty(param.getPassword(), "auth.param_password_empty");
+    ValidatorUtils.validateEmpty(param.getPassword(), "admin.param_password_empty");
+  }
+
+  /**
+   * 로그인 유효성 검증
+   */
+  public void validate(LoginRequest param) {
+    ValidatorUtils.validateEmpty(param.getId(), "admin.param_id_empty");
+    ValidatorUtils.validateEmpty(param.getPassword(), "admin.param_password_empty");
+  }
+
+  /**
+   * 엑세스 토큰 재발급 유효성 검증
+   */
+  public void validate(ReissueRequest param) {
+    ValidatorUtils.validateEmpty(param.getId(), "admin.param_id_empty");
   }
 }

@@ -3,6 +3,7 @@ package com.project.trash.auth.filter;
 import com.project.trash.auth.service.JwtService;
 import com.project.trash.member.domain.MemberDetail;
 import com.project.trash.member.service.MemberQueryService;
+import com.project.trash.token.domain.Token;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -39,7 +41,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     String socialId = jwtService.extractSocialId(accessToken);
     if (StringUtils.isNotBlank(socialId)) {
       MemberDetail memberDetail = new MemberDetail(memberQueryService.getOne(socialId));
-      
+
+      Optional<Token> token = memberQueryService.getToken(socialId);
+      if (token.isEmpty() || !token.get().getAccessToken().equals(accessToken)) {
+        filterChain.doFilter(request, response);
+        return;
+      }
+
       // 유효성 체크
       if (jwtService.isTokenValid(accessToken, memberDetail)) {
         Authentication authentication =

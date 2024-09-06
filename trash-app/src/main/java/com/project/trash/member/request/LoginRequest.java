@@ -1,4 +1,4 @@
-package com.project.trash.auth.request;
+package com.project.trash.member.request;
 
 import lombok.Getter;
 

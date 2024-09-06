@@ -2,6 +2,7 @@ package com.project.trash.auth.service;
 
 import com.project.trash.auth.config.JwtConfig;
 import com.project.trash.member.domain.Member;
+import com.project.trash.token.repository.TokenRepository;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtService {
 
   private final JwtConfig jwtConfig;
+  private final TokenRepository tokenRepository;
 
   /**
    * 엑세스 토큰 발급

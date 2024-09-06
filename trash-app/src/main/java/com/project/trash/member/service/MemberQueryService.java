@@ -5,10 +5,14 @@ import com.project.trash.member.domain.Member;
 import com.project.trash.member.domain.MemberDetail;
 import com.project.trash.member.repository.MemberRepository;
 import com.project.trash.member.response.MemberDetailResponse;
+import com.project.trash.token.domain.Token;
+import com.project.trash.token.repository.TokenRepository;
 import com.project.trash.utils.MemberUtils;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberQueryService {
 
   private final MemberRepository memberRepository;
+  private final TokenRepository tokenRepository;
 
   /**
    * 로그인 회원 상세 조회
@@ -32,5 +37,10 @@ public class MemberQueryService {
   @Transactional(readOnly = true)
   public Member getOne(String socialId) {
     return memberRepository.findBySocialId(socialId).orElseThrow(() -> new ValidationException("member.not_found"));
+  }
+
+  @Transactional(readOnly = true)
+  public Optional<Token> getToken(String socialId) {
+    return tokenRepository.findByMemberId(socialId);
   }
 }
