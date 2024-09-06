@@ -1,16 +1,11 @@
 package com.project.trash.auth.controller;
 
-import com.project.trash.auth.controller.validation.AuthValidator;
-import com.project.trash.auth.request.LoginRequest;
-import com.project.trash.auth.request.ReissueRequest;
 import com.project.trash.auth.service.AuthService;
 import com.project.trash.common.response.DataResponse;
 import com.project.trash.member.domain.enums.SocialType;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,25 +40,5 @@ public class AuthController {
   public ResponseEntity<?> getToken(@RequestParam(required = false) String socialType,
       @RequestParam(required = false) String authCode) {
     return ResponseEntity.ok(new DataResponse(authService.getAccessToken(SocialType.fromCode(socialType), authCode)));
-  }
-
-  /**
-   * 로그인
-   */
-  @PostMapping("/login")
-  public ResponseEntity<?> postLogin(@RequestBody LoginRequest param) {
-    AuthValidator.validate(param);
-
-    return ResponseEntity.ok(new DataResponse(authService.login(param)));
-  }
-
-  /**
-   * 엑세스 토큰 재발급
-   */
-  @PostMapping("/reissue")
-  public ResponseEntity<?> postReissue(@RequestBody ReissueRequest param) {
-    AuthValidator.validate(param);
-
-    return ResponseEntity.ok(new DataResponse(authService.reissue(param)));
   }
 }
