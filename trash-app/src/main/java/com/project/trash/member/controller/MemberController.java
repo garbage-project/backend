@@ -8,16 +8,22 @@ import com.project.trash.facility.service.ReviewQueryService;
 import com.project.trash.member.controller.validation.MemberValidator;
 import com.project.trash.member.request.LoginRequest;
 import com.project.trash.member.request.ReissueRequest;
+import com.project.trash.member.response.AccessTokenInfoResponse;
+import com.project.trash.member.response.MemberDetailResponse;
+import com.project.trash.member.response.MyFacilityListResponse;
+import com.project.trash.member.response.MyReviewListResponse;
+import com.project.trash.member.response.TokenInfoResponse;
 import com.project.trash.member.service.MemberCommandService;
 import com.project.trash.member.service.MemberQueryService;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -26,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
+@Tag(name = "회원")
 public class MemberController {
 
   private final MemberQueryService memberQueryService;
@@ -37,52 +44,73 @@ public class MemberController {
    * 등록한 시설물 목록 조회
    */
   @GetMapping("/my/facilities")
-  public ResponseEntity<?> getMyFacilities() {
-    return ResponseEntity.ok(new ListResponse(facilityQueryService.getList()));
+  @Operation(summary = "로그인 회원이 등록한 시설물 목록 조회",
+      description = "회원이 등록한 시설물 목록을 조회한다.")
+  public ListResponse<MyFacilityListResponse> getMyFacilities() {
+    return new ListResponse<>(facilityQueryService.getList());
   }
 
   /**
    * 로그인 회원 정보 조회
    */
   @GetMapping("/my")
-  public ResponseEntity<?> getMyInfo() {
-    return ResponseEntity.ok(new DataResponse(memberQueryService.getDetail()));
+  @Operation(summary = "로그인 회원 정보 조회",
+      description = "로그인 회원의 정보를 조회한다.")
+  public DataResponse<MemberDetailResponse> getMyInfo() {
+    return new DataResponse<>(memberQueryService.getDetail());
   }
 
   /**
    * 등록한 리뷰 목록 조회
    */
+  @Operation(summary = "로그인 회원이 등록한 리뷰 목록 조회",
+      description = "회원이 등록한 리뷰 목록을 조회한다.")
   @GetMapping("/my/reviews")
-  public ResponseEntity<?> getMyReviews() {
-    return ResponseEntity.ok(new ListResponse(reviewQueryService.getList()));
+  public ListResponse<MyReviewListResponse> getMyReviews() {
+    return new ListResponse<>(reviewQueryService.getList());
   }
 
   /**
    * 로그인
    */
   @PostMapping("/login")
-  public ResponseEntity<?> postLogin(@RequestBody LoginRequest param) {
+  @Operation(summary = "로그인",
+      description = "로그인한다."
+          + "\n[에러 코드]"
+          + "\n- AUTH002 : OAuth 엑세스 토큰 정보가 유효하지 않습니다."
+          + "\n- AUTH004 : 소셜 서비스의 회원 정보 조회를 실패했습니다.")
+  public DataResponse<TokenInfoResponse> postLogin(@RequestBody LoginRequest param) {
     MemberValidator.validate(param);
 
-    return ResponseEntity.ok(new DataResponse(memberCommandService.login(param)));
+    return new DataResponse<>(memberCommandService.login(param));
   }
 
   /**
    * 로그아웃
    */
   @PostMapping("/logout")
-  public ResponseEntity<?> postLogout() {
+  @Operation(summary = "로그아웃",
+      description = "로그아웃한다."
+          + "\n[에러 코드]"
+          + "\n- AUTH000 : 토큰 정보가 존재하지 않습니다.")
+  public SuccessResponse postLogout() {
     memberCommandService.logout();
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   /**
    * 엑세스 토큰 재발급
    */
   @PostMapping("/reissue")
-  public ResponseEntity<?> postReissue(@RequestBody ReissueRequest param) {
+  @Operation(summary = "엑세스 토큰 재발급",
+      description = "엑세스 토큰을 재발급한다."
+          + "\n[에러 코드]"
+          + "\n- MBR000 : 회원 정보가 존재하지 않습니다."
+          + "\n- AUTH000 : 토큰 정보가 존재하지 않습니다."
+          + "\n- AUTH001 : 토큰 정보가 유효하지 않습니다.")
+  public DataResponse<AccessTokenInfoResponse> postReissue(@RequestBody ReissueRequest param) {
     MemberValidator.validate(param);
 
-    return ResponseEntity.ok(new DataResponse(memberCommandService.reissue(param)));
+    return new DataResponse<>(memberCommandService.reissue(param));
   }
 }

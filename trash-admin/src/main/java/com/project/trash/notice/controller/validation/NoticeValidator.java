@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import lombok.experimental.UtilityClass;
 
+import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM_INVALID;
+
 /**
  * 공지 요청 파라미터 검증
  */
@@ -23,14 +25,14 @@ public class NoticeValidator {
   public void validate(NoticeListRequest param) {
     String startDate = param.getStartDate();
     if (StringUtils.isNotBlank(startDate) && !DateTimeUtils.validFormat(startDate)) {
-      throw new ValidationException("notice.param_start_date_format");
+      throw new ValidationException(PARAM_INVALID);
     }
     String endDate = param.getEndDate();
     if (StringUtils.isNotBlank(endDate) && !DateTimeUtils.validFormat(endDate)) {
-      throw new ValidationException("notice.param_end_date_format");
+      throw new ValidationException(PARAM_INVALID);
     }
     if (!DateTimeUtils.isBeforeDate(startDate, endDate)) {
-      throw new ValidationException("notice.param_end_date_before_start_date");
+      throw new ValidationException(PARAM_INVALID);
     }
   }
 
@@ -39,18 +41,18 @@ public class NoticeValidator {
    * 공지 등록 요청 검증
    */
   public void validate(NoticeEntryRequest param) {
-    ValidatorUtils.validateEmpty(param.getTitle(), "notice.param_title_empty");
-    ValidatorUtils.validateEmpty(param.getContent(), "notice.param_content_empty");
-    ValidatorUtils.validateEmpty(param.getValid(), "notice.param_valid_empty");
+    ValidatorUtils.validateEmpty(param.getTitle());
+    ValidatorUtils.validateEmpty(param.getContent());
+    ValidatorUtils.validateEmpty(param.getValid());
   }
 
   /**
    * 공지 수정 요청 검증
    */
   public void validate(NoticeModifyRequest param) {
-    ValidatorUtils.validateNull(param.getNoticeSeq(), "notice.param_seq_null");
-    ValidatorUtils.validateEmpty(param.getTitle(), "notice.param_title_empty");
-    ValidatorUtils.validateEmpty(param.getContent(), "notice.param_content_empty");
-    ValidatorUtils.validateEmpty(param.getValid(), "notice.param_valid_empty");
+    ValidatorUtils.validateNull(param.getNoticeSeq());
+    ValidatorUtils.validateEmpty(param.getTitle());
+    ValidatorUtils.validateEmpty(param.getContent());
+    ValidatorUtils.validateEmpty(param.getValid());
   }
 }

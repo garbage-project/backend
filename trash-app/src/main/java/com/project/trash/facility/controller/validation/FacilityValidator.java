@@ -18,6 +18,8 @@ import java.util.Set;
 
 import lombok.experimental.UtilityClass;
 
+import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM_INVALID;
+
 /**
  * 시설물 요청 파라미터 검증
  */
@@ -35,11 +37,11 @@ public class FacilityValidator {
     if (images != null) {
       // 최대 3개
       if (images.size() > 3) {
-        throw new ValidationException("facility.param_image_max_count");
+        throw new ValidationException(PARAM_INVALID);
       }
       for (MultipartFile file : images) {
         if (file.isEmpty()) {
-          throw new ValidationException("file.not_empty");
+          throw new ValidationException(PARAM_INVALID);
         }
       }
     }
@@ -52,7 +54,7 @@ public class FacilityValidator {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
         param.getLongitude());
 
-    ValidatorUtils.validateEmpty(param.getFacilityId(), "facility.param_id_null");
+    ValidatorUtils.validateEmpty(param.getFacilityId());
 
     // 이미지
     if (images != null) {
@@ -60,12 +62,12 @@ public class FacilityValidator {
       int imageSize = param.getImageIndexes() != null ? param.getImageIndexes().size() : 0;
       for (MultipartFile file : images) {
         if (file.isEmpty()) {
-          throw new ValidationException("file.not_empty");
+          throw new ValidationException(PARAM_INVALID);
         }
         imageSize++;
       }
       if (imageSize > 3) {
-        throw new ValidationException("facility.param_image_max_count");
+        throw new ValidationException(PARAM_INVALID);
       }
     }
   }
@@ -78,7 +80,7 @@ public class FacilityValidator {
     if (typeSet != null) {
       for (String type : typeSet) {
         if (!FacilityType.containCode(type)) {
-          throw new ValidationException("facility.param_type_invalid");
+          throw new ValidationException(PARAM_INVALID);
         }
       }
     }
@@ -88,36 +90,36 @@ public class FacilityValidator {
    * 리뷰 등록 요청 검증
    */
   public void validate(ReviewEntryRequest param) {
-    ValidatorUtils.validateEmpty(param.getFacilityId(), "facility.param_id_null");
-    ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
+    ValidatorUtils.validateEmpty(param.getFacilityId());
+    ValidatorUtils.validateEmpty(param.getContent());
   }
 
   /**
    * 리뷰 수정 요청 검증
    */
   public void validate(ReviewModifyRequest param) {
-    ValidatorUtils.validateNull(param.getReviewSeq(), "review.param_seq_null");
-    ValidatorUtils.validateEmpty(param.getContent(), "review.param_content_empty");
+    ValidatorUtils.validateNull(param.getReviewSeq());
+    ValidatorUtils.validateEmpty(param.getContent());
   }
 
   /**
    * 신고 등록 요청 검증
    */
   public void validate(ReportEntryRequest param) {
-    ValidatorUtils.validateEmpty(param.getFacilityId(), "facility.param_id_null");
-    ValidatorUtils.validateEmpty(param.getContent(), "report.param_content_empty");
+    ValidatorUtils.validateEmpty(param.getFacilityId());
+    ValidatorUtils.validateEmpty(param.getContent());
   }
 
   private void validate(String type, String name, String location, String detailLocation, BigDecimal latitude,
       BigDecimal longitude) {
-    ValidatorUtils.validateEmpty(type, "facility.param_type_empty");
+    ValidatorUtils.validateEmpty(type);
     if (!FacilityType.containCode(type)) {
-      throw new ValidationException("facility.param_type_invalid");
+      throw new ValidationException(PARAM_INVALID);
     }
-    ValidatorUtils.validateEmpty(name, "facility.param_name_empty");
-    ValidatorUtils.validateEmpty(location, "facility.param_location_empty");
-    ValidatorUtils.validateEmpty(detailLocation, "facility.param_detail_location_empty");
-    ValidatorUtils.validateNull(latitude, "facility.param_latitude_null");
-    ValidatorUtils.validateNull(longitude, "facility.param_longitude_null");
+    ValidatorUtils.validateEmpty(name);
+    ValidatorUtils.validateEmpty(location);
+    ValidatorUtils.validateEmpty(detailLocation);
+    ValidatorUtils.validateNull(latitude);
+    ValidatorUtils.validateNull(longitude);
   }
 }

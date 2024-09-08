@@ -17,21 +17,21 @@ public class AdminValidator {
    * 관리자 수정 요청 검증
    */
   public void validate(AdminModifyRequest param) {
-    ValidatorUtils.validateEmpty(param.getPassword(), "admin.param_password_empty");
+    ValidatorUtils.validateEmpty(param.getPassword());
   }
 
   /**
    * 로그인 유효성 검증
    */
   public void validate(LoginRequest param) {
-    ValidatorUtils.validateEmpty(param.getId(), "admin.param_id_empty");
-    ValidatorUtils.validateEmpty(param.getPassword(), "admin.param_password_empty");
+    ValidatorUtils.validateEmpty(param.getId());
+    ValidatorUtils.validateEmpty(param.getPassword());
   }
 
   /**
    * 엑세스 토큰 재발급 유효성 검증
    */
   public void validate(ReissueRequest param) {
-    ValidatorUtils.validateEmpty(param.getId(), "admin.param_id_empty");
+    ValidatorUtils.validateEmpty(param.getId());
   }
 }

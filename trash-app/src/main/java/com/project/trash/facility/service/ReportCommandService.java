@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_NOT_FOUND;
+
 /**
  * 신고 등록 서비스
  */
@@ -37,7 +39,7 @@ public class ReportCommandService {
    */
   private void verifyFacilityExist(String facilityId) {
     if (!facilityRepository.existsById(facilityId)) {
-      throw new ValidationException("facility.not_found");
+      throw new ValidationException(FACILITY_NOT_FOUND);
     }
   }
 }

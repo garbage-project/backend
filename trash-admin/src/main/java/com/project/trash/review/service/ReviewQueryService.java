@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import trash.tables.records.ReviewRecord;
 
+import static com.project.trash.common.domain.resultcode.ReviewResultCode.REVIEW_NOT_FOUND;
+
 /**
  * 리뷰 조회 서비스
  */
@@ -63,6 +65,6 @@ public class ReviewQueryService {
    */
   @Transactional(readOnly = true)
   public Review getOne(Long reviewSeq) {
-    return reviewRepository.findById(reviewSeq).orElseThrow(() -> new ValidationException("review.not_found"));
+    return reviewRepository.findById(reviewSeq).orElseThrow(() -> new ValidationException(REVIEW_NOT_FOUND));
   }
 }

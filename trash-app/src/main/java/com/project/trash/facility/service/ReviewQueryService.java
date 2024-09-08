@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.ReviewResultCode.REVIEW_NOT_FOUND;
+
 /**
  * 리뷰 조회 서비스
  */
@@ -57,6 +59,6 @@ public class ReviewQueryService {
   @Transactional(readOnly = true)
   public Review getOne(Long reviewSeq, Long memberSeq) {
     return reviewRepository.findByReviewSeqAndMemberSeq(reviewSeq, memberSeq)
-                           .orElseThrow(() -> new ValidationException("review.not_found"));
+                           .orElseThrow(() -> new ValidationException(REVIEW_NOT_FOUND));
   }
 }

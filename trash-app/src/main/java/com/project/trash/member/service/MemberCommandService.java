@@ -21,6 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAUTH_ACCESS_TOKEN_INVALID;
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_TOKEN_INVALID;
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_TOKEN_NOT_FOUND;
+
 /**
  * 회원 등록/수정/삭제 서비스
  */
@@ -43,12 +47,11 @@ public class MemberCommandService {
     String socialId = param.getSocialId();
     SocialType socialType = SocialType.fromCode(param.getSocialType());
     if (!memberRepository.existsBySocialId(socialId)) {
-      // 회원가입
       OAuthMember memberInfo = socialMemberClient.getMemberInfo(socialType, param.getAccessToken());
 
       // 소셜 ID 일치여부 검증
       if (!socialId.equals(memberInfo.socialId())) {
-        throw new ValidationException("auth.not_match_social_id");
+        throw new ValidationException(AUTH_OAUTH_ACCESS_TOKEN_INVALID);
       }
 
       memberRepository.save(
@@ -57,7 +60,7 @@ public class MemberCommandService {
     } else {
       // 엑세스 토큰 유효성 검증
       if (!socialId.equals(socialMemberClient.getSocialId(socialType, param.getAccessToken()))) {
-        throw new ValidationException("auth.not_match_social_id");
+        throw new ValidationException(AUTH_OAUTH_ACCESS_TOKEN_INVALID);
       }
     }
 
@@ -76,7 +79,7 @@ public class MemberCommandService {
   @Transactional
   public void logout() {
     Token token = memberQueryService.getToken(MemberUtils.getMember().getSocialId())
-                                    .orElseThrow(() -> new ValidationException("member.token_not_found"));
+                                    .orElseThrow(() -> new ValidationException(AUTH_TOKEN_NOT_FOUND));
 
     tokenRepository.delete(token);
   }
@@ -89,11 +92,11 @@ public class MemberCommandService {
     Member member = memberQueryService.getOne(param.getSocialId());
 
     Token token = tokenRepository.findByMemberId(member.getSocialId())
-                                 .orElseThrow(() -> new ValidationException("auth.param_refresh_token_invalid"));
+                                 .orElseThrow(() -> new ValidationException(AUTH_TOKEN_NOT_FOUND));
 
     if (!jwtService.isTokenValid(param.getRefreshToken(), member) ||
         !token.getRefreshToken().equals(param.getRefreshToken())) {
-      throw new ValidationException("auth.param_refresh_token_invalid");
+      throw new ValidationException(AUTH_TOKEN_INVALID);
     }
 
     Pair<String, Integer> accessToken = jwtService.createAccessToken(member.getSocialId());

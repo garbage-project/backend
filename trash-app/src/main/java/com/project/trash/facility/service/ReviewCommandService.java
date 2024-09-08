@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_NOT_FOUND;
+
 /**
  * 리뷰 등록/수정/삭제 서비스
  */
@@ -65,7 +67,7 @@ public class ReviewCommandService {
    */
   private void verifyFacilityExist(String facilityId) {
     if (!facilityRepository.existsById(facilityId)) {
-      throw new ValidationException("facility.not_found");
+      throw new ValidationException(FACILITY_NOT_FOUND);
     }
   }
 }

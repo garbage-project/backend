@@ -2,6 +2,7 @@ package com.project.trash.common.exception.handler;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.trash.common.domain.resultcode.RequestResultCode;
 import com.project.trash.common.response.ErrorResponse;
 
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
   @Override
   public void handle(HttpServletRequest request, HttpServletResponse response,
       AccessDeniedException accessDeniedException) {
-    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(), "해당 URL에 접근할 수 있는 권한이 존재하지 않습니다.");
-
+    ErrorResponse errorResponse = new ErrorResponse(RequestResultCode.FORBIDDEN);
     response.setContentType("application/json;charset=UTF-8");
-    response.setStatus(errorResponse.status());
+    response.setStatus(HttpStatus.FORBIDDEN.value());
 
     try {
       response.getWriter().print(new ObjectMapper().writeValueAsString(errorResponse));

@@ -15,12 +15,12 @@ import lombok.Getter;
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"status", "message", "page", "list"})
-public class PageListResponse extends SuccessResponse {
+public class PageListResponse<T> extends SuccessResponse {
 
   private Pagination page;
-  private final Collection<?> list;
+  private final Collection<T> list;
 
-  public PageListResponse(PageRequest param, Collection<?> list, Long totalItems) {
+  public PageListResponse(PageRequest param, Collection<T> list, Long totalItems) {
     if (totalItems > 0) {
       this.page = new Pagination(param, totalItems);
     }

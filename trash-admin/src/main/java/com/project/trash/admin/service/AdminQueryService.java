@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.AdminResultCode.ADMIN_NOT_FOUND;
+
 /**
  * 관리자 조회 서비스
  */
@@ -20,6 +22,6 @@ public class AdminQueryService {
 
   @Transactional(readOnly = true)
   public Admin getOne(String id) {
-    return adminRepository.findById(id).orElseThrow(() -> new ValidationException("admin.not_found"));
+    return adminRepository.findById(id).orElseThrow(() -> new ValidationException(ADMIN_NOT_FOUND));
   }
 }

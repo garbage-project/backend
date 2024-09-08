@@ -15,6 +15,8 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_NOT_FOUND;
+
 /**
  * 시설물 조회 서비스
  */
@@ -47,6 +49,6 @@ public class FacilityQueryService {
   @Transactional(readOnly = true)
   public Facility getOne(String facilityId, Long memberSeq) {
     return facilityRepository.findByFacilityIdAndMemberSeq(facilityId, memberSeq)
-                             .orElseThrow(() -> new ValidationException("facility.not_found"));
+                             .orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
   }
 }
