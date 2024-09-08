@@ -1,5 +1,6 @@
 package com.project.trash.member.response;
 
+import org.jooq.types.ULong;
 import org.springframework.data.annotation.Id;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,16 +13,14 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 @Schema(title = "로그인 회원이 등록한 시설물 목록 조회 응답")
 public class MyFacilityListResponse {
 
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Id
-  @Schema(description = "시설물 ID", example = "66c3194180a12933dd772938")
-  private String facilityId;
+  @Schema(description = "시설물 일련번호", example = "1")
+  private ULong facilitySeq;
   /**
    * 시설물 종류
    */
@@ -43,9 +42,9 @@ public class MyFacilityListResponse {
   @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
   private String information;
 
-  public MyFacilityListResponse(String facilityId, String type, String name, String detailLocation,
+  public MyFacilityListResponse(ULong facilitySeq, String type, String name, String detailLocation,
       String information) {
-    this.facilityId = facilityId;
+    this.facilitySeq = facilitySeq;
     this.type = type;
     this.name = name;
     this.detailLocation = detailLocation;

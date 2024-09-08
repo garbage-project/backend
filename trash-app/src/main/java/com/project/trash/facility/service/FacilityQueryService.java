@@ -47,8 +47,8 @@ public class FacilityQueryService {
    * 시설물 단일 조회
    */
   @Transactional(readOnly = true)
-  public Facility getOne(String facilityId, Long memberSeq) {
-    return facilityRepository.findByFacilityIdAndMemberSeq(facilityId, memberSeq)
+  public Facility getOne(Long facilitySeq, Long memberSeq) {
+    return facilityRepository.findByFacilitySeqAndMemberSeq(facilitySeq, memberSeq)
                              .orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
   }
 }

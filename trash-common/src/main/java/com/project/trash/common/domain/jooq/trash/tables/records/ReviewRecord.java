@@ -67,18 +67,18 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Setter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * Setter for <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public ReviewRecord setFcltyId(String value) {
+    public ReviewRecord setFcltySeq(ULong value) {
         set(3, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * Getter for <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public String getFcltyId() {
-        return (String) get(3);
+    public ULong getFcltySeq() {
+        return (ULong) get(3);
     }
 
     /**
@@ -149,13 +149,13 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     /**
      * Create a detached, initialised ReviewRecord
      */
-    public ReviewRecord(ULong rvwSeq, String rvwCtt, ULong mbrSeq, String fcltyId, LocalDateTime creDtm, LocalDateTime updDtm, String rptSttYn) {
+    public ReviewRecord(ULong rvwSeq, String rvwCtt, ULong mbrSeq, ULong fcltySeq, LocalDateTime creDtm, LocalDateTime updDtm, String rptSttYn) {
         super(Review.REVIEW);
 
         setRvwSeq(rvwSeq);
         setRvwCtt(rvwCtt);
         setMbrSeq(mbrSeq);
-        setFcltyId(fcltyId);
+        setFcltySeq(fcltySeq);
         setCreDtm(creDtm);
         setUpdDtm(updDtm);
         setRptSttYn(rptSttYn);
@@ -172,7 +172,7 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
             setRvwSeq(value.getRvwSeq());
             setRvwCtt(value.getRvwCtt());
             setMbrSeq(value.getMbrSeq());
-            setFcltyId(value.getFcltyId());
+            setFcltySeq(value.getFcltySeq());
             setCreDtm(value.getCreDtm());
             setUpdDtm(value.getUpdDtm());
             setRptSttYn(value.getRptSttYn());

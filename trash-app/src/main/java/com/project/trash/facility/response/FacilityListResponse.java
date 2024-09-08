@@ -1,13 +1,11 @@
 package com.project.trash.facility.response;
 
-import org.bson.types.Decimal128;
-import org.springframework.data.annotation.Id;
+import org.jooq.types.ULong;
 
 import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -15,16 +13,14 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 @Schema(title = "시설물 목록 조회 응답")
 public class FacilityListResponse {
 
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Id
-  @Schema(description = "시설물 ID", example = "66c3194180a12933dd772938")
-  private String facilityId;
+  @Schema(description = "시설물 일련번호", example = "1")
+  private ULong facilitySeq;
   /**
    * 시설물 종류
    */
@@ -41,10 +37,10 @@ public class FacilityListResponse {
   @Schema(description = "경도", example = "33.126115")
   private BigDecimal longitude;
 
-  public FacilityListResponse(String facilityId, String type, Decimal128 latitude, Decimal128 longitude) {
-    this.facilityId = facilityId;
+  public FacilityListResponse(ULong facilitySeq, String type, BigDecimal latitude, BigDecimal longitude) {
+    this.facilitySeq = facilitySeq;
     this.type = type;
-    this.latitude = latitude.bigDecimalValue();
-    this.longitude = longitude.bigDecimalValue();
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 }

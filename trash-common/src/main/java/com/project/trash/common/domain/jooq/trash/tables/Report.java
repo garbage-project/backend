@@ -53,9 +53,9 @@ public class Report extends TableImpl<ReportRecord> {
     public final TableField<ReportRecord, ULong> RPT_SEQ = createField(DSL.name("RPT_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "신고 일련번호");
 
     /**
-     * The column <code>spotfinder.REPORT.FCLTY_ID</code>. 시설물 ID
+     * The column <code>spotfinder.REPORT.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public final TableField<ReportRecord, String> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.VARCHAR(30).nullable(false), this, "시설물 ID");
+    public final TableField<ReportRecord, ULong> FCLTY_SEQ = createField(DSL.name("FCLTY_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "시설물 일련번호");
 
     /**
      * The column <code>spotfinder.REPORT.MBR_SEQ</code>. 회원 일련번호

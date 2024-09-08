@@ -29,16 +29,16 @@ public class ReportCommandService {
   @Transactional
   public void entry(ReportEntryRequest param) {
     // 시설물 존재여부 검증
-    verifyFacilityExist(param.getFacilityId());
+    verifyFacilityExist(param.getFacilitySeq());
 
-    reportRepository.save(new Report(param.getContent(), param.getFacilityId()));
+    reportRepository.save(new Report(param.getContent(), param.getFacilitySeq()));
   }
 
   /**
    * 시설물 존재여부 검증
    */
-  private void verifyFacilityExist(String facilityId) {
-    if (!facilityRepository.existsById(facilityId)) {
+  private void verifyFacilityExist(Long facilitySeq) {
+    if (!facilityRepository.existsById(facilitySeq)) {
       throw new ValidationException(FACILITY_NOT_FOUND);
     }
   }

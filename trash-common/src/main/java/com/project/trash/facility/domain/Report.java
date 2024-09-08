@@ -45,10 +45,10 @@ public class Report extends BaseTimeEntity {
   @Column(name = "RPT_STT_YN", nullable = false)
   private Boolean status = Boolean.FALSE;
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Column(name = "FCLTY_ID", nullable = false)
-  private String facilityId;
+  @Column(name = "FCLTY_SEQ", nullable = false)
+  private Long facilitySeq;
   /**
    * 회원 일련번호
    */
@@ -56,9 +56,9 @@ public class Report extends BaseTimeEntity {
   @Column(name = "MBR_SEQ", updatable = false, nullable = false)
   private Long memberSeq;
 
-  public Report(String content, String facilityId) {
+  public Report(String content, Long facilitySeq) {
     this.content = content;
-    this.facilityId = facilityId;
+    this.facilitySeq = facilitySeq;
   }
 
   public void update(String answer, Boolean status) {

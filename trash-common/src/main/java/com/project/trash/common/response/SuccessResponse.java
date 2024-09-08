@@ -20,7 +20,7 @@ public class SuccessResponse {
   private final String message;
 
   public SuccessResponse() {
-    this.message = RequestResultCode.SUCCESS.getCode();
-    this.code = RequestResultCode.SUCCESS.getMessage();
+    this.code = RequestResultCode.SUCCESS.getCode();
+    this.message = RequestResultCode.SUCCESS.getMessage();
   }
 }

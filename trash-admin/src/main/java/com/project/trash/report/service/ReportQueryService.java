@@ -43,8 +43,8 @@ public class ReportQueryService {
   @Transactional(readOnly = true)
   public ReportDetailResponse getDetail(Long reportSeq) {
     Record2<ReportRecord, String> reportDetail = reportDao.select(reportSeq);
-    return new ReportDetailResponse(reportDetail, facilityQueryService.getOne(reportDetail.value1().getFcltyId()),
-        s3ImageUrl);
+    return new ReportDetailResponse(reportDetail,
+        facilityQueryService.getOne(reportDetail.value1().getFcltySeq().longValue()), s3ImageUrl);
   }
 
   /**

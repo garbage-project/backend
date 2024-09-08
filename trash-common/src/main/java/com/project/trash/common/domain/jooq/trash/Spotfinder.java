@@ -12,6 +12,7 @@ import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
 import trash.tables.Admin;
+import trash.tables.Facility;
 import trash.tables.Member;
 import trash.tables.Notice;
 import trash.tables.Report;
@@ -36,6 +37,11 @@ public class Spotfinder extends SchemaImpl {
      * 관리자 테이블
      */
     public final Admin ADMIN = Admin.ADMIN;
+
+    /**
+     * 시설물 테이블
+     */
+    public final Facility FACILITY = Facility.FACILITY;
 
     /**
      * The table <code>spotfinder.MEMBER</code>.
@@ -79,6 +85,7 @@ public class Spotfinder extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.asList(
             Admin.ADMIN,
+            Facility.FACILITY,
             Member.MEMBER,
             Notice.NOTICE,
             Report.REPORT,

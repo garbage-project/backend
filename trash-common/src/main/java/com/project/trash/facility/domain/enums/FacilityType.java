@@ -1,9 +1,11 @@
 package com.project.trash.facility.domain.enums;
 
+import com.project.trash.common.domain.converter.AbstractEnumCodeConverter;
 import com.project.trash.common.domain.enums.Codable;
 
 import java.util.EnumSet;
 
+import jakarta.persistence.Converter;
 import lombok.Getter;
 
 /**
@@ -39,4 +41,11 @@ public enum FacilityType implements Codable {
     return Codable.fromCode(FacilityType.class, code);
   }
 
+  @Converter
+  public static class TypeCodeConverter extends AbstractEnumCodeConverter<FacilityType> {
+    @Override
+    public FacilityType convertToEntityAttribute(String dbData) {
+      return this.toEntityAttribute(FacilityType.class, dbData);
+    }
+  }
 }

@@ -37,23 +37,23 @@ public class ReportListResponse {
   @Schema(description = "회원 일련번호", example = "1")
   private Long memberSeq;
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Schema(description = "시설물 ID", example = "66c3194180a12933dd772938")
-  private String facilityId;
+  @Schema(description = "시설물 일련번호", example = "1")
+  private Long facilitySeq;
   /**
    * 등록일자
    */
   @Schema(description = "신고 등록일자", example = "2024-09-01")
   private String createdDate;
 
-  public ReportListResponse(Long reportSeq, String content, String status, Long memberSeq, String facilityId,
+  public ReportListResponse(Long reportSeq, String content, String status, Long memberSeq, Long facilitySeq,
       LocalDateTime createdAt) {
     this.reportSeq = reportSeq;
     this.content = content;
     this.status = status;
     this.memberSeq = memberSeq;
-    this.facilityId = facilityId;
+    this.facilitySeq = facilitySeq;
     this.createdDate = DateTimeUtils.convertToString(createdAt, DateTimeUtils.DEFAULT_DATE);
   }
 }

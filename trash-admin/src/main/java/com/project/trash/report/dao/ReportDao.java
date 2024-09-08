@@ -61,9 +61,9 @@ public class ReportDao {
     if (param.getMemberSeq() != null) {
       conditions.add(DSL.condition(REPORT.MBR_SEQ.eq(ULong.valueOf(param.getMemberSeq()))));
     }
-    // 시설물 ID
-    if (StringUtils.isNotBlank(param.getFacilityId())) {
-      conditions.add(DSL.condition(REPORT.FCLTY_ID.eq(param.getFacilityId())));
+    // 시설물 일련번호
+    if (param.getFacilitySeq() != null) {
+      conditions.add(DSL.condition(REPORT.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq()))));
     }
     // 생성일 검색 시작일
     if (StringUtils.isNotBlank(param.getStartDate())) {
@@ -94,7 +94,7 @@ public class ReportDao {
    * 신고 목록 조회
    */
   public List<ReportListResponse> select(ReportListRequest param) {
-    return dsl.select(REPORT.RPT_SEQ, REPORT.RPT_CTT, REPORT.RPT_STT_YN, REPORT.MBR_SEQ, REPORT.FCLTY_ID,
+    return dsl.select(REPORT.RPT_SEQ, REPORT.RPT_CTT, REPORT.RPT_STT_YN, REPORT.MBR_SEQ, REPORT.FCLTY_SEQ,
                   REPORT.CRE_DTM)
               .from(REPORT)
               .where(getConditions(param))

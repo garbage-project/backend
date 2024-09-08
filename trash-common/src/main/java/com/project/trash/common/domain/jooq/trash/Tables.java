@@ -5,6 +5,7 @@ package trash;
 
 
 import trash.tables.Admin;
+import trash.tables.Facility;
 import trash.tables.Member;
 import trash.tables.Notice;
 import trash.tables.Report;
@@ -22,6 +23,11 @@ public class Tables {
      * 관리자 테이블
      */
     public static final Admin ADMIN = Admin.ADMIN;
+
+    /**
+     * 시설물 테이블
+     */
+    public static final Facility FACILITY = Facility.FACILITY;
 
     /**
      * The table <code>spotfinder.MEMBER</code>.

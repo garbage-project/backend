@@ -35,10 +35,10 @@ public class Review extends BaseTimeEntity {
   @Column(name = "RVW_CTT", nullable = false)
   private String content;
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Column(name = "FCLTY_ID", nullable = false)
-  private String facilityId;
+  @Column(name = "FCLTY_SEQ", nullable = false)
+  private Long facilitySeq;
   /**
    * 회원 일련번호
    */
@@ -46,9 +46,9 @@ public class Review extends BaseTimeEntity {
   @Column(name = "MBR_SEQ", updatable = false, nullable = false)
   private Long memberSeq;
 
-  public Review(String content, String facilityId) {
+  public Review(String content, Long facilitySeq) {
     this.content = content;
-    this.facilityId = facilityId;
+    this.facilitySeq = facilitySeq;
   }
 
   public void update(String content) {

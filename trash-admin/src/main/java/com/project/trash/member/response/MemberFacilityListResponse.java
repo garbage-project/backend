@@ -1,27 +1,25 @@
 package com.project.trash.member.response;
 
-import org.springframework.data.annotation.Id;
+import org.jooq.types.ULong;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import trash.tables.records.FacilityRecord;
 
 /**
  * 등록한 시설물 목록 응답
  */
 @Getter
-@Setter
-@NoArgsConstructor
 @Schema(title = "회원이 등록한 시설물 목록 조회 응답")
 public class MemberFacilityListResponse {
 
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Id
-  @Schema(description = "시설물 ID", example = "66c3194180a12933dd772938")
-  private String facilityId;
+  @Schema(description = "시설물 일련번호", example = "1")
+  private ULong facilitySeq;
   /**
    * 시설물 종류
    */
@@ -58,9 +56,9 @@ public class MemberFacilityListResponse {
   @Schema(description = "승인일자 (yyyy-MM-dd)", example = "2024-09-01")
   private String approvalDate;
 
-  public MemberFacilityListResponse(String facilityId, String type, String name, String location, String detailLocation,
+  public MemberFacilityListResponse(ULong facilitySeq, String type, String name, String location, String detailLocation,
       String information, String approvalStatus) {
-    this.facilityId = facilityId;
+    this.facilitySeq = facilitySeq;
     this.type = type;
     this.name = name;
     this.location = location;

@@ -34,7 +34,7 @@ public class ReviewCommandService {
   public void delete(Long reviewSeq) {
     Review review = reviewQueryService.getOne(reviewSeq, MemberUtils.getMemberSeq());
     // 시설물 존재여부 검증
-    verifyFacilityExist(review.getFacilityId());
+    verifyFacilityExist(review.getFacilitySeq());
 
     reviewRepository.delete(review);
   }
@@ -45,9 +45,9 @@ public class ReviewCommandService {
   @Transactional
   public void entry(ReviewEntryRequest param) {
     // 시설물 존재여부 검증
-    verifyFacilityExist(param.getFacilityId());
+    verifyFacilityExist(param.getFacilitySeq());
 
-    reviewRepository.save(new Review(param.getContent(), param.getFacilityId()));
+    reviewRepository.save(new Review(param.getContent(), param.getFacilitySeq()));
   }
 
   /**
@@ -57,7 +57,7 @@ public class ReviewCommandService {
   public void modify(ReviewModifyRequest param) {
     Review review = reviewQueryService.getOne(param.getReviewSeq(), MemberUtils.getMemberSeq());
     // 시설물 존재여부 검증
-    verifyFacilityExist(review.getFacilityId());
+    verifyFacilityExist(review.getFacilitySeq());
 
     review.update(param.getContent());
   }
@@ -65,8 +65,8 @@ public class ReviewCommandService {
   /**
    * 시설물 존재여부 검증
    */
-  private void verifyFacilityExist(String facilityId) {
-    if (!facilityRepository.existsById(facilityId)) {
+  private void verifyFacilityExist(Long facilitySeq) {
+    if (!facilityRepository.existsById(facilitySeq)) {
       throw new ValidationException(FACILITY_NOT_FOUND);
     }
   }

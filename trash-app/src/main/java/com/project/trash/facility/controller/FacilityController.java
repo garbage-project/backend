@@ -53,15 +53,15 @@ public class FacilityController {
   /**
    * 시설물 삭제
    */
-  @DeleteMapping("/{facilityId}")
+  @DeleteMapping("/{facilitySeq}")
   @Operation(summary = "시설물 삭제",
       description = "시설물을 삭제한다."
           + "\n[에러 코드]"
           + "\n- FAC000 : 시설물 정보가 존재하지 않습니다.")
   public SuccessResponse delete(
-      @Parameter(description = "삭제할 시설물의 ID", required = true, example = "qwifb1adsgsdaf") @PathVariable String facilityId) {
+      @Parameter(description = "삭제할 시설물의 ID", required = true, example = "1") @PathVariable Long facilitySeq) {
 
-    facilityCommandService.delete(facilityId);
+    facilityCommandService.delete(facilitySeq);
     return new SuccessResponse();
   }
 

@@ -30,10 +30,10 @@ public class ReportListRequest extends PageRequest {
   @Parameter(description = "회원 일련번호", example = "1")
   private Long memberSeq;
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Parameter(description = "시설물 ID", example = "66c3194180a12933dd772938")
-  private String facilityId;
+  @Parameter(description = "시설물 일련번호", example = "1")
+  private Long facilitySeq;
   /**
    * 생성일 검색 시작일
    */

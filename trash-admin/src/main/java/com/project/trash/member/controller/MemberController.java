@@ -58,7 +58,7 @@ public class MemberController {
           + "\n[에러 코드]"
           + "\n- MBR000 : 회원 정보가 존재하지 않습니다.")
   public SuccessResponse delete(
-      @Parameter(description = "삭제할 리뷰의 일련번호", required = true, example = "1") @PathVariable Long memberSeq) {
+      @Parameter(description = "삭제할 회원의 일련번호", required = true, example = "1") @PathVariable Long memberSeq) {
 
     memberCommandService.delete(memberSeq);
     return new SuccessResponse();

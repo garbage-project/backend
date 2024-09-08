@@ -54,7 +54,7 @@ public class FacilityValidator {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
         param.getLongitude());
 
-    ValidatorUtils.validateEmpty(param.getFacilityId());
+    ValidatorUtils.validateNull(param.getFacilitySeq());
 
     // 이미지
     if (images != null) {
@@ -90,7 +90,7 @@ public class FacilityValidator {
    * 리뷰 등록 요청 검증
    */
   public void validate(ReviewEntryRequest param) {
-    ValidatorUtils.validateEmpty(param.getFacilityId());
+    ValidatorUtils.validateNull(param.getFacilitySeq());
     ValidatorUtils.validateEmpty(param.getContent());
   }
 
@@ -106,7 +106,7 @@ public class FacilityValidator {
    * 신고 등록 요청 검증
    */
   public void validate(ReportEntryRequest param) {
-    ValidatorUtils.validateEmpty(param.getFacilityId());
+    ValidatorUtils.validateNull(param.getFacilitySeq());
     ValidatorUtils.validateEmpty(param.getContent());
   }
 

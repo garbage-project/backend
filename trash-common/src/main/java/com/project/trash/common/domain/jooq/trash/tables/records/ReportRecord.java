@@ -37,18 +37,18 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
     }
 
     /**
-     * Setter for <code>spotfinder.REPORT.FCLTY_ID</code>. 시설물 ID
+     * Setter for <code>spotfinder.REPORT.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public ReportRecord setFcltyId(String value) {
+    public ReportRecord setFcltySeq(ULong value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REPORT.FCLTY_ID</code>. 시설물 ID
+     * Getter for <code>spotfinder.REPORT.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public String getFcltyId() {
-        return (String) get(1);
+    public ULong getFcltySeq() {
+        return (ULong) get(1);
     }
 
     /**
@@ -164,11 +164,11 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
     /**
      * Create a detached, initialised ReportRecord
      */
-    public ReportRecord(ULong rptSeq, String fcltyId, ULong mbrSeq, String rptCtt, String rptAns, String rptSttYn, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public ReportRecord(ULong rptSeq, ULong fcltySeq, ULong mbrSeq, String rptCtt, String rptAns, String rptSttYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Report.REPORT);
 
         setRptSeq(rptSeq);
-        setFcltyId(fcltyId);
+        setFcltySeq(fcltySeq);
         setMbrSeq(mbrSeq);
         setRptCtt(rptCtt);
         setRptAns(rptAns);
@@ -186,7 +186,7 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
 
         if (value != null) {
             setRptSeq(value.getRptSeq());
-            setFcltyId(value.getFcltyId());
+            setFcltySeq(value.getFcltySeq());
             setMbrSeq(value.getMbrSeq());
             setRptCtt(value.getRptCtt());
             setRptAns(value.getRptAns());

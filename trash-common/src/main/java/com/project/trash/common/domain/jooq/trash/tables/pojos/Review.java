@@ -21,7 +21,7 @@ public class Review implements Serializable {
     private final ULong rvwSeq;
     private final String rvwCtt;
     private final ULong mbrSeq;
-    private final String fcltyId;
+    private final ULong fcltySeq;
     private final LocalDateTime creDtm;
     private final LocalDateTime updDtm;
     private final String rptSttYn;
@@ -30,7 +30,7 @@ public class Review implements Serializable {
         this.rvwSeq = value.rvwSeq;
         this.rvwCtt = value.rvwCtt;
         this.mbrSeq = value.mbrSeq;
-        this.fcltyId = value.fcltyId;
+        this.fcltySeq = value.fcltySeq;
         this.creDtm = value.creDtm;
         this.updDtm = value.updDtm;
         this.rptSttYn = value.rptSttYn;
@@ -40,7 +40,7 @@ public class Review implements Serializable {
         ULong rvwSeq,
         String rvwCtt,
         ULong mbrSeq,
-        String fcltyId,
+        ULong fcltySeq,
         LocalDateTime creDtm,
         LocalDateTime updDtm,
         String rptSttYn
@@ -48,7 +48,7 @@ public class Review implements Serializable {
         this.rvwSeq = rvwSeq;
         this.rvwCtt = rvwCtt;
         this.mbrSeq = mbrSeq;
-        this.fcltyId = fcltyId;
+        this.fcltySeq = fcltySeq;
         this.creDtm = creDtm;
         this.updDtm = updDtm;
         this.rptSttYn = rptSttYn;
@@ -76,10 +76,10 @@ public class Review implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * Getter for <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public String getFcltyId() {
-        return this.fcltyId;
+    public ULong getFcltySeq() {
+        return this.fcltySeq;
     }
 
     /**
@@ -130,11 +130,11 @@ public class Review implements Serializable {
         }
         else if (!this.mbrSeq.equals(other.mbrSeq))
             return false;
-        if (this.fcltyId == null) {
-            if (other.fcltyId != null)
+        if (this.fcltySeq == null) {
+            if (other.fcltySeq != null)
                 return false;
         }
-        else if (!this.fcltyId.equals(other.fcltyId))
+        else if (!this.fcltySeq.equals(other.fcltySeq))
             return false;
         if (this.creDtm == null) {
             if (other.creDtm != null)
@@ -164,7 +164,7 @@ public class Review implements Serializable {
         result = prime * result + ((this.rvwSeq == null) ? 0 : this.rvwSeq.hashCode());
         result = prime * result + ((this.rvwCtt == null) ? 0 : this.rvwCtt.hashCode());
         result = prime * result + ((this.mbrSeq == null) ? 0 : this.mbrSeq.hashCode());
-        result = prime * result + ((this.fcltyId == null) ? 0 : this.fcltyId.hashCode());
+        result = prime * result + ((this.fcltySeq == null) ? 0 : this.fcltySeq.hashCode());
         result = prime * result + ((this.creDtm == null) ? 0 : this.creDtm.hashCode());
         result = prime * result + ((this.updDtm == null) ? 0 : this.updDtm.hashCode());
         result = prime * result + ((this.rptSttYn == null) ? 0 : this.rptSttYn.hashCode());
@@ -178,7 +178,7 @@ public class Review implements Serializable {
         sb.append(rvwSeq);
         sb.append(", ").append(rvwCtt);
         sb.append(", ").append(mbrSeq);
-        sb.append(", ").append(fcltyId);
+        sb.append(", ").append(fcltySeq);
         sb.append(", ").append(creDtm);
         sb.append(", ").append(updDtm);
         sb.append(", ").append(rptSttYn);
