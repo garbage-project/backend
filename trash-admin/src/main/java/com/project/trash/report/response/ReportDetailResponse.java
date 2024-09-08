@@ -81,10 +81,10 @@ public class ReportDetailResponse {
   public static class FacilityDetail {
 
     /**
-     * 시설물 ID
+     * 시설물 일련번호
      */
-    @Schema(description = "시설물 ID", example = "66c3194180a12933dd772938")
-    private final String facilityId;
+    @Schema(description = "시설물 일련번호", example = "1")
+    private final Long facilitySeq;
     /**
      * 시설물 종류
      */
@@ -136,7 +136,7 @@ public class ReportDetailResponse {
     private List<String> images;
 
     public FacilityDetail(Facility facility, String s3ImageUrl) {
-      this.facilityId = facility.getFacilityId();
+      this.facilitySeq = facility.getFacilitySeq();
       this.name = facility.getName();
       this.type = facility.getType().getCode();
       this.location = facility.getLocation();
@@ -146,10 +146,6 @@ public class ReportDetailResponse {
       this.departmentPhoneNumber = facility.getDepartmentPhoneNumber();
       this.approvalStatus = facility.getApprovalStatus().getCode();
       this.createdDate = DateTimeUtils.convertToString(facility.getCreatedAt(), DateTimeUtils.DEFAULT_DATE);
-
-      if (facility.getImages() != null) {
-        this.images = facility.getImages().stream().map(image -> s3ImageUrl + image).toList();
-      }
     }
   }
 }

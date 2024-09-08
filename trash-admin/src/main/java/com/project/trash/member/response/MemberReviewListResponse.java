@@ -4,9 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.trash.common.utils.DateTimeUtils;
 import com.project.trash.facility.domain.Facility;
 
+import org.jooq.types.ULong;
+
+import java.time.LocalDateTime;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import trash.tables.records.FacilityRecord;
 import trash.tables.records.ReviewRecord;
 
 /**
@@ -21,7 +26,7 @@ public class MemberReviewListResponse {
    * 리뷰 일련번호
    */
   @Schema(description = "리뷰 일련번호", example = "1")
-  private String reviewSeq;
+  private ULong reviewSeq;
   /**
    * 리뷰 내용
    */
@@ -38,10 +43,10 @@ public class MemberReviewListResponse {
   @Schema(description = "시설물 정보")
   private FacilityDetail facility;
 
-  public MemberReviewListResponse(ReviewRecord review, Facility facility) {
-    this.reviewSeq = String.valueOf(review.getRvwSeq());
-    this.content = review.getRvwCtt();
-    this.createdDate = DateTimeUtils.convertToString(review.getCreDtm(), DateTimeUtils.DEFAULT_DATE);
+  public MemberReviewListResponse(ULong reviewSeq, String content, LocalDateTime createdAt, FacilityRecord facility) {
+    this.reviewSeq = reviewSeq;
+    this.content = content;
+    this.createdDate = DateTimeUtils.convertToString(createdAt, DateTimeUtils.DEFAULT_DATE);
     this.facility = new FacilityDetail(facility);
   }
 
@@ -51,10 +56,10 @@ public class MemberReviewListResponse {
   public static class FacilityDetail {
 
     /**
-     * 시설물 ID
+     * 시설물 일련번호
      */
-    @Schema(description = "시설물 ID", example = "66c3194180a12933dd772938")
-    private final String facilityId;
+    @Schema(description = "시설물 일련번호", example = "1")
+    private final ULong facilitySeq;
     /**
      * 시설물 종류
      */
@@ -71,11 +76,11 @@ public class MemberReviewListResponse {
     @Schema(description = "위치", example = "쌍문역")
     private final String location;
 
-    public FacilityDetail(Facility facility) {
-      this.facilityId = facility.getFacilityId();
-      this.type = facility.getType().getCode();
-      this.name = facility.getName();
-      this.location = facility.getLocation();
+    public FacilityDetail(FacilityRecord facility) {
+      this.facilitySeq = facility.getFcltySeq();
+      this.type = facility.getFcltyTyp();
+      this.name = facility.getFcltyNm();
+      this.location = facility.getFcltyLctn();
     }
   }
 }

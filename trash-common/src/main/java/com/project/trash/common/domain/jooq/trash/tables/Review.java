@@ -63,9 +63,9 @@ public class Review extends TableImpl<ReviewRecord> {
     public final TableField<ReviewRecord, ULong> MBR_SEQ = createField(DSL.name("MBR_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "회원 일련번호");
 
     /**
-     * The column <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
+     * The column <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public final TableField<ReviewRecord, String> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.VARCHAR(30).nullable(false), this, "시설물 ID");
+    public final TableField<ReviewRecord, ULong> FCLTY_SEQ = createField(DSL.name("FCLTY_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "시설물 일련번호");
 
     /**
      * The column <code>spotfinder.REVIEW.CRE_DTM</code>. 등록일시

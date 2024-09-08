@@ -10,7 +10,6 @@ import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.utils.MemberUtils;
 
-import org.bson.types.Decimal128;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,8 +36,8 @@ public class FacilityCommandService {
    * 시설물 삭제
    */
   @Transactional
-  public void delete(String facilityId) {
-    Facility facility = facilityQueryService.getOne(facilityId, MemberUtils.getMemberSeq());
+  public void delete(Long facilitySeq) {
+    Facility facility = facilityQueryService.getOne(facilitySeq, MemberUtils.getMemberSeq());
 
     facilityRepository.delete(facility);
   }
@@ -49,8 +48,8 @@ public class FacilityCommandService {
   @Transactional
   public void entry(FacilityEntryRequest param, List<MultipartFile> addImages) {
     facilityRepository.save(new Facility(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
-        param.getDetailLocation(), new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()),
-        param.getInformation(), makeImages(addImages), MemberUtils.getMemberSeq()));
+        param.getDetailLocation(), param.getLatitude(), param.getLongitude(),
+        param.getInformation(), MemberUtils.getMemberSeq()));
   }
 
   /**
@@ -58,11 +57,11 @@ public class FacilityCommandService {
    */
   @Transactional
   public void modify(FacilityModifyRequest param, List<MultipartFile> addImages) {
-    Facility facility = facilityQueryService.getOne(param.getFacilityId(), MemberUtils.getMemberSeq());
+    Facility facility = facilityQueryService.getOne(param.getFacilitySeq(), MemberUtils.getMemberSeq());
 
     facility.update(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
-        param.getDetailLocation(), new Decimal128(param.getLatitude()), new Decimal128(param.getLongitude()),
-        param.getInformation(), modifyImages(facility.getImages(), param.getImageIndexes(), addImages));
+        param.getDetailLocation(), param.getLatitude(), param.getLongitude(),
+        param.getInformation());
 
     facilityRepository.save(facility);
   }

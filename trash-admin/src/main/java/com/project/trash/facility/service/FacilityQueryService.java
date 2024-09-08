@@ -45,7 +45,7 @@ public class FacilityQueryService {
    * 시설물 단일 조회
    */
   @Transactional(readOnly = true)
-  public Facility getOne(String facilityId) {
-    return facilityRepository.findById(facilityId).orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
+  public Facility getOne(Long facilitySeq) {
+    return facilityRepository.findById(facilitySeq).orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
   }
 }

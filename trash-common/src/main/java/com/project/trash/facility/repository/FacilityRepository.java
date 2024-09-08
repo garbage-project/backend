@@ -2,11 +2,11 @@ package com.project.trash.facility.repository;
 
 import com.project.trash.facility.domain.Facility;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface FacilityRepository extends MongoRepository<Facility, String> {
+public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
-  Optional<Facility> findByFacilityIdAndMemberSeq(String facilityId, Long memberSeq);
+  Optional<Facility> findByFacilitySeqAndMemberSeq(Long facilitySeq, Long memberSeq);
 }

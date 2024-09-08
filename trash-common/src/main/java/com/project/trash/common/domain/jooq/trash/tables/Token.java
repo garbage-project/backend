@@ -53,12 +53,12 @@ public class Token extends TableImpl<TokenRecord> {
     /**
      * The column <code>spotfinder.TOKEN.TKN_ACS</code>. 엑세스 토큰
      */
-    public final TableField<TokenRecord, String> TKN_ACS = createField(DSL.name("TKN_ACS"), SQLDataType.VARCHAR(100).nullable(false), this, "엑세스 토큰");
+    public final TableField<TokenRecord, String> TKN_ACS = createField(DSL.name("TKN_ACS"), SQLDataType.VARCHAR(255).nullable(false), this, "엑세스 토큰");
 
     /**
      * The column <code>spotfinder.TOKEN.TKN_RFRS</code>. 리프레시 토큰
      */
-    public final TableField<TokenRecord, String> TKN_RFRS = createField(DSL.name("TKN_RFRS"), SQLDataType.VARCHAR(100).nullable(false), this, "리프레시 토큰");
+    public final TableField<TokenRecord, String> TKN_RFRS = createField(DSL.name("TKN_RFRS"), SQLDataType.VARCHAR(255).nullable(false), this, "리프레시 토큰");
 
     /**
      * The column <code>spotfinder.TOKEN.CRE_DTM</code>. 등록일시

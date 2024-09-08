@@ -19,7 +19,7 @@ public class Report implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final ULong rptSeq;
-    private final String fcltyId;
+    private final ULong fcltySeq;
     private final ULong mbrSeq;
     private final String rptCtt;
     private final String rptAns;
@@ -29,7 +29,7 @@ public class Report implements Serializable {
 
     public Report(Report value) {
         this.rptSeq = value.rptSeq;
-        this.fcltyId = value.fcltyId;
+        this.fcltySeq = value.fcltySeq;
         this.mbrSeq = value.mbrSeq;
         this.rptCtt = value.rptCtt;
         this.rptAns = value.rptAns;
@@ -40,7 +40,7 @@ public class Report implements Serializable {
 
     public Report(
         ULong rptSeq,
-        String fcltyId,
+        ULong fcltySeq,
         ULong mbrSeq,
         String rptCtt,
         String rptAns,
@@ -49,7 +49,7 @@ public class Report implements Serializable {
         LocalDateTime updDtm
     ) {
         this.rptSeq = rptSeq;
-        this.fcltyId = fcltyId;
+        this.fcltySeq = fcltySeq;
         this.mbrSeq = mbrSeq;
         this.rptCtt = rptCtt;
         this.rptAns = rptAns;
@@ -66,10 +66,10 @@ public class Report implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.REPORT.FCLTY_ID</code>. 시설물 ID
+     * Getter for <code>spotfinder.REPORT.FCLTY_SEQ</code>. 시설물 일련번호
      */
-    public String getFcltyId() {
-        return this.fcltyId;
+    public ULong getFcltySeq() {
+        return this.fcltySeq;
     }
 
     /**
@@ -129,11 +129,11 @@ public class Report implements Serializable {
         }
         else if (!this.rptSeq.equals(other.rptSeq))
             return false;
-        if (this.fcltyId == null) {
-            if (other.fcltyId != null)
+        if (this.fcltySeq == null) {
+            if (other.fcltySeq != null)
                 return false;
         }
-        else if (!this.fcltyId.equals(other.fcltyId))
+        else if (!this.fcltySeq.equals(other.fcltySeq))
             return false;
         if (this.mbrSeq == null) {
             if (other.mbrSeq != null)
@@ -179,7 +179,7 @@ public class Report implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.rptSeq == null) ? 0 : this.rptSeq.hashCode());
-        result = prime * result + ((this.fcltyId == null) ? 0 : this.fcltyId.hashCode());
+        result = prime * result + ((this.fcltySeq == null) ? 0 : this.fcltySeq.hashCode());
         result = prime * result + ((this.mbrSeq == null) ? 0 : this.mbrSeq.hashCode());
         result = prime * result + ((this.rptCtt == null) ? 0 : this.rptCtt.hashCode());
         result = prime * result + ((this.rptAns == null) ? 0 : this.rptAns.hashCode());
@@ -194,7 +194,7 @@ public class Report implements Serializable {
         StringBuilder sb = new StringBuilder("Report (");
 
         sb.append(rptSeq);
-        sb.append(", ").append(fcltyId);
+        sb.append(", ").append(fcltySeq);
         sb.append(", ").append(mbrSeq);
         sb.append(", ").append(rptCtt);
         sb.append(", ").append(rptAns);

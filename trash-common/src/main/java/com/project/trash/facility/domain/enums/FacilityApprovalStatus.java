@@ -1,9 +1,12 @@
 package com.project.trash.facility.domain.enums;
 
+import com.project.trash.common.domain.converter.AbstractEnumCodeConverter;
 import com.project.trash.common.domain.enums.Codable;
+import com.project.trash.member.domain.enums.GenderType;
 
 import java.util.EnumSet;
 
+import jakarta.persistence.Converter;
 import lombok.Getter;
 
 /**
@@ -43,4 +46,11 @@ public enum FacilityApprovalStatus implements Codable {
     return Codable.fromCode(FacilityApprovalStatus.class, code);
   }
 
+  @Converter
+  public static class TypeCodeConverter extends AbstractEnumCodeConverter<FacilityApprovalStatus> {
+    @Override
+    public FacilityApprovalStatus convertToEntityAttribute(String dbData) {
+      return this.toEntityAttribute(FacilityApprovalStatus.class, dbData);
+    }
+  }
 }
