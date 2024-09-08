@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM_INVALID;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -35,7 +36,6 @@ public class AuthCodeRequestUrlProviderComposite {
   }
 
   private AuthCodeRequestUrlProvider getProvider(SocialType socialType) {
-    return Optional.ofNullable(providerMap.get(socialType))
-                   .orElseThrow(() -> new ValidationException("auth.param_social_type_invalid"));
+    return Optional.ofNullable(providerMap.get(socialType)).orElseThrow(() -> new ValidationException(PARAM_INVALID));
   }
 }

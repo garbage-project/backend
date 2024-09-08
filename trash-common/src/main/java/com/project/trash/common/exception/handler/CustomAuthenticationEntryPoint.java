@@ -1,6 +1,7 @@
 package com.project.trash.common.exception.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.trash.common.domain.resultcode.RequestResultCode;
 import com.project.trash.common.response.ErrorResponse;
 
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response,
       AuthenticationException authException) {
-    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), "인증되지 않은 사용자입니다.");
+    ErrorResponse errorResponse = new ErrorResponse(RequestResultCode.UNAUTHORIZED);
     response.setContentType("application/json;charset=UTF-8");
-    response.setStatus(errorResponse.status());
+    response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
     try {
       response.getWriter().print(new ObjectMapper().writeValueAsString(errorResponse));

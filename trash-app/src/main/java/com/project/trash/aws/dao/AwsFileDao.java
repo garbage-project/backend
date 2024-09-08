@@ -18,6 +18,8 @@ import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.project.trash.common.domain.resultcode.SystemResultCode.IMAGE_UPLOAD_FAIL;
+
 /**
  * AWS File DAO
  */
@@ -49,7 +51,7 @@ public class AwsFileDao {
       return filePath + "/" + fileName;
     } catch (Exception e) {
       log.info("S3 파일 업로드 중 에러 발생 - " + e.getMessage(), e);
-      throw new ValidationException("system.upload");
+      throw new ValidationException(IMAGE_UPLOAD_FAIL);
     }
   }
 

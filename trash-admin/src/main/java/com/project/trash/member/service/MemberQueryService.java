@@ -16,6 +16,8 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.MemberResultCode.MEMBER_NOT_FOUND;
+
 /**
  * 회원 조회 서비스
  */
@@ -44,12 +46,12 @@ public class MemberQueryService {
 
   @Transactional(readOnly = true)
   public Member getOne(String socialId) {
-    return memberRepository.findBySocialId(socialId).orElseThrow(() -> new ValidationException("member.not_found"));
+    return memberRepository.findBySocialId(socialId).orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
   }
 
   @Transactional(readOnly = true)
   public Member getOne(Long memberSeq) {
-    return memberRepository.findById(memberSeq).orElseThrow(() -> new ValidationException("member.not_found"));
+    return memberRepository.findById(memberSeq).orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
   }
 
   /**
@@ -58,7 +60,7 @@ public class MemberQueryService {
   @Transactional(readOnly = true)
   public void verifyExist(Long memberSeq) {
     if (!memberRepository.existsById(memberSeq)) {
-      throw new ValidationException("member.not_found");
+      throw new ValidationException(MEMBER_NOT_FOUND);
     }
   }
 }

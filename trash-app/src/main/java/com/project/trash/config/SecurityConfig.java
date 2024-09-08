@@ -38,18 +38,17 @@ public class SecurityConfig {
         .httpBasic(AbstractHttpConfigurer::disable)
         // 세션을 생성하지 않게 설정
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/error", "/health", "/test", "/notices")
-                                                       .permitAll()
-                                                       .requestMatchers(HttpMethod.GET, "/facilities/**")
-                                                       .permitAll()
-                                                       .requestMatchers("/auth/**", "/members/login",
-                                                           "/members/reissue")
-                                                       .anonymous()
-                                                       .requestMatchers("/members/**", "/facilities/reviews/**",
-                                                           "/facilities/reports/**")
-                                                       .authenticated()
-                                                       .anyRequest()
-                                                       .authenticated())
+        .authorizeHttpRequests(
+            (authorize) -> authorize.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/doc", "/health", "/notices")
+                                    .permitAll()
+                                    .requestMatchers(HttpMethod.GET, "/facilities/**")
+                                    .permitAll()
+                                    .requestMatchers("/auth/**", "/members/login", "/members/reissue")
+                                    .anonymous()
+                                    .requestMatchers("/members/**", "/facilities/reviews/**", "/facilities/reports/**")
+                                    .authenticated()
+                                    .anyRequest()
+                                    .authenticated())
         .addFilterBefore(new JwtAuthenticationFilter(jwtService, memberQueryService),
             UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling(it -> {

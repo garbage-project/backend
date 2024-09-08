@@ -20,6 +20,8 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM_INVALID;
+
 /**
  * 시설물 등록/수정/삭제 서비스
  */
@@ -91,7 +93,7 @@ public class FacilityCommandService {
         if (index >= 0 && index < savedImages.size()) {
           images.add(savedImages.get(index));
         } else {
-          throw new ValidationException("facility.image_not_found");
+          throw new ValidationException(PARAM_INVALID);
         }
       }
     }

@@ -9,15 +9,16 @@ import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.facility.request.ReportEntryRequest;
 import com.project.trash.facility.request.ReviewEntryRequest;
 import com.project.trash.facility.request.ReviewModifyRequest;
+import com.project.trash.facility.response.FacilityListResponse;
 import com.project.trash.facility.service.FacilityCommandService;
 import com.project.trash.facility.service.FacilityQueryService;
 import com.project.trash.facility.service.ReportCommandService;
 import com.project.trash.facility.service.ReviewCommandService;
 
-import org.springframework.http.ResponseEntity;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -37,6 +41,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/facilities")
 @RequiredArgsConstructor
+@Tag(name = "시설물")
 public class FacilityController {
 
   private final FacilityCommandService facilityCommandService;
@@ -49,84 +54,112 @@ public class FacilityController {
    * 시설물 삭제
    */
   @DeleteMapping("/{facilityId}")
-  public ResponseEntity<?> delete(@PathVariable String facilityId) {
+  @Operation(summary = "시설물 삭제",
+      description = "시설물을 삭제한다."
+          + "\n[에러 코드]"
+          + "\n- FAC000 : 시설물 정보가 존재하지 않습니다.")
+  public SuccessResponse delete(
+      @Parameter(description = "삭제할 시설물의 ID", required = true, example = "qwifb1adsgsdaf") @PathVariable String facilityId) {
+
     facilityCommandService.delete(facilityId);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   /**
    * 리뷰 삭제
    */
   @DeleteMapping("/reviews/{reviewSeq}")
-  public ResponseEntity<?> deleteReview(@PathVariable Long reviewSeq) {
+  @Operation(summary = "리뷰 삭제",
+      description = "리뷰를 삭제한다."
+          + "\n[에러 코드]"
+          + "\n- RVW000 : 리뷰 정보가 존재하지 않습니다.")
+  public SuccessResponse deleteReview(
+      @Parameter(description = "삭제할 리뷰의 일련번호", required = true, example = "1") @PathVariable Long reviewSeq) {
     reviewCommandService.delete(reviewSeq);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   /**
    * 시설물 목록 조회
    */
   @GetMapping
-  public ResponseEntity<?> getList(@ModelAttribute FacilityListRequest param) {
+  @Operation(summary = "시설물 목록 조회",
+      description = "시설물 목록을 조회한다.")
+  public ListResponse<FacilityListResponse> getList(@ParameterObject FacilityListRequest param) {
     FacilityValidator.validate(param);
 
-    return ResponseEntity.ok(new ListResponse(facilityQueryService.getList(param)));
+    return new ListResponse<>(facilityQueryService.getList(param));
   }
 
   /**
    * 시설물 등록
    */
-  @PostMapping
-  public ResponseEntity<?> post(@RequestPart FacilityEntryRequest param,
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @Operation(summary = "시설물 등록",
+      description = "시설물을 등록한다.")
+  public SuccessResponse post(@RequestPart FacilityEntryRequest param,
       @RequestPart(required = false) List<MultipartFile> images) {
     FacilityValidator.validate(param, images);
 
     facilityCommandService.entry(param, images);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   /**
    * 신고 등록
    */
   @PostMapping("/reports")
-  public ResponseEntity<?> postReport(@RequestBody ReportEntryRequest param) {
+  @Operation(summary = "신고 등록",
+      description = "신고를 등록한다.")
+  public SuccessResponse postReport(@RequestBody ReportEntryRequest param) {
     FacilityValidator.validate(param);
 
     reportCommandService.entry(param);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   /**
    * 리뷰 등록
    */
   @PostMapping("/reviews")
-  public ResponseEntity<?> postReview(@RequestBody ReviewEntryRequest param) {
+  @Operation(summary = "리뷰 등록",
+      description = "리뷰를 등록한다.")
+  public SuccessResponse postReview(@RequestBody ReviewEntryRequest param) {
     FacilityValidator.validate(param);
 
     reviewCommandService.entry(param);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   /**
    * 시설물 수정
    */
-  @PutMapping
-  public ResponseEntity<?> put(@RequestPart FacilityModifyRequest param,
+  @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @Operation(summary = "시설물 수정",
+      description = "시설물을 수정한다."
+          + "\n[에러 코드]"
+          + "\n- FAC000 : 시설물 정보가 존재하지 않습니다.")
+  public SuccessResponse put(@RequestPart FacilityModifyRequest param,
       @RequestPart(required = false) List<MultipartFile> images) {
     FacilityValidator.validate(param, images);
 
     facilityCommandService.modify(param, images);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   /**
    * 리뷰 수정
    */
   @PutMapping("/reviews")
-  public ResponseEntity<?> putReview(@RequestBody ReviewModifyRequest param) {
+  @Operation(summary = "리뷰 수정",
+      description = "리뷰를 수정한다."
+          + "\n[에러 코드]"
+          + "\n- FAC000 : 시설물 정보가 존재하지 않습니다."
+          + "\n- RVW000 : 리뷰 정보가 존재하지 않습니다.")
+  public SuccessResponse putReview(@RequestBody ReviewModifyRequest param) {
     FacilityValidator.validate(param);
 
     reviewCommandService.modify(param);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 }

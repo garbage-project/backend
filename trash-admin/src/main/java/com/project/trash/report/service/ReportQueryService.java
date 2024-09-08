@@ -20,6 +20,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import trash.tables.records.ReportRecord;
 
+import static com.project.trash.common.domain.resultcode.ReportResultCode.REPORT_NOT_FOUND;
+
 /**
  * 신고 조회 서비스
  */
@@ -58,6 +60,6 @@ public class ReportQueryService {
    */
   @Transactional(readOnly = true)
   public Report getOne(Long noticeSeq) {
-    return reportRepository.findById(noticeSeq).orElseThrow(() -> new ValidationException("notice.not_found"));
+    return reportRepository.findById(noticeSeq).orElseThrow(() -> new ValidationException(REPORT_NOT_FOUND));
   }
 }

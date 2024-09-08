@@ -16,6 +16,8 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.NoticeResultCode.NOTICE_NOT_FOUND;
+
 /**
  * 공지 조회 서비스
  */
@@ -47,6 +49,6 @@ public class NoticeQueryService {
    */
   @Transactional(readOnly = true)
   public Notice getOne(Long noticeSeq) {
-    return noticeRepository.findById(noticeSeq).orElseThrow(() -> new ValidationException("notice.not_found"));
+    return noticeRepository.findById(noticeSeq).orElseThrow(() -> new ValidationException(NOTICE_NOT_FOUND));
   }
 }

@@ -15,6 +15,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAUTH_GET_ACCESS_TOKEN_FAIL;
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAUTH_GET_MEMBER_FAIL;
+
 /**
  * Kakao Api 요청
  */
@@ -85,7 +88,7 @@ public class KakaoApiClient {
       JSONObject jsonObject = new JSONObject(resultText);
       return String.valueOf(jsonObject.getLong("id"));
     } catch (Exception e) {
-      throw new ValidationException("auth.get_token_info_fail");
+      throw new ValidationException(AUTH_OAUTH_GET_ACCESS_TOKEN_FAIL);
     }
   }
 
@@ -97,7 +100,7 @@ public class KakaoApiClient {
       JSONObject jsonObject = new JSONObject(resultText);
       return jsonObject.getString("access_token");
     } catch (Exception e) {
-      throw new ValidationException("auth.get_token_fail");
+      throw new ValidationException(AUTH_OAUTH_GET_ACCESS_TOKEN_FAIL);
     }
   }
 
@@ -118,7 +121,7 @@ public class KakaoApiClient {
       //      String birthday = kakaoAccount.getString("birthyear") + kakaoAccount.getString("birthday");
       return new OAuthMember(id.toString(), "테스트", email, GenderType.MALE, "20000216", SocialType.KAKAO);
     } catch (Exception e) {
-      throw new ValidationException("auth.get_member_fail");
+      throw new ValidationException(AUTH_OAUTH_GET_MEMBER_FAIL);
     }
   }
 }

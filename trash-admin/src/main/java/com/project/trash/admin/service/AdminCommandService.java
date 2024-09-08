@@ -22,6 +22,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.AdminResultCode.ADMIN_INFO_NOT_MATCH;
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_TOKEN_INVALID;
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_TOKEN_NOT_FOUND;
+
 /**
  * 관리자 수정 서비스
  */
@@ -43,7 +47,7 @@ public class AdminCommandService {
 
     // 비밀번호 검증
     if (!param.getPassword().equals(admin.getPassword())) {
-      throw new ValidationException("auth.not_match_password");
+      throw new ValidationException(ADMIN_INFO_NOT_MATCH);
     }
 
     Pair<String, Integer> accessToken = jwtService.createAccessToken(admin.getId());
@@ -88,14 +92,14 @@ public class AdminCommandService {
   public AccessTokenInfoResponse reissue(ReissueRequest param, HttpServletRequest request) {
     Admin admin = adminQueryService.getOne(param.getId());
 
-    Token token = tokenRepository.findByMemberId(admin.getId())
-                                 .orElseThrow(() -> new ValidationException("auth.param_refresh_token_invalid"));
+    Token token =
+        tokenRepository.findByMemberId(admin.getId()).orElseThrow(() -> new ValidationException(AUTH_TOKEN_NOT_FOUND));
 
     String refreshToken = CookieUtils.getCookie(request, "refreshToken");
 
     if (StringUtils.isBlank(refreshToken) || !jwtService.isTokenValid(refreshToken, admin) ||
         !token.getRefreshToken().equals(refreshToken)) {
-      throw new ValidationException("auth.param_refresh_token_invalid");
+      throw new ValidationException(AUTH_TOKEN_INVALID);
     }
 
     Pair<String, Integer> accessToken = jwtService.createAccessToken(admin.getId());
@@ -106,6 +110,6 @@ public class AdminCommandService {
   }
 
   private Token getToken(String id) {
-    return tokenRepository.findByMemberId(id).orElseThrow(() -> new ValidationException("admin.token_not_found"));
+    return tokenRepository.findByMemberId(id).orElseThrow(() -> new ValidationException(AUTH_TOKEN_NOT_FOUND));
   }
 }

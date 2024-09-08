@@ -2,6 +2,7 @@ package com.project.trash.member.request;
 
 import com.project.trash.common.request.PageRequest;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +16,6 @@ public class MemberFacilityListRequest extends PageRequest {
   /**
    * 회원 일련번호
    */
+  @Parameter(description = "회원 일련번호", example = "1")
   private Long memberSeq;
 }

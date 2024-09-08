@@ -15,6 +15,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAUTH_GET_ACCESS_TOKEN_FAIL;
+import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAUTH_GET_MEMBER_FAIL;
+
 /**
  * Naver Api 요청
  */
@@ -39,7 +42,7 @@ public class NaverApiClient {
       JSONObject result = new JSONObject(fetchMemberInfo(accessToken));
       return result.getJSONObject("response").getString("id");
     } catch (Exception e) {
-      throw new ValidationException("auth.get_member_fail");
+      throw new ValidationException(AUTH_OAUTH_GET_MEMBER_FAIL);
     }
   }
 
@@ -72,7 +75,7 @@ public class NaverApiClient {
       JSONObject jsonObject = new JSONObject(resultText);
       return jsonObject.getString("access_token");
     } catch (Exception e) {
-      throw new ValidationException("auth.get_token_fail");
+      throw new ValidationException(AUTH_OAUTH_GET_ACCESS_TOKEN_FAIL);
     }
   }
 
@@ -106,7 +109,7 @@ public class NaverApiClient {
       String birthday = response.getString("birthyear") + response.getString("birthday").replace("-", "");
       return new OAuthMember(id, name, email, genderType, birthday, SocialType.NAVER);
     } catch (Exception e) {
-      throw new ValidationException("auth.get_member_fail");
+      throw new ValidationException(AUTH_OAUTH_GET_MEMBER_FAIL);
     }
   }
 }

@@ -6,12 +6,13 @@ import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.report.controller.validation.ReportValidator;
 import com.project.trash.report.request.ReportListRequest;
 import com.project.trash.report.request.ReportModifyRequest;
+import com.project.trash.report.response.ReportDetailResponse;
 import com.project.trash.report.response.ReportListResponse;
 import com.project.trash.report.service.ReportCommandService;
 import com.project.trash.report.service.ReportQueryService;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -30,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/reports")
 @RequiredArgsConstructor
+@Tag(name = "신고")
 public class ReportController {
 
   private final ReportCommandService reportCommandService;
@@ -39,29 +43,39 @@ public class ReportController {
    * 신고 상세 조회
    */
   @GetMapping("/{reportSeq}")
-  public ResponseEntity<?> getDetail(@PathVariable Long reportSeq) {
-    return ResponseEntity.ok(new DataResponse(reportQueryService.getDetail(reportSeq)));
+  @Operation(summary = "신고 상세 조회",
+      description = "신고 내용을 상세 조회한다."
+          + "\n[에러 코드]"
+          + "\n- RPT000 : 신고 정보가 존재하지 않습니다.")
+  public DataResponse<ReportDetailResponse> getDetail(@PathVariable Long reportSeq) {
+    return new DataResponse<>(reportQueryService.getDetail(reportSeq));
   }
 
   /**
    * 신고 목록 조회
    */
   @GetMapping
-  public ResponseEntity<?> getList(@ModelAttribute ReportListRequest param) {
+  @Operation(summary = "신고 목록 조회",
+      description = "신고 목록을 조회한다.")
+  public PageListResponse<ReportListResponse> getList(@ModelAttribute ReportListRequest param) {
     ReportValidator.validate(param);
 
     Pair<List<ReportListResponse>, Long> pair = reportQueryService.getList(param);
-    return ResponseEntity.ok(new PageListResponse(param, pair.getLeft(), pair.getRight()));
+    return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
   }
 
   /**
    * 신고 수정
    */
   @PutMapping
-  public ResponseEntity<?> put(@RequestBody ReportModifyRequest param) {
+  @Operation(summary = "신고 정보 수정",
+      description = "신고 정보를 수정한다."
+          + "\n[에러 코드]"
+          + "\n- RPT000 : 신고 정보가 존재하지 않습니다.")
+  public SuccessResponse put(@RequestBody ReportModifyRequest param) {
     ReportValidator.validate(param);
 
     reportCommandService.modify(param);
-    return ResponseEntity.ok(new SuccessResponse());
+    return new SuccessResponse();
   }
 }

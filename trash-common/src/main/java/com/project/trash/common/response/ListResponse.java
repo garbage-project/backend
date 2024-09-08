@@ -11,12 +11,12 @@ import lombok.Getter;
  */
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ListResponse extends SuccessResponse {
+public class ListResponse<T> extends SuccessResponse {
 
-  private final Collection<?> list;
+  private final Collection<T> list;
   private final int count;
 
-  public ListResponse(Collection<?> list) {
+  public ListResponse(Collection<T> list) {
     this.list = list;
     this.count = list == null ? 0 : list.size();
   }
