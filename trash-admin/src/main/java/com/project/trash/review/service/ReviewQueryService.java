@@ -5,6 +5,8 @@ import com.project.trash.facility.domain.Facility;
 import com.project.trash.facility.domain.Review;
 import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.repository.ReviewRepository;
+import com.project.trash.facility.request.FacilityReviewListRequest;
+import com.project.trash.facility.response.FacilityReviewListResponse;
 import com.project.trash.member.request.MemberReviewListRequest;
 import com.project.trash.member.response.MemberReviewListResponse;
 import com.project.trash.review.dao.ReviewDao;
@@ -38,6 +40,14 @@ public class ReviewQueryService {
   @Transactional(readOnly = true)
   public Pair<List<MemberReviewListResponse>, Long> getList(MemberReviewListRequest param) {
     return Pair.of(reviewDao.select(param), reviewDao.count(param.getMemberSeq()));
+  }
+
+  /**
+   * 시설물 리뷰 목록 조회
+   */
+  @Transactional(readOnly = true)
+  public Pair<List<FacilityReviewListResponse>, Long> getList(FacilityReviewListRequest param) {
+    return Pair.of(reviewDao.select(param), reviewDao.count(param));
   }
 
   /**

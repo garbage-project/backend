@@ -1,26 +1,26 @@
-package com.project.trash.member.response;
+package com.project.trash.facility.request;
 
-import org.jooq.types.ULong;
+import java.math.BigDecimal;
+import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 /**
- * 등록한 시설물 목록 응답
+ * 시설물 수정 요청
  */
 @Getter
-@Schema(title = "회원이 등록한 시설물 목록 조회 응답")
-public class MemberFacilityListResponse {
+public class FacilityModifyRequest {
 
   /**
    * 시설물 일련번호
    */
   @Schema(description = "시설물 일련번호", example = "1")
-  private ULong facilitySeq;
+  private Long facilitySeq;
   /**
    * 시설물 종류
    */
-  @Schema(description = "시설물 종류 (R - 화장실, S - 흡연구역, T - 쓰레기통)", example = "R")
+  @Schema(description = "시설물 종류 목록(R - 화장실, S - 흡연구역, T - 쓰레기통)", example = "R")
   private String type;
   /**
    * 시설물명
@@ -38,29 +38,33 @@ public class MemberFacilityListResponse {
   @Schema(description = "상세 위치", example = "지하 1층")
   private String detailLocation;
   /**
+   * 위도
+   */
+  @Schema(description = "위도", example = "2.6112336")
+  private BigDecimal latitude;
+  /**
+   * 경도
+   */
+  @Schema(description = "경도", example = "33.126115")
+  private BigDecimal longitude;
+  /**
    * 정보
    */
   @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
   private String information;
   /**
+   * 관리 부서
+   */
+  @Schema(description = "관리 부서", example = "서울시설공단")
+  private String department;
+  /**
+   * 관리 부서 전화번호
+   */
+  @Schema(description = "관리 부서 전화번호", example = "02-2290-7111")
+  private String departmentPhoneNumber;
+  /**
    * 승인 상태
    */
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
-  /**
-   * 승인일자
-   */
-  @Schema(description = "승인일자 (yyyy-MM-dd)", example = "2024-09-01")
-  private String approvalDate;
-
-  public MemberFacilityListResponse(ULong facilitySeq, String type, String name, String location, String detailLocation,
-      String information, String approvalStatus) {
-    this.facilitySeq = facilitySeq;
-    this.type = type;
-    this.name = name;
-    this.location = location;
-    this.detailLocation = detailLocation;
-    this.information = information;
-    this.approvalStatus = approvalStatus;
-  }
 }

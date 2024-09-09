@@ -33,7 +33,10 @@ public class MemberDao {
    * 회원 목록 조회 총개수
    */
   public Long count(MemberListRequest param) {
-    return dsl.selectCount().from(MEMBER).where(getConditions(param)).fetchOneInto(Long.class);
+    return dsl.selectCount()
+              .from(MEMBER)
+              .where(getConditions(param))
+              .fetchOneInto(Long.class);
   }
 
   /**

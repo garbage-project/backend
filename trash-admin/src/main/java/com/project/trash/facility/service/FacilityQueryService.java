@@ -4,7 +4,11 @@ import com.project.trash.common.exception.ValidationException;
 import com.project.trash.facility.dao.FacilityDao;
 import com.project.trash.facility.domain.Facility;
 import com.project.trash.facility.repository.FacilityRepository;
+import com.project.trash.facility.request.FacilityListRequest;
+import com.project.trash.facility.response.FacilityDetailResponse;
+import com.project.trash.facility.response.FacilityListResponse;
 import com.project.trash.member.request.MemberFacilityListRequest;
+import com.project.trash.member.response.MemberDetailResponse;
 import com.project.trash.member.response.MemberFacilityListResponse;
 import com.project.trash.member.service.MemberQueryService;
 
@@ -39,6 +43,22 @@ public class FacilityQueryService {
     memberQueryService.verifyExist(param.getMemberSeq());
 
     return Pair.of(facilityDao.select(param), facilityDao.count(param.getMemberSeq()));
+  }
+
+  /**
+   * 시설물 상세 조회
+   */
+  @Transactional(readOnly = true)
+  public FacilityDetailResponse getDetail(Long facilitySeq) {
+    return new FacilityDetailResponse(getOne(facilitySeq));
+  }
+
+  /**
+   * 시설물 목록 조회
+   */
+  @Transactional(readOnly = true)
+  public Pair<List<FacilityListResponse>, Long> getList(FacilityListRequest param) {
+    return Pair.of(facilityDao.select(param), facilityDao.count(param));
   }
 
   /**

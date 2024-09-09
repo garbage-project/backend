@@ -84,17 +84,16 @@ public class Facility extends BaseTimeEntity {
    * 승인 상태
    */
   @Convert(converter = FacilityApprovalStatus.TypeCodeConverter.class)
-  @Column(name = "FCLTY_APRV_YN", nullable = false)
+  @Column(name = "FCLTY_APRV_STA", nullable = false)
   private FacilityApprovalStatus approvalStatus = FacilityApprovalStatus.PENDING;
   /**
-   * 회원 일련번호
+   * 회원 ID
    */
-  @CreatedBy
-  @Column(name = "MBR_SEQ", updatable = false)
-  private Long memberSeq;
+  @Column(name = "MBR_ID", updatable = false)
+  private String memberId;
 
   public Facility(FacilityType type, String name, String location, String detailLocation, BigDecimal latitude,
-      BigDecimal longitude, String information, Long memberSeq) {
+      BigDecimal longitude, String information, String memberId) {
     this.type = type;
     this.name = name;
     this.location = location;
@@ -102,7 +101,23 @@ public class Facility extends BaseTimeEntity {
     this.latitude = latitude;
     this.longitude = longitude;
     this.information = information;
-    this.memberSeq = memberSeq;
+    this.memberId = memberId;
+  }
+
+  public Facility(FacilityType type, String name, String location, String detailLocation, BigDecimal latitude,
+      BigDecimal longitude, String information, String department, String departmentPhoneNumber,
+      FacilityApprovalStatus approvalStatus, String memberId) {
+    this.type = type;
+    this.name = name;
+    this.location = location;
+    this.detailLocation = detailLocation;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.information = information;
+    this.department = department;
+    this.departmentPhoneNumber = departmentPhoneNumber;
+    this.approvalStatus = approvalStatus;
+    this.memberId = memberId;
   }
 
   public void update(FacilityType type, String name, String location, String detailLocation, BigDecimal latitude,
@@ -117,5 +132,20 @@ public class Facility extends BaseTimeEntity {
 
     // 시설물 수정 시, 승인 대기 상태로 변경
     this.approvalStatus = FacilityApprovalStatus.PENDING;
+  }
+
+  public void update(FacilityType type, String name, String location, String detailLocation, BigDecimal latitude,
+      BigDecimal longitude, String information, String department, String departmentPhoneNumber,
+      FacilityApprovalStatus approvalStatus) {
+    this.type = type;
+    this.name = name;
+    this.location = location;
+    this.detailLocation = detailLocation;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.information = information;
+    this.department = department;
+    this.departmentPhoneNumber = departmentPhoneNumber;
+    this.approvalStatus = approvalStatus;
   }
 }

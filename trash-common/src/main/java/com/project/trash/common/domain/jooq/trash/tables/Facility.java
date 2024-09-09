@@ -100,14 +100,14 @@ public class Facility extends TableImpl<FacilityRecord> {
     public final TableField<FacilityRecord, String> FCLTY_DPR_TLPH_NMBR = createField(DSL.name("FCLTY_DPR_TLPH_NMBR"), SQLDataType.VARCHAR(30), this, "관리 부서 전화번호");
 
     /**
-     * The column <code>spotfinder.FACILITY.FCLTY_APRV_YN</code>. 승인여부
+     * The column <code>spotfinder.FACILITY.FCLTY_APRV_STA</code>. 승인 상태
      */
-    public final TableField<FacilityRecord, String> FCLTY_APRV_YN = createField(DSL.name("FCLTY_APRV_YN"), SQLDataType.CHAR(1).nullable(false), this, "승인여부");
+    public final TableField<FacilityRecord, String> FCLTY_APRV_STA = createField(DSL.name("FCLTY_APRV_STA"), SQLDataType.CHAR(1).nullable(false), this, "승인 상태");
 
     /**
-     * The column <code>spotfinder.FACILITY.MBR_SEQ</code>. 회원 일련번호
+     * The column <code>spotfinder.FACILITY.MBR_ID</code>. 회원 ID
      */
-    public final TableField<FacilityRecord, ULong> MBR_SEQ = createField(DSL.name("MBR_SEQ"), SQLDataType.BIGINTUNSIGNED, this, "회원 일련번호");
+    public final TableField<FacilityRecord, String> MBR_ID = createField(DSL.name("MBR_ID"), SQLDataType.VARCHAR(50), this, "회원 ID");
 
     /**
      * The column <code>spotfinder.FACILITY.CRE_DTM</code>. 등록일시
