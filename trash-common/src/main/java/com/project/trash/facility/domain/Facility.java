@@ -4,8 +4,6 @@ import com.project.trash.common.domain.BaseTimeEntity;
 import com.project.trash.facility.domain.enums.FacilityApprovalStatus;
 import com.project.trash.facility.domain.enums.FacilityType;
 
-import org.springframework.data.annotation.CreatedBy;
-
 import java.math.BigDecimal;
 
 import jakarta.persistence.Column;

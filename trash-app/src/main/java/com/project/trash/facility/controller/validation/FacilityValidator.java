@@ -6,6 +6,7 @@ import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
+import com.project.trash.facility.request.FacilityReviewListRequest;
 import com.project.trash.facility.request.ReportEntryRequest;
 import com.project.trash.facility.request.ReviewEntryRequest;
 import com.project.trash.facility.request.ReviewModifyRequest;
@@ -29,47 +30,19 @@ public class FacilityValidator {
   /**
    * 시설물 등록 요청 검증
    */
-  public void validate(FacilityEntryRequest param, List<MultipartFile> images) {
+  public void validate(FacilityEntryRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
         param.getLongitude());
-
-    // 이미지
-    if (images != null) {
-      // 최대 3개
-      if (images.size() > 3) {
-        throw new ValidationException(PARAM_INVALID);
-      }
-      for (MultipartFile file : images) {
-        if (file.isEmpty()) {
-          throw new ValidationException(PARAM_INVALID);
-        }
-      }
-    }
   }
 
   /**
    * 시설물 수정 요청 검증
    */
-  public void validate(FacilityModifyRequest param, List<MultipartFile> images) {
+  public void validate(FacilityModifyRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
         param.getLongitude());
 
     ValidatorUtils.validateNull(param.getFacilitySeq());
-
-    // 이미지
-    if (images != null) {
-      // 최대 3개
-      int imageSize = param.getImageIndexes() != null ? param.getImageIndexes().size() : 0;
-      for (MultipartFile file : images) {
-        if (file.isEmpty()) {
-          throw new ValidationException(PARAM_INVALID);
-        }
-        imageSize++;
-      }
-      if (imageSize > 3) {
-        throw new ValidationException(PARAM_INVALID);
-      }
-    }
   }
 
   /**
@@ -84,6 +57,13 @@ public class FacilityValidator {
         }
       }
     }
+  }
+
+  /**
+   * 시설물 리뷰 목록 조회 요청 검증
+   */
+  public void validate(FacilityReviewListRequest param) {
+    ValidatorUtils.validateNull(param.getFacilitySeq());
   }
 
   /**

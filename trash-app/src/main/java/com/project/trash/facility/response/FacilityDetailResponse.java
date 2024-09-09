@@ -1,11 +1,9 @@
 package com.project.trash.facility.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.project.trash.common.utils.DateTimeUtils;
 import com.project.trash.facility.domain.Facility;
-import com.project.trash.member.domain.Member;
 
-import org.jooq.types.ULong;
+import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -46,6 +44,16 @@ public class FacilityDetailResponse {
   @Schema(description = "상세 위치", example = "지하 1층")
   private String detailLocation;
   /**
+   * 위도
+   */
+  @Schema(description = "위도", example = "2.6112336")
+  private BigDecimal latitude;
+  /**
+   * 경도
+   */
+  @Schema(description = "경도", example = "33.126115")
+  private BigDecimal longitude;
+  /**
    * 정보
    */
   @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
@@ -65,16 +73,6 @@ public class FacilityDetailResponse {
    */
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
-  /**
-   * 등록자 ID
-   */
-  @Schema(description = "등록자 ID", example = "test1234")
-  private String memberId;
-  /**
-   * 등록일자
-   */
-  @Schema(description = "시설물 등록일자", example = "2024-09-01")
-  private String createdDate;
 
   public FacilityDetailResponse(Facility facility) {
     this.facilitySeq = facility.getFacilitySeq();
@@ -82,11 +80,11 @@ public class FacilityDetailResponse {
     this.name = facility.getName();
     this.location = facility.getLocation();
     this.detailLocation = facility.getDetailLocation();
+    this.latitude = facility.getLatitude();
+    this.longitude = facility.getLongitude();
     this.information = facility.getInformation();
     this.department = facility.getDepartment();
     this.departmentPhoneNumber = facility.getDepartmentPhoneNumber();
     this.approvalStatus = facility.getApprovalStatus().getCode();
-    this.memberId = facility.getMemberId();
-    this.createdDate = DateTimeUtils.convertToString(facility.getCreatedAt(), DateTimeUtils.DEFAULT_DATE);
   }
 }

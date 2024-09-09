@@ -46,7 +46,7 @@ public class FacilityCommandService {
    * 시설물 등록
    */
   @Transactional
-  public void entry(FacilityEntryRequest param, List<MultipartFile> addImages) {
+  public void entry(FacilityEntryRequest param) {
     facilityRepository.save(new Facility(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
         param.getDetailLocation(), param.getLatitude(), param.getLongitude(),
         param.getInformation(), String.valueOf(MemberUtils.getMemberSeq())));
@@ -56,7 +56,7 @@ public class FacilityCommandService {
    * 시설물 수정
    */
   @Transactional
-  public void modify(FacilityModifyRequest param, List<MultipartFile> addImages) {
+  public void modify(FacilityModifyRequest param) {
     Facility facility = facilityQueryService.getOne(param.getFacilitySeq(), MemberUtils.getMemberSeq());
 
     facility.update(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import trash.tables.records.ReviewRecord;
 
 import static trash.Tables.FACILITY;
 import static trash.Tables.MEMBER;
@@ -66,7 +65,7 @@ public class ReviewDao {
    * 시설물 리뷰 목록 조회
    */
   public List<FacilityReviewListResponse> select(FacilityReviewListRequest param) {
-    return dsl.select(REVIEW.RVW_SEQ, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_SCL_ID, MEMBER.MBR_NCK_NM)
+    return dsl.select(REVIEW.RVW_SEQ, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_SEQ, MEMBER.MBR_NCK_NM)
         .from(REVIEW)
         .leftJoin(MEMBER)
         .on(MEMBER.MBR_SEQ.eq(REVIEW.MBR_SEQ))
