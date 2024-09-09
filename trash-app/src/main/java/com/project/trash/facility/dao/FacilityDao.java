@@ -42,7 +42,7 @@ public class FacilityDao {
   private List<Condition> getCondionList(FacilityListRequest param) {
     List<Condition> conditions = new ArrayList<>();
 
-    conditions.add(DSL.condition(FACILITY.FCLTY_APRV_YN.eq(FacilityApprovalStatus.APPROVE.getCode())));
+    conditions.add(DSL.condition(FACILITY.FCLTY_APRV_STA.eq(FacilityApprovalStatus.APPROVE.getCode())));
 
     if (param.getType() != null && !param.getType().isEmpty()) {
       conditions.add(DSL.condition(FACILITY.FCLTY_TYP.in(param.getType())));
@@ -58,7 +58,7 @@ public class FacilityDao {
     return dsl.select(FACILITY.FCLTY_SEQ, FACILITY.FCLTY_TYP, FACILITY.FCLTY_NM,
         FACILITY.FCLTY_DTL_LCTN, FACILITY.FCLTY_INFO)
         .from(FACILITY)
-        .where(FACILITY.MBR_SEQ.eq(ULong.valueOf(MemberUtils.getMemberSeq())))
+        .where(FACILITY.MBR_ID.eq(String.valueOf(MemberUtils.getMemberSeq())))
         .orderBy(FACILITY.CRE_DTM.desc())
         .fetchInto(MyFacilityListResponse.class);
   }

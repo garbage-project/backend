@@ -175,33 +175,33 @@ public class FacilityRecord extends UpdatableRecordImpl<FacilityRecord> {
     }
 
     /**
-     * Setter for <code>spotfinder.FACILITY.FCLTY_APRV_YN</code>. 승인여부
+     * Setter for <code>spotfinder.FACILITY.FCLTY_APRV_STA</code>. 승인 상태
      */
-    public FacilityRecord setFcltyAprvYn(String value) {
+    public FacilityRecord setFcltyAprvSta(String value) {
         set(10, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.FACILITY.FCLTY_APRV_YN</code>. 승인여부
+     * Getter for <code>spotfinder.FACILITY.FCLTY_APRV_STA</code>. 승인 상태
      */
-    public String getFcltyAprvYn() {
+    public String getFcltyAprvSta() {
         return (String) get(10);
     }
 
     /**
-     * Setter for <code>spotfinder.FACILITY.MBR_SEQ</code>. 회원 일련번호
+     * Setter for <code>spotfinder.FACILITY.MBR_ID</code>. 회원 ID
      */
-    public FacilityRecord setMbrSeq(ULong value) {
+    public FacilityRecord setMbrId(String value) {
         set(11, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.FACILITY.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.FACILITY.MBR_ID</code>. 회원 ID
      */
-    public ULong getMbrSeq() {
-        return (ULong) get(11);
+    public String getMbrId() {
+        return (String) get(11);
     }
 
     /**
@@ -257,7 +257,7 @@ public class FacilityRecord extends UpdatableRecordImpl<FacilityRecord> {
     /**
      * Create a detached, initialised FacilityRecord
      */
-    public FacilityRecord(ULong fcltySeq, String fcltyNm, String fcltyTyp, String fcltyLctn, String fcltyDtlLctn, BigDecimal fcltyLttd, BigDecimal fcltyLngt, String fcltyInfo, String fcltyDprNm, String fcltyDprTlphNmbr, String fcltyAprvYn, ULong mbrSeq, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public FacilityRecord(ULong fcltySeq, String fcltyNm, String fcltyTyp, String fcltyLctn, String fcltyDtlLctn, BigDecimal fcltyLttd, BigDecimal fcltyLngt, String fcltyInfo, String fcltyDprNm, String fcltyDprTlphNmbr, String fcltyAprvSta, String mbrId, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Facility.FACILITY);
 
         setFcltySeq(fcltySeq);
@@ -270,8 +270,8 @@ public class FacilityRecord extends UpdatableRecordImpl<FacilityRecord> {
         setFcltyInfo(fcltyInfo);
         setFcltyDprNm(fcltyDprNm);
         setFcltyDprTlphNmbr(fcltyDprTlphNmbr);
-        setFcltyAprvYn(fcltyAprvYn);
-        setMbrSeq(mbrSeq);
+        setFcltyAprvSta(fcltyAprvSta);
+        setMbrId(mbrId);
         setCreDtm(creDtm);
         setUpdDtm(updDtm);
         resetChangedOnNotNull();
@@ -294,8 +294,8 @@ public class FacilityRecord extends UpdatableRecordImpl<FacilityRecord> {
             setFcltyInfo(value.getFcltyInfo());
             setFcltyDprNm(value.getFcltyDprNm());
             setFcltyDprTlphNmbr(value.getFcltyDprTlphNmbr());
-            setFcltyAprvYn(value.getFcltyAprvYn());
-            setMbrSeq(value.getMbrSeq());
+            setFcltyAprvSta(value.getFcltyAprvSta());
+            setMbrId(value.getMbrId());
             setCreDtm(value.getCreDtm());
             setUpdDtm(value.getUpdDtm());
             resetChangedOnNotNull();

@@ -1,5 +1,7 @@
 package com.project.trash.review.dao;
 
+import com.project.trash.facility.request.FacilityReviewListRequest;
+import com.project.trash.facility.response.FacilityReviewListResponse;
 import com.project.trash.member.request.MemberReviewListRequest;
 import com.project.trash.member.response.MemberReviewListResponse;
 
@@ -13,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import trash.tables.records.ReviewRecord;
 
 import static trash.Tables.FACILITY;
+import static trash.Tables.MEMBER;
 import static trash.Tables.REVIEW;
 
 /**
@@ -35,6 +38,16 @@ public class ReviewDao {
   }
 
   /**
+   * 시설물 리뷰 목록 총개수
+   */
+  public Long count(FacilityReviewListRequest param) {
+    return dsl.selectCount()
+              .from(REVIEW)
+              .where(REVIEW.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq())))
+              .fetchOneInto(Long.class);
+  }
+
+  /**
    * 회원이 등록한 리뷰 목록 조회
    */
   public List<MemberReviewListResponse> select(MemberReviewListRequest param) {
@@ -47,5 +60,20 @@ public class ReviewDao {
         .limit(param.getSize())
         .offset(param.getOffset())
         .fetchInto(MemberReviewListResponse.class);
+  }
+
+  /**
+   * 시설물 리뷰 목록 조회
+   */
+  public List<FacilityReviewListResponse> select(FacilityReviewListRequest param) {
+    return dsl.select(REVIEW.RVW_SEQ, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_SCL_ID, MEMBER.MBR_NCK_NM)
+        .from(REVIEW)
+        .leftJoin(MEMBER)
+        .on(MEMBER.MBR_SEQ.eq(REVIEW.MBR_SEQ))
+        .where(REVIEW.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq())))
+        .orderBy(REVIEW.CRE_DTM.desc())
+        .limit(param.getSize())
+        .offset(param.getOffset())
+        .fetchInto(FacilityReviewListResponse.class);
   }
 }

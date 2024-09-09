@@ -6,6 +6,8 @@ import com.project.trash.facility.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -19,12 +21,10 @@ public class ReviewCommandService {
   private final ReviewQueryService reviewQueryService;
 
   /**
-   * 리뷰 삭제
+   * 선택한 리뷰 목록 삭제
    */
   @Transactional
-  public void delete(Long reviewSeq) {
-    Review review = reviewQueryService.getOne(reviewSeq);
-
-    reviewRepository.delete(review);
+  public void delete(Set<Long> reviewSeqs) {
+    reviewRepository.deleteAllByIdInBatch(reviewSeqs);
   }
 }

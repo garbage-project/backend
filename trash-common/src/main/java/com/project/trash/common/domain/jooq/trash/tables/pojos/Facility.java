@@ -29,8 +29,8 @@ public class Facility implements Serializable {
     private final String fcltyInfo;
     private final String fcltyDprNm;
     private final String fcltyDprTlphNmbr;
-    private final String fcltyAprvYn;
-    private final ULong mbrSeq;
+    private final String fcltyAprvSta;
+    private final String mbrId;
     private final LocalDateTime creDtm;
     private final LocalDateTime updDtm;
 
@@ -45,8 +45,8 @@ public class Facility implements Serializable {
         this.fcltyInfo = value.fcltyInfo;
         this.fcltyDprNm = value.fcltyDprNm;
         this.fcltyDprTlphNmbr = value.fcltyDprTlphNmbr;
-        this.fcltyAprvYn = value.fcltyAprvYn;
-        this.mbrSeq = value.mbrSeq;
+        this.fcltyAprvSta = value.fcltyAprvSta;
+        this.mbrId = value.mbrId;
         this.creDtm = value.creDtm;
         this.updDtm = value.updDtm;
     }
@@ -62,8 +62,8 @@ public class Facility implements Serializable {
         String fcltyInfo,
         String fcltyDprNm,
         String fcltyDprTlphNmbr,
-        String fcltyAprvYn,
-        ULong mbrSeq,
+        String fcltyAprvSta,
+        String mbrId,
         LocalDateTime creDtm,
         LocalDateTime updDtm
     ) {
@@ -77,8 +77,8 @@ public class Facility implements Serializable {
         this.fcltyInfo = fcltyInfo;
         this.fcltyDprNm = fcltyDprNm;
         this.fcltyDprTlphNmbr = fcltyDprTlphNmbr;
-        this.fcltyAprvYn = fcltyAprvYn;
-        this.mbrSeq = mbrSeq;
+        this.fcltyAprvSta = fcltyAprvSta;
+        this.mbrId = mbrId;
         this.creDtm = creDtm;
         this.updDtm = updDtm;
     }
@@ -155,17 +155,17 @@ public class Facility implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.FACILITY.FCLTY_APRV_YN</code>. 승인여부
+     * Getter for <code>spotfinder.FACILITY.FCLTY_APRV_STA</code>. 승인 상태
      */
-    public String getFcltyAprvYn() {
-        return this.fcltyAprvYn;
+    public String getFcltyAprvSta() {
+        return this.fcltyAprvSta;
     }
 
     /**
-     * Getter for <code>spotfinder.FACILITY.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.FACILITY.MBR_ID</code>. 회원 ID
      */
-    public ULong getMbrSeq() {
-        return this.mbrSeq;
+    public String getMbrId() {
+        return this.mbrId;
     }
 
     /**
@@ -251,17 +251,17 @@ public class Facility implements Serializable {
         }
         else if (!this.fcltyDprTlphNmbr.equals(other.fcltyDprTlphNmbr))
             return false;
-        if (this.fcltyAprvYn == null) {
-            if (other.fcltyAprvYn != null)
+        if (this.fcltyAprvSta == null) {
+            if (other.fcltyAprvSta != null)
                 return false;
         }
-        else if (!this.fcltyAprvYn.equals(other.fcltyAprvYn))
+        else if (!this.fcltyAprvSta.equals(other.fcltyAprvSta))
             return false;
-        if (this.mbrSeq == null) {
-            if (other.mbrSeq != null)
+        if (this.mbrId == null) {
+            if (other.mbrId != null)
                 return false;
         }
-        else if (!this.mbrSeq.equals(other.mbrSeq))
+        else if (!this.mbrId.equals(other.mbrId))
             return false;
         if (this.creDtm == null) {
             if (other.creDtm != null)
@@ -292,8 +292,8 @@ public class Facility implements Serializable {
         result = prime * result + ((this.fcltyInfo == null) ? 0 : this.fcltyInfo.hashCode());
         result = prime * result + ((this.fcltyDprNm == null) ? 0 : this.fcltyDprNm.hashCode());
         result = prime * result + ((this.fcltyDprTlphNmbr == null) ? 0 : this.fcltyDprTlphNmbr.hashCode());
-        result = prime * result + ((this.fcltyAprvYn == null) ? 0 : this.fcltyAprvYn.hashCode());
-        result = prime * result + ((this.mbrSeq == null) ? 0 : this.mbrSeq.hashCode());
+        result = prime * result + ((this.fcltyAprvSta == null) ? 0 : this.fcltyAprvSta.hashCode());
+        result = prime * result + ((this.mbrId == null) ? 0 : this.mbrId.hashCode());
         result = prime * result + ((this.creDtm == null) ? 0 : this.creDtm.hashCode());
         result = prime * result + ((this.updDtm == null) ? 0 : this.updDtm.hashCode());
         return result;
@@ -313,8 +313,8 @@ public class Facility implements Serializable {
         sb.append(", ").append(fcltyInfo);
         sb.append(", ").append(fcltyDprNm);
         sb.append(", ").append(fcltyDprTlphNmbr);
-        sb.append(", ").append(fcltyAprvYn);
-        sb.append(", ").append(mbrSeq);
+        sb.append(", ").append(fcltyAprvSta);
+        sb.append(", ").append(mbrId);
         sb.append(", ").append(creDtm);
         sb.append(", ").append(updDtm);
 

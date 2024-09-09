@@ -49,7 +49,7 @@ public class FacilityCommandService {
   public void entry(FacilityEntryRequest param, List<MultipartFile> addImages) {
     facilityRepository.save(new Facility(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
         param.getDetailLocation(), param.getLatitude(), param.getLongitude(),
-        param.getInformation(), MemberUtils.getMemberSeq()));
+        param.getInformation(), String.valueOf(MemberUtils.getMemberSeq())));
   }
 
   /**

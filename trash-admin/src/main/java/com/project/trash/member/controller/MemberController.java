@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -65,17 +67,18 @@ public class MemberController {
   }
 
   /**
-   * 리뷰 삭제
+   * 선택한 리뷰 목록 삭제
    */
-  @DeleteMapping("/reviews/{reviewSeq}")
-  @Operation(summary = "리뷰 삭제",
-      description = "리뷰를 삭제한다."
+  @DeleteMapping("/reviews")
+  @Operation(summary = "선택한 리뷰 목록 삭제",
+      description = "선택한 리뷰들을 삭제한다."
           + "\n[에러 코드]"
           + "\n- RVW000 : 리뷰 정보가 존재하지 않습니다.")
   public SuccessResponse deleteReview(
-      @Parameter(description = "삭제할 리뷰의 일련번호", required = true, example = "1") @PathVariable Long reviewSeq) {
+      @Parameter(description = "삭제할 리뷰들의 일련번호 목록", required = true, example = "[1, 2, 3]") @RequestParam
+      Set<Long> reviewSeqs) {
 
-    reviewCommandService.delete(reviewSeq);
+    reviewCommandService.delete(reviewSeqs);
     return new SuccessResponse();
   }
 

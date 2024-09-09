@@ -59,7 +59,7 @@ public class FacilityController {
           + "\n[에러 코드]"
           + "\n- FAC000 : 시설물 정보가 존재하지 않습니다.")
   public SuccessResponse delete(
-      @Parameter(description = "삭제할 시설물의 ID", required = true, example = "1") @PathVariable Long facilitySeq) {
+      @Parameter(description = "삭제할 시설물의 일련번호", required = true, example = "1") @PathVariable Long facilitySeq) {
 
     facilityCommandService.delete(facilitySeq);
     return new SuccessResponse();

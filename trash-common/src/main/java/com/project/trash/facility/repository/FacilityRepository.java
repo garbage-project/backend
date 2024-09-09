@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
-  Optional<Facility> findByFacilitySeqAndMemberSeq(Long facilitySeq, Long memberSeq);
+  Optional<Facility> findByFacilitySeqAndMemberId(Long facilitySeq, String memberId);
 }
