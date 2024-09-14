@@ -16,10 +16,10 @@ import lombok.Setter;
 public class MemberDetailResponse {
 
   /**
-   * 회원 일련번호
+   * 회원 ID
    */
-  @Schema(description = "회원 일련번호", example = "1")
-  private Long memberSeq;
+  @Schema(description = "회원 ID", example = "1")
+  private Long memberId;
   /**
    * 이메일
    */
@@ -57,7 +57,7 @@ public class MemberDetailResponse {
   private String createdDate;
 
   public MemberDetailResponse(Member member) {
-    this.memberSeq = member.getMemberSeq();
+    this.memberId = member.getMemberId();
     this.email = member.getEmail();
     this.name = member.getName();
     this.nickname = member.getNickname();

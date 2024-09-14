@@ -23,17 +23,17 @@ public class FacilityRecord extends UpdatableRecordImpl<FacilityRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>spotfinder.FACILITY.FCLTY_SEQ</code>. 시설물 일련번호
+     * Setter for <code>spotfinder.FACILITY.FCLTY_ID</code>. 시설물 ID
      */
-    public FacilityRecord setFcltySeq(ULong value) {
+    public FacilityRecord setFcltyId(ULong value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.FACILITY.FCLTY_SEQ</code>. 시설물 일련번호
+     * Getter for <code>spotfinder.FACILITY.FCLTY_ID</code>. 시설물 ID
      */
-    public ULong getFcltySeq() {
+    public ULong getFcltyId() {
         return (ULong) get(0);
     }
 
@@ -257,10 +257,10 @@ public class FacilityRecord extends UpdatableRecordImpl<FacilityRecord> {
     /**
      * Create a detached, initialised FacilityRecord
      */
-    public FacilityRecord(ULong fcltySeq, String fcltyNm, String fcltyTyp, String fcltyLctn, String fcltyDtlLctn, BigDecimal fcltyLttd, BigDecimal fcltyLngt, String fcltyInfo, String fcltyDprNm, String fcltyDprTlphNmbr, String fcltyAprvSta, String mbrId, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public FacilityRecord(ULong fcltyId, String fcltyNm, String fcltyTyp, String fcltyLctn, String fcltyDtlLctn, BigDecimal fcltyLttd, BigDecimal fcltyLngt, String fcltyInfo, String fcltyDprNm, String fcltyDprTlphNmbr, String fcltyAprvSta, String mbrId, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Facility.FACILITY);
 
-        setFcltySeq(fcltySeq);
+        setFcltyId(fcltyId);
         setFcltyNm(fcltyNm);
         setFcltyTyp(fcltyTyp);
         setFcltyLctn(fcltyLctn);
@@ -284,7 +284,7 @@ public class FacilityRecord extends UpdatableRecordImpl<FacilityRecord> {
         super(Facility.FACILITY);
 
         if (value != null) {
-            setFcltySeq(value.getFcltySeq());
+            setFcltyId(value.getFcltyId());
             setFcltyNm(value.getFcltyNm());
             setFcltyTyp(value.getFcltyTyp());
             setFcltyLctn(value.getFcltyLctn());

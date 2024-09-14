@@ -10,10 +10,10 @@ import lombok.Getter;
 public class NoticeModifyRequest {
 
   /**
-   * 공지 일련번호
+   * 공지 ID
    */
-  @Schema(description = "공지 일련번호", example = "1")
-  private Long noticeSeq;
+  @Schema(description = "공지 ID", example = "1")
+  private Long noticeId;
   /**
    * 제목
    */

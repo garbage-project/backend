@@ -1,4 +1,4 @@
-package com.project.trash.common.config;
+package com.project.trash.common.aws;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

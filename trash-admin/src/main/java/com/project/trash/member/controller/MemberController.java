@@ -54,15 +54,15 @@ public class MemberController {
   /**
    * 회원 삭제
    */
-  @DeleteMapping("/{memberSeq}")
+  @DeleteMapping("/{memberId}")
   @Operation(summary = "회원 삭제",
       description = "회원을 삭제한다."
           + "\n[에러 코드]"
           + "\n- MBR000 : 회원 정보가 존재하지 않습니다.")
   public SuccessResponse delete(
-      @Parameter(description = "삭제할 회원의 일련번호", required = true, example = "1") @PathVariable Long memberSeq) {
+      @Parameter(description = "삭제할 회원의 ID", required = true, example = "1") @PathVariable Long memberId) {
 
-    memberCommandService.delete(memberSeq);
+    memberCommandService.delete(memberId);
     return new SuccessResponse();
   }
 
@@ -75,25 +75,25 @@ public class MemberController {
           + "\n[에러 코드]"
           + "\n- RVW000 : 리뷰 정보가 존재하지 않습니다.")
   public SuccessResponse deleteReview(
-      @Parameter(description = "삭제할 리뷰들의 일련번호 목록", required = true, example = "[1, 2, 3]") @RequestParam
-      Set<Long> reviewSeqs) {
+      @Parameter(description = "삭제할 리뷰들의 ID 목록", required = true, example = "[1, 2, 3]") @RequestParam
+      Set<Long> reviewIds) {
 
-    reviewCommandService.delete(reviewSeqs);
+    reviewCommandService.delete(reviewIds);
     return new SuccessResponse();
   }
 
   /**
    * 회원 상세 조회
    */
-  @GetMapping("/{memberSeq}")
+  @GetMapping("/{memberId}")
   @Operation(summary = "회원 상세 조회",
       description = "회원 정보를 상세 조회한다."
           + "\n[에러 코드]"
           + "\n- MBR000 : 회원 정보가 존재하지 않습니다.")
   public DataResponse<MemberDetailResponse> getDetail(
-      @Parameter(description = "조회할 회원의 일련번호", required = true, example = "1") @PathVariable Long memberSeq) {
+      @Parameter(description = "조회할 회원의 ID", required = true, example = "1") @PathVariable Long memberId) {
 
-    return new DataResponse<>(memberQueryService.getDetail(memberSeq));
+    return new DataResponse<>(memberQueryService.getDetail(memberId));
   }
 
   /**

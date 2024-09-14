@@ -45,29 +45,29 @@ public class NoticeController {
   /**
    * 공지 삭제
    */
-  @DeleteMapping("/{noticeSeq}")
+  @DeleteMapping("/{noticeId}")
   @Operation(summary = "공지 삭제",
       description = "공지를 삭제한다."
           + "\n[에러 코드]"
           + "\n- NTC000 : 공지 정보가 존재하지 않습니다.")
   public SuccessResponse delete(
-      @Parameter(description = "삭제할 공지의 일련번호", required = true, example = "1") @PathVariable Long noticeSeq) {
-    noticeCommandService.delete(noticeSeq);
+      @Parameter(description = "삭제할 공지의 ID", required = true, example = "1") @PathVariable Long noticeId) {
+    noticeCommandService.delete(noticeId);
     return new SuccessResponse();
   }
 
   /**
    * 공지 상세 조회
    */
-  @GetMapping("/{noticeSeq}")
+  @GetMapping("/{noticeId}")
   @Operation(summary = "공지 상세 조회",
       description = "공지 정보를 상세 조회한다."
           + "\n[에러 코드]"
           + "\n- NTC000 : 공지 정보가 존재하지 않습니다.")
   public DataResponse<NoticeDetailResponse> getDetail(
-      @Parameter(description = "조회할 리뷰의 일련번호", required = true, example = "1") @PathVariable Long noticeSeq) {
+      @Parameter(description = "조회할 리뷰의 ID", required = true, example = "1") @PathVariable Long noticeId) {
 
-    return new DataResponse<>(noticeQueryService.getDetail(noticeSeq));
+    return new DataResponse<>(noticeQueryService.getDetail(noticeId));
   }
 
   /**

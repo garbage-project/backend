@@ -48,19 +48,19 @@ public class Report extends TableImpl<ReportRecord> {
     }
 
     /**
-     * The column <code>spotfinder.REPORT.RPT_SEQ</code>. 신고 일련번호
+     * The column <code>spotfinder.REPORT.RPT_ID</code>. 신고 ID
      */
-    public final TableField<ReportRecord, ULong> RPT_SEQ = createField(DSL.name("RPT_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "신고 일련번호");
+    public final TableField<ReportRecord, ULong> RPT_ID = createField(DSL.name("RPT_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "신고 ID");
 
     /**
-     * The column <code>spotfinder.REPORT.FCLTY_SEQ</code>. 시설물 일련번호
+     * The column <code>spotfinder.REPORT.FCLTY_ID</code>. 시설물 ID
      */
-    public final TableField<ReportRecord, ULong> FCLTY_SEQ = createField(DSL.name("FCLTY_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "시설물 일련번호");
+    public final TableField<ReportRecord, ULong> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "시설물 ID");
 
     /**
-     * The column <code>spotfinder.REPORT.MBR_SEQ</code>. 회원 일련번호
+     * The column <code>spotfinder.REPORT.MBR_ID</code>. 회원 ID
      */
-    public final TableField<ReportRecord, ULong> MBR_SEQ = createField(DSL.name("MBR_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "회원 일련번호");
+    public final TableField<ReportRecord, ULong> MBR_ID = createField(DSL.name("MBR_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "회원 ID");
 
     /**
      * The column <code>spotfinder.REPORT.RPT_CTT</code>. 신고 내용

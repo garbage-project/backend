@@ -32,8 +32,8 @@ public class NoticeQueryService {
    * 공지 상세 조회
    */
   @Transactional(readOnly = true)
-  public NoticeDetailResponse getDetail(Long noticeSeq) {
-    return new NoticeDetailResponse(getOne(noticeSeq));
+  public NoticeDetailResponse getDetail(Long noticeId) {
+    return new NoticeDetailResponse(getOne(noticeId));
   }
 
   /**
@@ -48,7 +48,7 @@ public class NoticeQueryService {
    * 공지 조회
    */
   @Transactional(readOnly = true)
-  public Notice getOne(Long noticeSeq) {
-    return noticeRepository.findById(noticeSeq).orElseThrow(() -> new ValidationException(NOTICE_NOT_FOUND));
+  public Notice getOne(Long noticeId) {
+    return noticeRepository.findById(noticeId).orElseThrow(() -> new ValidationException(NOTICE_NOT_FOUND));
   }
 }

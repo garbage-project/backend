@@ -1,6 +1,8 @@
 package com.project.trash.facility.request;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -46,4 +48,9 @@ public class FacilityEntryRequest {
    */
   @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
   private String information;
+  /**
+   * 이미지 ID 목록
+   */
+  @Schema(description = "이미지 ID 목록(최대 3개)", example = "[1, 2]", nullable = true)
+  private Set<Long> imageIds;
 }

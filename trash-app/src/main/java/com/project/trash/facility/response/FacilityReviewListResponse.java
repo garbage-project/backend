@@ -19,9 +19,9 @@ import lombok.Setter;
 public class FacilityReviewListResponse {
 
   /**
-   * 리뷰 일련번호
+   * 리뷰 ID
    */
-  @Schema(description = "리뷰 일련번호", example = "1")
+  @Schema(description = "리뷰 ID", example = "1")
   private ULong reviewSeq;
   /**
    * 리뷰 내용
@@ -34,9 +34,9 @@ public class FacilityReviewListResponse {
   @Schema(description = "리뷰 등록일자", example = "2024-09-01")
   private String createdDate;
   /**
-   * 등록자 일련번호
+   * 등록자 ID
    */
-  @Schema(description = "등록자 일련번호", example = "1")
+  @Schema(description = "등록자 ID", example = "1")
   private ULong memberSeq;
   /**
    * 닉네임

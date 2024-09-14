@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum FacilityResultCode implements ResultCode {
 
-  FACILITY_NOT_FOUND("FAC000", "시설물 정보가 존재하지 않습니다.");
+  FACILITY_NOT_FOUND("FAC000", "시설물 정보가 존재하지 않습니다."),
+  FACILITY_IMAGE_NOT_FOUND("FAC001", "시설물 이미지가 존재하지 않습니다.");
 
   private final String code;
   private final String message;

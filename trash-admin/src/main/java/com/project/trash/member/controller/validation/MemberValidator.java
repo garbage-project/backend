@@ -43,13 +43,13 @@ public class MemberValidator {
    * 등록한 시설물 목록 조회 요청 검증
    */
   public void validate(MemberFacilityListRequest param) {
-    ValidatorUtils.validateNull(param.getMemberSeq());
+    ValidatorUtils.validateNull(param.getMemberId());
   }
 
   /**
    * 등록한 리뷰 목록 조회 요청 검증
    */
   public void validate(MemberReviewListRequest param) {
-    ValidatorUtils.validateNull(param.getMemberSeq());
+    ValidatorUtils.validateNull(param.getMemberId());
   }
 }

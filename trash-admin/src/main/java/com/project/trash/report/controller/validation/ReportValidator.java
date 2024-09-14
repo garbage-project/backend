@@ -40,8 +40,8 @@ public class ReportValidator {
    * 신고 수정 요청 검증
    */
   public void validate(ReportModifyRequest param) {
-    // 신고 일련번호
-    ValidatorUtils.validateNull(param.getReportSeq());
+    // 신고 ID
+    ValidatorUtils.validateNull(param.getReportId());
     // 신고 처리상태
     ValidatorUtils.validateEmpty(param.getStatus());
     if (!Valid.containCode(param.getStatus())) {

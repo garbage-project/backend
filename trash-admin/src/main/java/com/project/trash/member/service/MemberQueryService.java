@@ -32,8 +32,8 @@ public class MemberQueryService {
    * 회원 상세 조회
    */
   @Transactional(readOnly = true)
-  public MemberDetailResponse getDetail(Long memberSeq) {
-    return new MemberDetailResponse(getOne(memberSeq));
+  public MemberDetailResponse getDetail(Long memberId) {
+    return new MemberDetailResponse(getOne(memberId));
   }
 
   /**
@@ -50,16 +50,16 @@ public class MemberQueryService {
   }
 
   @Transactional(readOnly = true)
-  public Member getOne(Long memberSeq) {
-    return memberRepository.findById(memberSeq).orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
+  public Member getOne(Long memberId) {
+    return memberRepository.findById(memberId).orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
   }
 
   /**
    * 회원 존재여부 검증
    */
   @Transactional(readOnly = true)
-  public void verifyExist(Long memberSeq) {
-    if (!memberRepository.existsById(memberSeq)) {
+  public void verifyExist(Long memberId) {
+    if (!memberRepository.existsById(memberId)) {
       throw new ValidationException(MEMBER_NOT_FOUND);
     }
   }

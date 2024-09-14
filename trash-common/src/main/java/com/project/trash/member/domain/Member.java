@@ -23,53 +23,34 @@ import lombok.NoArgsConstructor;
 @Table(name = "MEMBER")
 public class Member extends BaseTimeEntity {
 
-  /**
-   * 회원 일련번호
-   */
   @Id
-  @Column(name = "MBR_SEQ", nullable = false)
+  @Column(name = "MBR_ID", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long memberSeq;
-  /**
-   * 이메일
-   */
+  private Long memberId;
+
   @Column(name = "MBR_EMAIL", nullable = false)
   private String email;
-  /**
-   * 이름
-   */
+
   @Column(name = "MBR_NM", nullable = false)
   private String name;
-  /**
-   * 닉네임
-   */
+
   @Column(name = "MBR_NCK_NM", nullable = false)
   private String nickname = "";
-  /**
-   * 성별
-   */
+
   @Convert(converter = GenderType.TypeCodeConverter.class)
   @Column(name = "MBR_GNDR", nullable = false)
   private GenderType gender;
-  /**
-   * 생년월일
-   */
+
   @Column(name = "MBR_BRDT", nullable = false)
   private String birthday;
-  /**
-   * 소셜 ID
-   */
+
   @Column(name = "MBR_SCL_ID", nullable = false)
   private String socialId;
-  /**
-   * 소셜 타입
-   */
+
   @Convert(converter = SocialType.TypeCodeConverter.class)
   @Column(name = "MBR_SCL_TYP", nullable = false)
   private SocialType socialType;
-  /**
-   * 유효여부
-   */
+
   @Column(name = "MBR_VLD_YN", nullable = false)
   private Boolean valid = Boolean.TRUE;
 

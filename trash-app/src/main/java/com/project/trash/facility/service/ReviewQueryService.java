@@ -52,8 +52,8 @@ public class ReviewQueryService {
    * 리뷰 조회
    */
   @Transactional(readOnly = true)
-  public Review getOne(Long reviewSeq, Long memberSeq) {
-    return reviewRepository.findByReviewSeqAndMemberSeq(reviewSeq, memberSeq)
+  public Review getOne(Long reviewId, Long memberId) {
+    return reviewRepository.findByReviewIdAndMemberId(reviewId, memberId)
                            .orElseThrow(() -> new ValidationException(REVIEW_NOT_FOUND));
   }
 }

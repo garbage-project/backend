@@ -36,10 +36,10 @@ public class FacilityDao {
   /**
    * 등록한 시설물 목록 조회 총개수
    */
-  public Long count(Long memberSeq) {
+  public Long count(Long memberId) {
     return dsl.selectCount()
               .from(FACILITY)
-              .where(FACILITY.MBR_ID.eq(String.valueOf(memberSeq)))
+              .where(FACILITY.MBR_ID.eq(String.valueOf(memberId)))
               .fetchOneInto(Long.class);
   }
 
@@ -47,10 +47,10 @@ public class FacilityDao {
    * 등록한 시설물 목록 조회
    */
   public List<MemberFacilityListResponse> select(MemberFacilityListRequest param) {
-    return dsl.select(FACILITY.FCLTY_SEQ, FACILITY.FCLTY_TYP, FACILITY.FCLTY_NM, FACILITY.FCLTY_LCTN,
+    return dsl.select(FACILITY.FCLTY_ID, FACILITY.FCLTY_TYP, FACILITY.FCLTY_NM, FACILITY.FCLTY_LCTN,
                   FACILITY.FCLTY_DTL_LCTN, FACILITY.FCLTY_INFO, FACILITY.FCLTY_APRV_STA)
               .from(FACILITY)
-              .where(FACILITY.MBR_ID.eq(String.valueOf(param.getMemberSeq())))
+              .where(FACILITY.MBR_ID.eq(String.valueOf(param.getMemberId())))
               .orderBy(FACILITY.CRE_DTM.desc())
               .limit(param.getSize())
               .offset(param.getOffset())
@@ -86,9 +86,9 @@ public class FacilityDao {
   public List<Condition> getConditions(FacilityListRequest param) {
     List<Condition> conditions = new ArrayList<>();
 
-    // 시설물 일련번호
-    if (param.getFacilitySeq() != null) {
-      conditions.add(DSL.condition(FACILITY.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq()))));
+    // 시설물 ID
+    if (param.getFacilityId() != null) {
+      conditions.add(DSL.condition(FACILITY.FCLTY_ID.eq(ULong.valueOf(param.getFacilityId()))));
     }
     // 시설물 종류
     if (StringUtils.isNotBlank(param.getType())) {

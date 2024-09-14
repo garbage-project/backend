@@ -48,9 +48,9 @@ public class Member extends TableImpl<MemberRecord> {
     }
 
     /**
-     * The column <code>spotfinder.MEMBER.MBR_SEQ</code>. 회원 일련번호
+     * The column <code>spotfinder.MEMBER.MBR_ID</code>. 회원 ID
      */
-    public final TableField<MemberRecord, ULong> MBR_SEQ = createField(DSL.name("MBR_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "회원 일련번호");
+    public final TableField<MemberRecord, ULong> MBR_ID = createField(DSL.name("MBR_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "회원 ID");
 
     /**
      * The column <code>spotfinder.MEMBER.MBR_EMAIL</code>. 이메일

@@ -10,10 +10,10 @@ import lombok.Getter;
 public class ReviewModifyRequest {
 
   /**
-   * 리뷰 일련번호
+   * 리뷰 ID
    */
-  @Schema(description = "리뷰 일련번호", example = "1")
-  private Long reviewSeq;
+  @Schema(description = "리뷰 ID", example = "1")
+  private Long reviewId;
   /**
    * 리뷰 내용
    */

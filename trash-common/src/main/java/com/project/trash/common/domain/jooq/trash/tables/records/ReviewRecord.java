@@ -22,17 +22,17 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * Setter for <code>spotfinder.REVIEW.RVW_ID</code>. 리뷰 ID
      */
-    public ReviewRecord setRvwSeq(ULong value) {
+    public ReviewRecord setRvwId(ULong value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * Getter for <code>spotfinder.REVIEW.RVW_ID</code>. 리뷰 ID
      */
-    public ULong getRvwSeq() {
+    public ULong getRvwId() {
         return (ULong) get(0);
     }
 
@@ -52,32 +52,32 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     }
 
     /**
-     * Setter for <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * Setter for <code>spotfinder.REVIEW.MBR_ID</code>. 회원 ID
      */
-    public ReviewRecord setMbrSeq(ULong value) {
+    public ReviewRecord setMbrId(ULong value) {
         set(2, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.REVIEW.MBR_ID</code>. 회원 ID
      */
-    public ULong getMbrSeq() {
+    public ULong getMbrId() {
         return (ULong) get(2);
     }
 
     /**
-     * Setter for <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
+     * Setter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
-    public ReviewRecord setFcltySeq(ULong value) {
+    public ReviewRecord setFcltyId(ULong value) {
         set(3, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
+     * Getter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
-    public ULong getFcltySeq() {
+    public ULong getFcltyId() {
         return (ULong) get(3);
     }
 
@@ -134,13 +134,13 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
     /**
      * Create a detached, initialised ReviewRecord
      */
-    public ReviewRecord(ULong rvwSeq, String rvwCtt, ULong mbrSeq, ULong fcltySeq, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public ReviewRecord(ULong rvwId, String rvwCtt, ULong mbrId, ULong fcltyId, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Review.REVIEW);
 
-        setRvwSeq(rvwSeq);
+        setRvwId(rvwId);
         setRvwCtt(rvwCtt);
-        setMbrSeq(mbrSeq);
-        setFcltySeq(fcltySeq);
+        setMbrId(mbrId);
+        setFcltyId(fcltyId);
         setCreDtm(creDtm);
         setUpdDtm(updDtm);
         resetChangedOnNotNull();
@@ -153,10 +153,10 @@ public class ReviewRecord extends UpdatableRecordImpl<ReviewRecord> {
         super(Review.REVIEW);
 
         if (value != null) {
-            setRvwSeq(value.getRvwSeq());
+            setRvwId(value.getRvwId());
             setRvwCtt(value.getRvwCtt());
-            setMbrSeq(value.getMbrSeq());
-            setFcltySeq(value.getFcltySeq());
+            setMbrId(value.getMbrId());
+            setFcltyId(value.getFcltyId());
             setCreDtm(value.getCreDtm());
             setUpdDtm(value.getUpdDtm());
             resetChangedOnNotNull();

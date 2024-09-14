@@ -20,7 +20,7 @@ public class MemberDetail implements UserDetails {
   /**
    * 회원 고유번호
    */
-  private final Long memberSeq;
+  private final Long memberId;
   /**
    * 회원 이름
    */
@@ -39,7 +39,7 @@ public class MemberDetail implements UserDetails {
   private final SocialType socialType;
 
   public MemberDetail(Member member) {
-    this.memberSeq = member.getMemberSeq();
+    this.memberId = member.getMemberId();
     this.name = member.getName();
     this.email = member.getEmail();
     this.socialId = member.getSocialId();

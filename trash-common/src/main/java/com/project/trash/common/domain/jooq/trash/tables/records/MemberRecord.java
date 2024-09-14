@@ -22,17 +22,17 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>spotfinder.MEMBER.MBR_SEQ</code>. 회원 일련번호
+     * Setter for <code>spotfinder.MEMBER.MBR_ID</code>. 회원 ID
      */
-    public MemberRecord setMbrSeq(ULong value) {
+    public MemberRecord setMbrId(ULong value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.MEMBER.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.MEMBER.MBR_ID</code>. 회원 ID
      */
-    public ULong getMbrSeq() {
+    public ULong getMbrId() {
         return (ULong) get(0);
     }
 
@@ -209,10 +209,10 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     /**
      * Create a detached, initialised MemberRecord
      */
-    public MemberRecord(ULong mbrSeq, String mbrEmail, String mbrNm, String mbrNckNm, String mbrGndr, String mbrBrdt, String mbrSclId, String mbrSclTyp, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public MemberRecord(ULong mbrId, String mbrEmail, String mbrNm, String mbrNckNm, String mbrGndr, String mbrBrdt, String mbrSclId, String mbrSclTyp, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Member.MEMBER);
 
-        setMbrSeq(mbrSeq);
+        setMbrId(mbrId);
         setMbrEmail(mbrEmail);
         setMbrNm(mbrNm);
         setMbrNckNm(mbrNckNm);
@@ -233,7 +233,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
         super(Member.MEMBER);
 
         if (value != null) {
-            setMbrSeq(value.getMbrSeq());
+            setMbrId(value.getMbrId());
             setMbrEmail(value.getMbrEmail());
             setMbrNm(value.getMbrNm());
             setMbrNckNm(value.getMbrNckNm());

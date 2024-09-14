@@ -32,7 +32,19 @@ public class FacilityValidator {
    */
   public void validate(FacilityEntryRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
-        param.getLongitude());
+        param.getLongitude(), param.getImageIds());
+  }
+
+  public void validate(List<MultipartFile> images) {
+    if (images == null || images.isEmpty() || images.size() > 3) {
+      throw new ValidationException(PARAM_INVALID);
+    }
+
+    for (MultipartFile image : images) {
+      if (image.isEmpty()) {
+        throw new ValidationException(PARAM_INVALID);
+      }
+    }
   }
 
   /**
@@ -40,9 +52,9 @@ public class FacilityValidator {
    */
   public void validate(FacilityModifyRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
-        param.getLongitude());
+        param.getLongitude(), param.getImageIds());
 
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   /**
@@ -63,14 +75,14 @@ public class FacilityValidator {
    * 시설물 리뷰 목록 조회 요청 검증
    */
   public void validate(FacilityReviewListRequest param) {
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   /**
    * 리뷰 등록 요청 검증
    */
   public void validate(ReviewEntryRequest param) {
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
     ValidatorUtils.validateEmpty(param.getContent());
   }
 
@@ -78,7 +90,7 @@ public class FacilityValidator {
    * 리뷰 수정 요청 검증
    */
   public void validate(ReviewModifyRequest param) {
-    ValidatorUtils.validateNull(param.getReviewSeq());
+    ValidatorUtils.validateNull(param.getReviewId());
     ValidatorUtils.validateEmpty(param.getContent());
   }
 
@@ -86,12 +98,12 @@ public class FacilityValidator {
    * 신고 등록 요청 검증
    */
   public void validate(ReportEntryRequest param) {
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
     ValidatorUtils.validateEmpty(param.getContent());
   }
 
   private void validate(String type, String name, String location, String detailLocation, BigDecimal latitude,
-      BigDecimal longitude) {
+      BigDecimal longitude, Set<Long> imageIds) {
     ValidatorUtils.validateEmpty(type);
     if (!FacilityType.containCode(type)) {
       throw new ValidationException(PARAM_INVALID);
@@ -101,5 +113,8 @@ public class FacilityValidator {
     ValidatorUtils.validateEmpty(detailLocation);
     ValidatorUtils.validateNull(latitude);
     ValidatorUtils.validateNull(longitude);
+    if (imageIds != null && imageIds.size() > 3) {
+      throw new ValidationException(PARAM_INVALID);
+    }
   }
 }

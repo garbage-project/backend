@@ -12,8 +12,11 @@ import com.project.trash.facility.request.FacilityReviewListRequest;
 import com.project.trash.member.request.MemberReviewListRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
 
 import lombok.experimental.UtilityClass;
 
@@ -30,7 +33,19 @@ public class FacilityValidator {
    */
   public void validate(FacilityEntryRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
-        param.getLongitude(), param.getDepartment(), param.getDepartmentPhoneNumber(), param.getApprovalStatus());
+        param.getLongitude(), param.getDepartment(), param.getDepartmentPhoneNumber(), param.getApprovalStatus(), param.getImageIds());
+  }
+
+  public void validate(List<MultipartFile> images) {
+    if (images == null || images.isEmpty() || images.size() > 3) {
+      throw new ValidationException(PARAM_INVALID);
+    }
+
+    for (MultipartFile image : images) {
+      if (image.isEmpty()) {
+        throw new ValidationException(PARAM_INVALID);
+      }
+    }
   }
 
   /**
@@ -38,9 +53,9 @@ public class FacilityValidator {
    */
   public void validate(FacilityModifyRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
-        param.getLongitude(), param.getDepartment(), param.getDepartmentPhoneNumber(), param.getApprovalStatus());
+        param.getLongitude(), param.getDepartment(), param.getDepartmentPhoneNumber(), param.getApprovalStatus(), param.getImageIds());
 
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   /**
@@ -70,11 +85,11 @@ public class FacilityValidator {
    * 시설물 리뷰 목록 조회 요청 검증
    */
   public void validate(FacilityReviewListRequest param) {
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   private void validate(String type, String name, String location, String detailLocation, BigDecimal latitude,
-      BigDecimal longitude, String department, String departmentPhoneNumber, String approvalStatus) {
+      BigDecimal longitude, String department, String departmentPhoneNumber, String approvalStatus, Set<Long> imageIds) {
     ValidatorUtils.validateEmpty(type);
     if (!FacilityType.containCode(type)) {
       throw new ValidationException(PARAM_INVALID);
@@ -88,6 +103,9 @@ public class FacilityValidator {
     ValidatorUtils.validateEmpty(departmentPhoneNumber);
     ValidatorUtils.validateEmpty(approvalStatus);
     if (!FacilityApprovalStatus.containCode(approvalStatus)) {
+      throw new ValidationException(PARAM_INVALID);
+    }
+    if (imageIds != null && imageIds.size() > 3) {
       throw new ValidationException(PARAM_INVALID);
     }
   }

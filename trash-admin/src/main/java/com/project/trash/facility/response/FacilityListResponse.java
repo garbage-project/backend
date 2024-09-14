@@ -20,10 +20,10 @@ import trash.tables.records.FacilityRecord;
 public class FacilityListResponse {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private ULong facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private ULong facilityId;
   /**
    * 시설물 종류
    */
@@ -76,7 +76,7 @@ public class FacilityListResponse {
   private String createdDate;
 
   public FacilityListResponse(FacilityRecord facility) {
-    this.facilitySeq = facility.getFcltySeq();
+    this.facilityId = facility.getFcltyId();
     this.type = facility.getFcltyTyp();
     this.name = facility.getFcltyNm();
     this.location = facility.getFcltyLctn();

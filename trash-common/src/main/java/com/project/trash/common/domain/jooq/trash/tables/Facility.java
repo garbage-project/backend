@@ -49,9 +49,9 @@ public class Facility extends TableImpl<FacilityRecord> {
     }
 
     /**
-     * The column <code>spotfinder.FACILITY.FCLTY_SEQ</code>. 시설물 일련번호
+     * The column <code>spotfinder.FACILITY.FCLTY_ID</code>. 시설물 ID
      */
-    public final TableField<FacilityRecord, ULong> FCLTY_SEQ = createField(DSL.name("FCLTY_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "시설물 일련번호");
+    public final TableField<FacilityRecord, ULong> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "시설물 ID");
 
     /**
      * The column <code>spotfinder.FACILITY.FCLTY_NM</code>. 시설물명

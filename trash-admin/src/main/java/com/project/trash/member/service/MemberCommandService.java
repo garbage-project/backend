@@ -22,8 +22,8 @@ public class MemberCommandService {
    * 회원 삭제
    */
   @Transactional
-  public void delete(Long memberSeq) {
-    Member member = memberQueryService.getOne(memberSeq);
+  public void delete(Long memberId) {
+    Member member = memberQueryService.getOne(memberId);
 
     memberRepository.delete(member);
   }

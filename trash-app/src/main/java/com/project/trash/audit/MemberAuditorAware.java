@@ -23,7 +23,7 @@ public class MemberAuditorAware implements AuditorAware<Long> {
     }
 
     if (authentication.getPrincipal() instanceof MemberDetail memberDetail) {
-      return Optional.of(memberDetail.getMemberSeq());
+      return Optional.of(memberDetail.getMemberId());
     }
     return Optional.empty();
   }

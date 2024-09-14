@@ -24,10 +24,10 @@ import trash.tables.records.ReportRecord;
 public class ReportDetailResponse {
 
   /**
-   * 신고 일련번호
+   * 신고 ID
    */
-  @Schema(description = "신고 일련번호", example = "1")
-  private final ULong reportSeq;
+  @Schema(description = "신고 ID", example = "1")
+  private final ULong reportId;
   /**
    * 신고 내용
    */
@@ -49,10 +49,10 @@ public class ReportDetailResponse {
   @Schema(description = "신고 등록일자", example = "2024-09-01")
   private final String createdDate;
   /**
-   * 회원 일련번호(신고자 ID)
+   * 회원 ID(신고자 ID)
    */
-  @Schema(description = "회원 일련번호", example = "1")
-  private final ULong memberSeq;
+  @Schema(description = "회원 ID", example = "1")
+  private final ULong memberId;
   /**
    * 회원 닉네임
    */
@@ -65,12 +65,12 @@ public class ReportDetailResponse {
 
   public ReportDetailResponse(Record2<ReportRecord, String> reportDetail, Facility facility, String s3ImageUrl) {
     ReportRecord report = reportDetail.value1();
-    this.reportSeq = report.getRptSeq();
+    this.reportId = report.getRptId();
     this.content = report.getRptCtt();
     this.answer = report.getRptAns();
     this.status = report.getRptAns() != null ? Valid.TRUE.getCode() : Valid.FALSE.getCode();
     this.createdDate = DateTimeUtils.convertToString(report.getCreDtm(), DateTimeUtils.DEFAULT_DATE);
-    this.memberSeq = report.getMbrSeq();
+    this.memberId = report.getMbrId();
     this.nickname = reportDetail.value2();
     this.facility = new FacilityDetail(facility, s3ImageUrl);
   }
@@ -81,10 +81,10 @@ public class ReportDetailResponse {
   public static class FacilityDetail {
 
     /**
-     * 시설물 일련번호
+     * 시설물 ID
      */
-    @Schema(description = "시설물 일련번호", example = "1")
-    private final Long facilitySeq;
+    @Schema(description = "시설물 ID", example = "1")
+    private final Long facilityId;
     /**
      * 시설물 종류
      */
@@ -136,7 +136,7 @@ public class ReportDetailResponse {
     private List<String> images;
 
     public FacilityDetail(Facility facility, String s3ImageUrl) {
-      this.facilitySeq = facility.getFacilitySeq();
+      this.facilityId = facility.getFacilityId();
       this.name = facility.getName();
       this.type = facility.getType().getCode();
       this.location = facility.getLocation();

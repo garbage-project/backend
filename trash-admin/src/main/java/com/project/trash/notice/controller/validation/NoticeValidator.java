@@ -50,7 +50,7 @@ public class NoticeValidator {
    * 공지 수정 요청 검증
    */
   public void validate(NoticeModifyRequest param) {
-    ValidatorUtils.validateNull(param.getNoticeSeq());
+    ValidatorUtils.validateNull(param.getNoticeId());
     ValidatorUtils.validateEmpty(param.getTitle());
     ValidatorUtils.validateEmpty(param.getContent());
     ValidatorUtils.validateEmpty(param.getValid());

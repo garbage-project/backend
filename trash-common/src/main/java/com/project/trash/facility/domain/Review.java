@@ -22,33 +22,24 @@ import lombok.NoArgsConstructor;
 @Table(name = "REVIEW")
 public class Review extends BaseTimeEntity {
 
-  /**
-   * 리뷰 일련번호
-   */
   @Id
-  @Column(name = "RVW_SEQ", nullable = false)
+  @Column(name = "RVW_ID", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long reviewSeq;
-  /**
-   * 내용
-   */
+  private Long reviewId;
+
   @Column(name = "RVW_CTT", nullable = false)
   private String content;
-  /**
-   * 시설물 일련번호
-   */
-  @Column(name = "FCLTY_SEQ", nullable = false)
-  private Long facilitySeq;
-  /**
-   * 회원 일련번호
-   */
-  @CreatedBy
-  @Column(name = "MBR_SEQ", updatable = false, nullable = false)
-  private Long memberSeq;
 
-  public Review(String content, Long facilitySeq) {
+  @Column(name = "FCLTY_ID", nullable = false)
+  private Long facilityId;
+
+  @CreatedBy
+  @Column(name = "MBR_ID", updatable = false, nullable = false)
+  private Long memberId;
+
+  public Review(String content, Long facilityId) {
     this.content = content;
-    this.facilitySeq = facilitySeq;
+    this.facilityId = facilityId;
   }
 
   public void update(String content) {

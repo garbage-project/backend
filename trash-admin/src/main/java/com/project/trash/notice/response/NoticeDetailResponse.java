@@ -17,10 +17,10 @@ import lombok.Setter;
 public class NoticeDetailResponse {
 
   /**
-   * 공지 일련번호
+   * 공지 ID
    */
-  @Schema(description = "공지 일련번호", example = "1")
-  private Long noticeSeq;
+  @Schema(description = "공지 ID", example = "1")
+  private Long noticeId;
   /**
    * 제목
    */
@@ -43,7 +43,7 @@ public class NoticeDetailResponse {
   private String createdAt;
 
   public NoticeDetailResponse(Notice notice) {
-    this.noticeSeq = notice.getNoticeSeq();
+    this.noticeId = notice.getNoticeId();
     this.title = notice.getTitle();
     this.content = notice.getContent();
     this.valid = notice.getValid().equals(Boolean.TRUE) ? Valid.TRUE.getCode() : Valid.FALSE.getCode();

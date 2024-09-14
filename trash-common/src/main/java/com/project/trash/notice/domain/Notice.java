@@ -21,12 +21,12 @@ import lombok.NoArgsConstructor;
 public class Notice extends BaseTimeEntity {
 
   /**
-   * 공지 일련번호
+   * 공지 ID
    */
   @Id
-  @Column(name = "NTC_SEQ", nullable = false)
+  @Column(name = "NTC_ID", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long noticeSeq;
+  private Long noticeId;
   /**
    * 공지 제목
    */

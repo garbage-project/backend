@@ -14,8 +14,8 @@ import lombok.Setter;
 public class MemberReviewListRequest extends PageRequest {
 
   /**
-   * 회원 일련번호
+   * 회원 ID
    */
-  @Parameter(description = "회원 일련번호", example = "1")
-  private Long memberSeq;
+  @Parameter(description = "회원 ID", example = "1")
+  private Long memberId;
 }

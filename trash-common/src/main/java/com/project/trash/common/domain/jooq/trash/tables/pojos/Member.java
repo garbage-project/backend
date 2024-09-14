@@ -18,7 +18,7 @@ public class Member implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final ULong mbrSeq;
+    private final ULong mbrId;
     private final String mbrEmail;
     private final String mbrNm;
     private final String mbrNckNm;
@@ -31,7 +31,7 @@ public class Member implements Serializable {
     private final LocalDateTime updDtm;
 
     public Member(Member value) {
-        this.mbrSeq = value.mbrSeq;
+        this.mbrId = value.mbrId;
         this.mbrEmail = value.mbrEmail;
         this.mbrNm = value.mbrNm;
         this.mbrNckNm = value.mbrNckNm;
@@ -45,7 +45,7 @@ public class Member implements Serializable {
     }
 
     public Member(
-        ULong mbrSeq,
+        ULong mbrId,
         String mbrEmail,
         String mbrNm,
         String mbrNckNm,
@@ -57,7 +57,7 @@ public class Member implements Serializable {
         LocalDateTime creDtm,
         LocalDateTime updDtm
     ) {
-        this.mbrSeq = mbrSeq;
+        this.mbrId = mbrId;
         this.mbrEmail = mbrEmail;
         this.mbrNm = mbrNm;
         this.mbrNckNm = mbrNckNm;
@@ -71,10 +71,10 @@ public class Member implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.MEMBER.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.MEMBER.MBR_ID</code>. 회원 ID
      */
-    public ULong getMbrSeq() {
-        return this.mbrSeq;
+    public ULong getMbrId() {
+        return this.mbrId;
     }
 
     /**
@@ -156,11 +156,11 @@ public class Member implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Member other = (Member) obj;
-        if (this.mbrSeq == null) {
-            if (other.mbrSeq != null)
+        if (this.mbrId == null) {
+            if (other.mbrId != null)
                 return false;
         }
-        else if (!this.mbrSeq.equals(other.mbrSeq))
+        else if (!this.mbrId.equals(other.mbrId))
             return false;
         if (this.mbrEmail == null) {
             if (other.mbrEmail != null)
@@ -229,7 +229,7 @@ public class Member implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.mbrSeq == null) ? 0 : this.mbrSeq.hashCode());
+        result = prime * result + ((this.mbrId == null) ? 0 : this.mbrId.hashCode());
         result = prime * result + ((this.mbrEmail == null) ? 0 : this.mbrEmail.hashCode());
         result = prime * result + ((this.mbrNm == null) ? 0 : this.mbrNm.hashCode());
         result = prime * result + ((this.mbrNckNm == null) ? 0 : this.mbrNckNm.hashCode());
@@ -247,7 +247,7 @@ public class Member implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Member (");
 
-        sb.append(mbrSeq);
+        sb.append(mbrId);
         sb.append(", ").append(mbrEmail);
         sb.append(", ").append(mbrNm);
         sb.append(", ").append(mbrNckNm);

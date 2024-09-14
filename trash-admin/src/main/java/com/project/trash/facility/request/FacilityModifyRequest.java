@@ -2,6 +2,7 @@ package com.project.trash.facility.request;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -13,10 +14,10 @@ import lombok.Getter;
 public class FacilityModifyRequest {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private Long facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private Long facilityId;
   /**
    * 시설물 종류
    */
@@ -67,4 +68,9 @@ public class FacilityModifyRequest {
    */
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
+  /**
+   * 이미지 ID 목록
+   */
+  @Schema(description = "이미지 ID 목록(최대 3개)", example = "[1, 2]", nullable = true)
+  private Set<Long> imageIds;
 }

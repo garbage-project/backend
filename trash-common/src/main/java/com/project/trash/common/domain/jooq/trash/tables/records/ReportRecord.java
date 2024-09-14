@@ -22,47 +22,47 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>spotfinder.REPORT.RPT_SEQ</code>. 신고 일련번호
+     * Setter for <code>spotfinder.REPORT.RPT_ID</code>. 신고 ID
      */
-    public ReportRecord setRptSeq(ULong value) {
+    public ReportRecord setRptId(ULong value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REPORT.RPT_SEQ</code>. 신고 일련번호
+     * Getter for <code>spotfinder.REPORT.RPT_ID</code>. 신고 ID
      */
-    public ULong getRptSeq() {
+    public ULong getRptId() {
         return (ULong) get(0);
     }
 
     /**
-     * Setter for <code>spotfinder.REPORT.FCLTY_SEQ</code>. 시설물 일련번호
+     * Setter for <code>spotfinder.REPORT.FCLTY_ID</code>. 시설물 ID
      */
-    public ReportRecord setFcltySeq(ULong value) {
+    public ReportRecord setFcltyId(ULong value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REPORT.FCLTY_SEQ</code>. 시설물 일련번호
+     * Getter for <code>spotfinder.REPORT.FCLTY_ID</code>. 시설물 ID
      */
-    public ULong getFcltySeq() {
+    public ULong getFcltyId() {
         return (ULong) get(1);
     }
 
     /**
-     * Setter for <code>spotfinder.REPORT.MBR_SEQ</code>. 회원 일련번호
+     * Setter for <code>spotfinder.REPORT.MBR_ID</code>. 회원 ID
      */
-    public ReportRecord setMbrSeq(ULong value) {
+    public ReportRecord setMbrId(ULong value) {
         set(2, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.REPORT.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.REPORT.MBR_ID</code>. 회원 ID
      */
-    public ULong getMbrSeq() {
+    public ULong getMbrId() {
         return (ULong) get(2);
     }
 
@@ -164,12 +164,12 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
     /**
      * Create a detached, initialised ReportRecord
      */
-    public ReportRecord(ULong rptSeq, ULong fcltySeq, ULong mbrSeq, String rptCtt, String rptAns, String rptSttYn, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public ReportRecord(ULong rptId, ULong fcltyId, ULong mbrId, String rptCtt, String rptAns, String rptSttYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Report.REPORT);
 
-        setRptSeq(rptSeq);
-        setFcltySeq(fcltySeq);
-        setMbrSeq(mbrSeq);
+        setRptId(rptId);
+        setFcltyId(fcltyId);
+        setMbrId(mbrId);
         setRptCtt(rptCtt);
         setRptAns(rptAns);
         setRptSttYn(rptSttYn);
@@ -185,9 +185,9 @@ public class ReportRecord extends UpdatableRecordImpl<ReportRecord> {
         super(Report.REPORT);
 
         if (value != null) {
-            setRptSeq(value.getRptSeq());
-            setFcltySeq(value.getFcltySeq());
-            setMbrSeq(value.getMbrSeq());
+            setRptId(value.getRptId());
+            setFcltyId(value.getFcltyId());
+            setMbrId(value.getMbrId());
             setRptCtt(value.getRptCtt());
             setRptAns(value.getRptAns());
             setRptSttYn(value.getRptSttYn());

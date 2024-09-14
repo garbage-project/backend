@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
-  Optional<Facility> findByFacilitySeqAndMemberId(Long facilitySeq, String memberId);
+  Optional<Facility> findByFacilityIdAndMemberId(Long facilityId, String memberId);
 
-  Optional<Facility> findByFacilitySeqAndApprovalStatus(Long facilitySeq, FacilityApprovalStatus approvalStatus);
+  Optional<Facility> findByFacilityIdAndApprovalStatus(Long facilityId, FacilityApprovalStatus approvalStatus);
 }

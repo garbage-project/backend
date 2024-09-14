@@ -25,15 +25,15 @@ public class ReportListRequest extends PageRequest {
   @Parameter(description = "신고 처리상태(Y - 처리완료, N - 미처리)", example = "Y")
   private String status;
   /**
-   * 회원 일련번호(신고자 ID)
+   * 회원 ID(신고자 ID)
    */
-  @Parameter(description = "회원 일련번호", example = "1")
-  private Long memberSeq;
+  @Parameter(description = "회원 ID", example = "1")
+  private Long memberId;
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Parameter(description = "시설물 일련번호", example = "1")
-  private Long facilitySeq;
+  @Parameter(description = "시설물 ID", example = "1")
+  private Long facilityId;
   /**
    * 생성일 검색 시작일
    */

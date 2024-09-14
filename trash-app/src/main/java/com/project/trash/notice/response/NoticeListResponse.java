@@ -16,10 +16,10 @@ import lombok.Setter;
 public class NoticeListResponse {
 
   /**
-   * 공지 일련번호
+   * 공지 ID
    */
-  @Schema(description = "공지 일련번호", example = "1")
-  private Long noticeSeq;
+  @Schema(description = "공지 ID", example = "1")
+  private Long noticeId;
   /**
    * 제목
    */
@@ -37,7 +37,7 @@ public class NoticeListResponse {
   private String createdAt;
 
   public NoticeListResponse(Notice notice) {
-    this.noticeSeq = notice.getNoticeSeq();
+    this.noticeId = notice.getNoticeId();
     this.title = notice.getTitle();
     this.content = notice.getContent();
     this.createdAt = DateTimeUtils.convertToString(notice.getCreatedAt(), DateTimeUtils.DISPLAY_DEFAULT_DATETIME);
