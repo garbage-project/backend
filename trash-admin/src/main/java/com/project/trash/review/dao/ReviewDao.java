@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import trash.tables.records.ReviewRecord;
 
 import static trash.Tables.FACILITY;
 import static trash.Tables.MEMBER;

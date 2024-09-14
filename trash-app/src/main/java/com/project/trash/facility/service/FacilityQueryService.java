@@ -3,8 +3,10 @@ package com.project.trash.facility.service;
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.facility.dao.FacilityDao;
 import com.project.trash.facility.domain.Facility;
+import com.project.trash.facility.domain.enums.FacilityApprovalStatus;
 import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.request.FacilityListRequest;
+import com.project.trash.facility.response.FacilityDetailResponse;
 import com.project.trash.facility.response.FacilityListResponse;
 import com.project.trash.member.response.MyFacilityListResponse;
 
@@ -44,11 +46,22 @@ public class FacilityQueryService {
   }
 
   /**
-   * 시설물 단일 조회
+   * 시설물 상세 조회
    */
+  @Transactional(readOnly = true)
+  public FacilityDetailResponse getDetail(Long facilitySeq) {
+    return new FacilityDetailResponse(getOne(facilitySeq));
+  }
+
   @Transactional(readOnly = true)
   public Facility getOne(Long facilityId, Long memberId) {
     return facilityRepository.findByFacilityIdAndMemberId(facilityId, String.valueOf(memberId))
+                             .orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
+  }
+
+  @Transactional(readOnly = true)
+  public Facility getOne(Long facilityId) {
+    return facilityRepository.findByFacilityIdAndApprovalStatus(facilityId, FacilityApprovalStatus.APPROVE)
                              .orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
   }
 }

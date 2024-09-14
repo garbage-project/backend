@@ -19,10 +19,10 @@ import lombok.Setter;
 public class FacilityReviewListResponse {
 
   /**
-   * 리뷰 ID
+   * 리뷰 일련번호
    */
-  @Schema(description = "리뷰 ID", example = "1")
-  private ULong reviewId;
+  @Schema(description = "리뷰 일련번호", example = "1")
+  private ULong reviewSeq;
   /**
    * 리뷰 내용
    */
@@ -34,21 +34,21 @@ public class FacilityReviewListResponse {
   @Schema(description = "리뷰 등록일자", example = "2024-09-01")
   private String createdDate;
   /**
-   * 등록자 ID
+   * 등록자 일련번호
    */
-  @Schema(description = "등록자 ID", example = "1")
-  private String memberId;
+  @Schema(description = "등록자 일련번호", example = "1")
+  private ULong memberSeq;
   /**
    * 닉네임
    */
   @Schema(description = "닉네임", example = "SBS")
   private String nickname;
 
-  public FacilityReviewListResponse(ULong reviewId, String content, LocalDateTime createdAt, String memberId, String nickname) {
-    this.reviewId = reviewId;
+  public FacilityReviewListResponse(ULong reviewSeq, String content, LocalDateTime createdAt, ULong memberSeq, String nickname) {
+    this.reviewSeq = reviewSeq;
     this.content = content;
     this.createdDate = DateTimeUtils.convertToString(createdAt, DateTimeUtils.DEFAULT_DATE);
-    this.memberId = memberId;
+    this.memberSeq = memberSeq;
     this.nickname = nickname;
   }
 }

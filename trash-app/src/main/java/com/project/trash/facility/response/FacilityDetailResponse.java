@@ -1,13 +1,9 @@
 package com.project.trash.facility.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.project.trash.common.utils.DateTimeUtils;
 import com.project.trash.facility.domain.Facility;
-import com.project.trash.member.domain.Member;
 
-import org.jooq.types.ULong;
-
-import java.util.List;
+import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -23,10 +19,10 @@ import lombok.Setter;
 public class FacilityDetailResponse {
 
   /**
-   * 시설물 ID
+   * 시설물 일련번호
    */
-  @Schema(description = "시설물 ID", example = "1")
-  private Long facilityId;
+  @Schema(description = "시설물 일련번호", example = "1")
+  private Long facilitySeq;
   /**
    * 시설물 종류
    */
@@ -48,6 +44,16 @@ public class FacilityDetailResponse {
   @Schema(description = "상세 위치", example = "지하 1층")
   private String detailLocation;
   /**
+   * 위도
+   */
+  @Schema(description = "위도", example = "2.6112336")
+  private BigDecimal latitude;
+  /**
+   * 경도
+   */
+  @Schema(description = "경도", example = "33.126115")
+  private BigDecimal longitude;
+  /**
    * 정보
    */
   @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
@@ -67,33 +73,18 @@ public class FacilityDetailResponse {
    */
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
-  /**
-   * 등록자 ID
-   */
-  @Schema(description = "등록자 ID", example = "test1234")
-  private String memberId;
-  /**
-   * 등록일자
-   */
-  @Schema(description = "시설물 등록일자", example = "2024-09-01")
-  private String createdDate;
-  /**
-   * 이미지 목록
-   */
-  @Schema(description = "시설물 이미지 목록", example = "[\"/facility/2024/09/14/4-222150239.png\"]")
-  private List<String> images;
 
   public FacilityDetailResponse(Facility facility) {
-    this.facilityId = facility.getFacilityId();
+    this.facilitySeq = facility.getFacilitySeq();
     this.type = facility.getType().getCode();
     this.name = facility.getName();
     this.location = facility.getLocation();
     this.detailLocation = facility.getDetailLocation();
+    this.latitude = facility.getLatitude();
+    this.longitude = facility.getLongitude();
     this.information = facility.getInformation();
     this.department = facility.getDepartment();
     this.departmentPhoneNumber = facility.getDepartmentPhoneNumber();
     this.approvalStatus = facility.getApprovalStatus().getCode();
-    this.memberId = facility.getMemberId();
-    this.createdDate = DateTimeUtils.convertToString(facility.getCreatedAt(), DateTimeUtils.DEFAULT_DATE);
   }
 }
