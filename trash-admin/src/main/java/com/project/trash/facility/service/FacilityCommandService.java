@@ -29,8 +29,8 @@ public class FacilityCommandService {
    * 선택한 시설물 목록 삭제
    */
   @Transactional
-  public void delete(Set<Long> facilitySeqs) {
-    facilityRepository.deleteAllByIdInBatch(facilitySeqs);
+  public void delete(Set<Long> facilityIds) {
+    facilityRepository.deleteAllByIdInBatch(facilityIds);
   }
 
   /**
@@ -48,7 +48,7 @@ public class FacilityCommandService {
    */
   @Transactional
   public void modify(FacilityModifyRequest param) {
-    Facility facility = facilityQueryService.getOne(param.getFacilitySeq());
+    Facility facility = facilityQueryService.getOne(param.getFacilityId());
 
     facility.update(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
         param.getDetailLocation(), param.getLatitude(), param.getLongitude(), param.getInformation(),

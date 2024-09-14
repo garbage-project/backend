@@ -36,8 +36,8 @@ public class AwsFileDao {
   /**
    * 파일 업로드
    */
-  public String upload(Long memberSeq, String feature, MultipartFile file) {
-    final String fileName = createFileName(memberSeq, FilenameUtils.getExtension(file.getOriginalFilename()));
+  public String upload(Long memberId, String feature, MultipartFile file) {
+    final String fileName = createFileName(memberId, FilenameUtils.getExtension(file.getOriginalFilename()));
     final String filePath = createFilePath(feature);
     ObjectMetadata metadata = new ObjectMetadata();
     metadata.setContentLength(file.getSize());
@@ -58,8 +58,8 @@ public class AwsFileDao {
   /**
    * 파일명 생성
    */
-  private String createFileName(long memberSeq, String extension) {
-    return memberSeq + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HHmmssSSS")) + "." +
+  private String createFileName(long memberId, String extension) {
+    return memberId + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HHmmssSSS")) + "." +
         StringUtils.lowerCase(extension);
   }
 

@@ -48,9 +48,9 @@ public class Notice extends TableImpl<NoticeRecord> {
     }
 
     /**
-     * The column <code>spotfinder.NOTICE.NTC_SEQ</code>. 공지 일련번호
+     * The column <code>spotfinder.NOTICE.NTC_ID</code>. 공지 ID
      */
-    public final TableField<NoticeRecord, ULong> NTC_SEQ = createField(DSL.name("NTC_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "공지 일련번호");
+    public final TableField<NoticeRecord, ULong> NTC_ID = createField(DSL.name("NTC_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "공지 ID");
 
     /**
      * The column <code>spotfinder.NOTICE.NTC_TTL</code>. 공지 제목

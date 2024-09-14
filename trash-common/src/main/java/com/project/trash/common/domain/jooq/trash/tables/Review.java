@@ -48,9 +48,9 @@ public class Review extends TableImpl<ReviewRecord> {
     }
 
     /**
-     * The column <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * The column <code>spotfinder.REVIEW.RVW_ID</code>. 리뷰 ID
      */
-    public final TableField<ReviewRecord, ULong> RVW_SEQ = createField(DSL.name("RVW_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "리뷰 일련번호");
+    public final TableField<ReviewRecord, ULong> RVW_ID = createField(DSL.name("RVW_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false).identity(true), this, "리뷰 ID");
 
     /**
      * The column <code>spotfinder.REVIEW.RVW_CTT</code>. 리뷰 내용
@@ -58,14 +58,14 @@ public class Review extends TableImpl<ReviewRecord> {
     public final TableField<ReviewRecord, String> RVW_CTT = createField(DSL.name("RVW_CTT"), SQLDataType.VARCHAR(100).nullable(false), this, "리뷰 내용");
 
     /**
-     * The column <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * The column <code>spotfinder.REVIEW.MBR_ID</code>. 회원 ID
      */
-    public final TableField<ReviewRecord, ULong> MBR_SEQ = createField(DSL.name("MBR_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "회원 일련번호");
+    public final TableField<ReviewRecord, ULong> MBR_ID = createField(DSL.name("MBR_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "회원 ID");
 
     /**
-     * The column <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
+     * The column <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
-    public final TableField<ReviewRecord, ULong> FCLTY_SEQ = createField(DSL.name("FCLTY_SEQ"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "시설물 일련번호");
+    public final TableField<ReviewRecord, ULong> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "시설물 ID");
 
     /**
      * The column <code>spotfinder.REVIEW.CRE_DTM</code>. 등록일시
@@ -76,11 +76,6 @@ public class Review extends TableImpl<ReviewRecord> {
      * The column <code>spotfinder.REVIEW.UPD_DTM</code>. 수정일시
      */
     public final TableField<ReviewRecord, LocalDateTime> UPD_DTM = createField(DSL.name("UPD_DTM"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
-
-    /**
-     * The column <code>spotfinder.REVIEW.RPT_STT_YN</code>. 신고 처리상태
-     */
-    public final TableField<ReviewRecord, String> RPT_STT_YN = createField(DSL.name("RPT_STT_YN"), SQLDataType.CHAR(1).nullable(false), this, "신고 처리상태");
 
     private Review(Name alias, Table<ReviewRecord> aliased) {
         this(alias, aliased, null);

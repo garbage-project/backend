@@ -17,10 +17,10 @@ import lombok.Setter;
 public class ReportListResponse {
 
   /**
-   * 신고 일련번호
+   * 신고 ID
    */
-  @Schema(description = "신고 일련번호", example = "1")
-  private Long reportSeq;
+  @Schema(description = "신고 ID", example = "1")
+  private Long reportId;
   /**
    * 신고 내용
    */
@@ -32,28 +32,28 @@ public class ReportListResponse {
   @Schema(description = "신고 처리상태(Y - 처리완료, N - 미처리)", example = "Y")
   private String status;
   /**
-   * 회원 일련번호(신고자 ID)
+   * 회원 ID(신고자 ID)
    */
-  @Schema(description = "회원 일련번호", example = "1")
-  private Long memberSeq;
+  @Schema(description = "회원 ID", example = "1")
+  private Long memberId;
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private Long facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private Long facilityId;
   /**
    * 등록일자
    */
   @Schema(description = "신고 등록일자", example = "2024-09-01")
   private String createdDate;
 
-  public ReportListResponse(Long reportSeq, String content, String status, Long memberSeq, Long facilitySeq,
+  public ReportListResponse(Long reportId, String content, String status, Long memberId, Long facilityId,
       LocalDateTime createdAt) {
-    this.reportSeq = reportSeq;
+    this.reportId = reportId;
     this.content = content;
     this.status = status;
-    this.memberSeq = memberSeq;
-    this.facilitySeq = facilitySeq;
+    this.memberId = memberId;
+    this.facilityId = facilityId;
     this.createdDate = DateTimeUtils.convertToString(createdAt, DateTimeUtils.DEFAULT_DATE);
   }
 }

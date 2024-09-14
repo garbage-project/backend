@@ -39,7 +39,7 @@ public class ReviewQueryService {
    */
   @Transactional(readOnly = true)
   public Pair<List<MemberReviewListResponse>, Long> getList(MemberReviewListRequest param) {
-    return Pair.of(reviewDao.select(param), reviewDao.count(param.getMemberSeq()));
+    return Pair.of(reviewDao.select(param), reviewDao.count(param.getMemberId()));
   }
 
   /**
@@ -54,7 +54,7 @@ public class ReviewQueryService {
    * 리뷰 조회
    */
   @Transactional(readOnly = true)
-  public Review getOne(Long reviewSeq) {
-    return reviewRepository.findById(reviewSeq).orElseThrow(() -> new ValidationException(REVIEW_NOT_FOUND));
+  public Review getOne(Long reviewId) {
+    return reviewRepository.findById(reviewId).orElseThrow(() -> new ValidationException(REVIEW_NOT_FOUND));
   }
 }

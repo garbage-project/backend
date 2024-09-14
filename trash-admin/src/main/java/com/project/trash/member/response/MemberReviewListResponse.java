@@ -23,10 +23,10 @@ import trash.tables.records.ReviewRecord;
 public class MemberReviewListResponse {
 
   /**
-   * 리뷰 일련번호
+   * 리뷰 ID
    */
-  @Schema(description = "리뷰 일련번호", example = "1")
-  private ULong reviewSeq;
+  @Schema(description = "리뷰 ID", example = "1")
+  private ULong reviewId;
   /**
    * 리뷰 내용
    */
@@ -43,8 +43,8 @@ public class MemberReviewListResponse {
   @Schema(description = "시설물 정보")
   private FacilityDetail facility;
 
-  public MemberReviewListResponse(ULong reviewSeq, String content, LocalDateTime createdAt, FacilityRecord facility) {
-    this.reviewSeq = reviewSeq;
+  public MemberReviewListResponse(ULong reviewId, String content, LocalDateTime createdAt, FacilityRecord facility) {
+    this.reviewId = reviewId;
     this.content = content;
     this.createdDate = DateTimeUtils.convertToString(createdAt, DateTimeUtils.DEFAULT_DATE);
     this.facility = new FacilityDetail(facility);
@@ -56,10 +56,10 @@ public class MemberReviewListResponse {
   public static class FacilityDetail {
 
     /**
-     * 시설물 일련번호
+     * 시설물 ID
      */
-    @Schema(description = "시설물 일련번호", example = "1")
-    private final ULong facilitySeq;
+    @Schema(description = "시설물 ID", example = "1")
+    private final ULong facilityId;
     /**
      * 시설물 종류
      */
@@ -77,7 +77,7 @@ public class MemberReviewListResponse {
     private final String location;
 
     public FacilityDetail(FacilityRecord facility) {
-      this.facilitySeq = facility.getFcltySeq();
+      this.facilityId = facility.getFcltyId();
       this.type = facility.getFcltyTyp();
       this.name = facility.getFcltyNm();
       this.location = facility.getFcltyLctn();

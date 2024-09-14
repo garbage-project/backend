@@ -41,10 +41,10 @@ public class ReportQueryService {
    * 신고 상세 조회
    */
   @Transactional(readOnly = true)
-  public ReportDetailResponse getDetail(Long reportSeq) {
-    Record2<ReportRecord, String> reportDetail = reportDao.select(reportSeq);
+  public ReportDetailResponse getDetail(Long reportId) {
+    Record2<ReportRecord, String> reportDetail = reportDao.select(reportId);
     return new ReportDetailResponse(reportDetail,
-        facilityQueryService.getOne(reportDetail.value1().getFcltySeq().longValue()), s3ImageUrl);
+        facilityQueryService.getOne(reportDetail.value1().getFcltyId().longValue()), s3ImageUrl);
   }
 
   /**
@@ -59,7 +59,7 @@ public class ReportQueryService {
    * 신고 조회
    */
   @Transactional(readOnly = true)
-  public Report getOne(Long noticeSeq) {
-    return reportRepository.findById(noticeSeq).orElseThrow(() -> new ValidationException(REPORT_NOT_FOUND));
+  public Report getOne(Long noticeId) {
+    return reportRepository.findById(noticeId).orElseThrow(() -> new ValidationException(REPORT_NOT_FOUND));
   }
 }

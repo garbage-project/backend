@@ -19,7 +19,7 @@ public class Facility implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final ULong fcltySeq;
+    private final ULong fcltyId;
     private final String fcltyNm;
     private final String fcltyTyp;
     private final String fcltyLctn;
@@ -35,7 +35,7 @@ public class Facility implements Serializable {
     private final LocalDateTime updDtm;
 
     public Facility(Facility value) {
-        this.fcltySeq = value.fcltySeq;
+        this.fcltyId = value.fcltyId;
         this.fcltyNm = value.fcltyNm;
         this.fcltyTyp = value.fcltyTyp;
         this.fcltyLctn = value.fcltyLctn;
@@ -52,7 +52,7 @@ public class Facility implements Serializable {
     }
 
     public Facility(
-        ULong fcltySeq,
+        ULong fcltyId,
         String fcltyNm,
         String fcltyTyp,
         String fcltyLctn,
@@ -67,7 +67,7 @@ public class Facility implements Serializable {
         LocalDateTime creDtm,
         LocalDateTime updDtm
     ) {
-        this.fcltySeq = fcltySeq;
+        this.fcltyId = fcltyId;
         this.fcltyNm = fcltyNm;
         this.fcltyTyp = fcltyTyp;
         this.fcltyLctn = fcltyLctn;
@@ -84,10 +84,10 @@ public class Facility implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.FACILITY.FCLTY_SEQ</code>. 시설물 일련번호
+     * Getter for <code>spotfinder.FACILITY.FCLTY_ID</code>. 시설물 ID
      */
-    public ULong getFcltySeq() {
-        return this.fcltySeq;
+    public ULong getFcltyId() {
+        return this.fcltyId;
     }
 
     /**
@@ -191,11 +191,11 @@ public class Facility implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Facility other = (Facility) obj;
-        if (this.fcltySeq == null) {
-            if (other.fcltySeq != null)
+        if (this.fcltyId == null) {
+            if (other.fcltyId != null)
                 return false;
         }
-        else if (!this.fcltySeq.equals(other.fcltySeq))
+        else if (!this.fcltyId.equals(other.fcltyId))
             return false;
         if (this.fcltyNm == null) {
             if (other.fcltyNm != null)
@@ -282,7 +282,7 @@ public class Facility implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.fcltySeq == null) ? 0 : this.fcltySeq.hashCode());
+        result = prime * result + ((this.fcltyId == null) ? 0 : this.fcltyId.hashCode());
         result = prime * result + ((this.fcltyNm == null) ? 0 : this.fcltyNm.hashCode());
         result = prime * result + ((this.fcltyTyp == null) ? 0 : this.fcltyTyp.hashCode());
         result = prime * result + ((this.fcltyLctn == null) ? 0 : this.fcltyLctn.hashCode());
@@ -303,7 +303,7 @@ public class Facility implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Facility (");
 
-        sb.append(fcltySeq);
+        sb.append(fcltyId);
         sb.append(", ").append(fcltyNm);
         sb.append(", ").append(fcltyTyp);
         sb.append(", ").append(fcltyLctn);

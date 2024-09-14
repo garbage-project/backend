@@ -30,10 +30,10 @@ public class ReviewDao {
   /**
    * 회원이 등록한 리뷰 목록 총개수
    */
-  public Long count(Long memberSeq) {
+  public Long count(Long memberId) {
     return dsl.selectCount()
               .from(REVIEW)
-              .where(REVIEW.MBR_SEQ.eq(ULong.valueOf(memberSeq)))
+              .where(REVIEW.MBR_ID.eq(ULong.valueOf(memberId)))
               .fetchOneInto(Long.class);
   }
 
@@ -43,7 +43,7 @@ public class ReviewDao {
   public Long count(FacilityReviewListRequest param) {
     return dsl.selectCount()
               .from(REVIEW)
-              .where(REVIEW.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq())))
+              .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(param.getFacilityId())))
               .fetchOneInto(Long.class);
   }
 
@@ -54,8 +54,8 @@ public class ReviewDao {
     return dsl.select(REVIEW)
         .from(REVIEW)
         .leftJoin(FACILITY)
-        .on(FACILITY.FCLTY_SEQ.eq(REVIEW.FCLTY_SEQ))
-        .where(REVIEW.MBR_SEQ.eq(ULong.valueOf(param.getMemberSeq())))
+        .on(FACILITY.FCLTY_ID.eq(REVIEW.FCLTY_ID))
+        .where(REVIEW.MBR_ID.eq(ULong.valueOf(param.getMemberId())))
         .orderBy(REVIEW.CRE_DTM.desc())
         .limit(param.getSize())
         .offset(param.getOffset())
@@ -66,11 +66,11 @@ public class ReviewDao {
    * 시설물 리뷰 목록 조회
    */
   public List<FacilityReviewListResponse> select(FacilityReviewListRequest param) {
-    return dsl.select(REVIEW.RVW_SEQ, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_SCL_ID, MEMBER.MBR_NCK_NM)
+    return dsl.select(REVIEW.RVW_ID, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_SCL_ID, MEMBER.MBR_NCK_NM)
         .from(REVIEW)
         .leftJoin(MEMBER)
-        .on(MEMBER.MBR_SEQ.eq(REVIEW.MBR_SEQ))
-        .where(REVIEW.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq())))
+        .on(MEMBER.MBR_ID.eq(REVIEW.MBR_ID))
+        .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(param.getFacilityId())))
         .orderBy(REVIEW.CRE_DTM.desc())
         .limit(param.getSize())
         .offset(param.getOffset())

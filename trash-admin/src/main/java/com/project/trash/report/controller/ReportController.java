@@ -42,13 +42,13 @@ public class ReportController {
   /**
    * 신고 상세 조회
    */
-  @GetMapping("/{reportSeq}")
+  @GetMapping("/{reportId}")
   @Operation(summary = "신고 상세 조회",
       description = "신고 내용을 상세 조회한다."
           + "\n[에러 코드]"
           + "\n- RPT000 : 신고 정보가 존재하지 않습니다.")
-  public DataResponse<ReportDetailResponse> getDetail(@PathVariable Long reportSeq) {
-    return new DataResponse<>(reportQueryService.getDetail(reportSeq));
+  public DataResponse<ReportDetailResponse> getDetail(@PathVariable Long reportId) {
+    return new DataResponse<>(reportQueryService.getDetail(reportId));
   }
 
   /**

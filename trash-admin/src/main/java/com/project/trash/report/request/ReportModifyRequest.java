@@ -10,10 +10,10 @@ import lombok.Getter;
 public class ReportModifyRequest {
 
   /**
-   * 신고 일련번호
+   * 신고 ID
    */
-  @Schema(description = "신고 일련번호", example = "1")
-  private Long reportSeq;
+  @Schema(description = "신고 ID", example = "1")
+  private Long reportId;
   /**
    * 상태
    */

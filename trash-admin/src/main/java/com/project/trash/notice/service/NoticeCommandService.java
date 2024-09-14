@@ -25,8 +25,8 @@ public class NoticeCommandService {
    * 공지 삭제
    */
   @Transactional
-  public void delete(Long reviewSeq) {
-    Notice notice = noticeQueryService.getOne(reviewSeq);
+  public void delete(Long reviewId) {
+    Notice notice = noticeQueryService.getOne(reviewId);
 
     noticeRepository.delete(notice);
   }
@@ -44,7 +44,7 @@ public class NoticeCommandService {
    */
   @Transactional
   public void modify(NoticeModifyRequest param) {
-    Notice notice = noticeQueryService.getOne(param.getNoticeSeq());
+    Notice notice = noticeQueryService.getOne(param.getNoticeId());
 
     notice.update(param.getTitle(), param.getContent(), Valid.convertToBoolean(param.getValid()));
   }

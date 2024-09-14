@@ -45,9 +45,9 @@ public class MemberDao {
   public List<Condition> getConditions(MemberListRequest param) {
     List<Condition> conditions = new ArrayList<>();
 
-    // 회원 일련번호
-    if (param.getMemberSeq() != null) {
-      conditions.add(DSL.condition(MEMBER.MBR_SEQ.eq(ULong.valueOf(param.getMemberSeq()))));
+    // 회원 ID
+    if (param.getMemberId() != null) {
+      conditions.add(DSL.condition(MEMBER.MBR_ID.eq(ULong.valueOf(param.getMemberId()))));
     }
     // 이름
     if (StringUtils.isNotBlank(param.getName())) {

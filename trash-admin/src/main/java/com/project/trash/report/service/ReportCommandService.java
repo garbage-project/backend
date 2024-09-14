@@ -23,7 +23,7 @@ public class ReportCommandService {
    */
   @Transactional
   public void modify(ReportModifyRequest param) {
-    Report report = reportQueryService.getOne(param.getReportSeq());
+    Report report = reportQueryService.getOne(param.getReportId());
 
     report.update(param.getAnswer(), Valid.convertToBoolean(param.getStatus()));
   }

@@ -18,10 +18,10 @@ import trash.tables.records.MemberRecord;
 public class MemberListResponse {
 
   /**
-   * 회원 일련번호
+   * 회원 ID
    */
-  @Schema(description = "회원 일련번호", example = "1")
-  private ULong memberSeq;
+  @Schema(description = "회원 ID", example = "1")
+  private ULong memberId;
   /**
    * 이름
    */
@@ -54,7 +54,7 @@ public class MemberListResponse {
   private String createdDate;
 
   public MemberListResponse(MemberRecord member) {
-    this.memberSeq = member.getMbrSeq();
+    this.memberId = member.getMbrId();
     this.name = member.getMbrNm();
     this.nickname = member.getMbrNckNm();
     this.birthday =

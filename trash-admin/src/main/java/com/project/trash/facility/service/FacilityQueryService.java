@@ -40,17 +40,17 @@ public class FacilityQueryService {
   @Transactional(readOnly = true)
   public Pair<List<MemberFacilityListResponse>, Long> getList(MemberFacilityListRequest param) {
     // 회원 존재여부 검증
-    memberQueryService.verifyExist(param.getMemberSeq());
+    memberQueryService.verifyExist(param.getMemberId());
 
-    return Pair.of(facilityDao.select(param), facilityDao.count(param.getMemberSeq()));
+    return Pair.of(facilityDao.select(param), facilityDao.count(param.getMemberId()));
   }
 
   /**
    * 시설물 상세 조회
    */
   @Transactional(readOnly = true)
-  public FacilityDetailResponse getDetail(Long facilitySeq) {
-    return new FacilityDetailResponse(getOne(facilitySeq));
+  public FacilityDetailResponse getDetail(Long facilityId) {
+    return new FacilityDetailResponse(getOne(facilityId));
   }
 
   /**
@@ -65,7 +65,7 @@ public class FacilityQueryService {
    * 시설물 단일 조회
    */
   @Transactional(readOnly = true)
-  public Facility getOne(Long facilitySeq) {
-    return facilityRepository.findById(facilitySeq).orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
+  public Facility getOne(Long facilityId) {
+    return facilityRepository.findById(facilityId).orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));
   }
 }

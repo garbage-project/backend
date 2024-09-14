@@ -14,8 +14,8 @@ import lombok.Setter;
 public class FacilityReviewListRequest extends PageRequest {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Parameter(description = "시설물 일련번호", example = "1")
-  private Long facilitySeq;
+  @Parameter(description = "시설물 ID", example = "1")
+  private Long facilityId;
 }

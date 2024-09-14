@@ -34,11 +34,11 @@ public class ReviewDao {
    * 등록한 리뷰 목록 조회
    */
   public List<MyReviewListResponse> select() {
-    return dsl.select(REVIEW.RVW_SEQ, FACILITY.FCLTY_NM, REVIEW.RVW_CTT, REVIEW.CRE_DTM)
+    return dsl.select(REVIEW.RVW_ID, FACILITY.FCLTY_NM, REVIEW.RVW_CTT, REVIEW.CRE_DTM)
         .from(REVIEW)
         .leftJoin(FACILITY)
-        .on(FACILITY.FCLTY_SEQ.eq(REVIEW.FCLTY_SEQ))
-        .where(REVIEW.MBR_SEQ.eq(ULong.valueOf(MemberUtils.getMemberSeq())))
+        .on(FACILITY.FCLTY_ID.eq(REVIEW.FCLTY_ID))
+        .where(REVIEW.MBR_ID.eq(ULong.valueOf(MemberUtils.getMemberId())))
         .orderBy(REVIEW.CRE_DTM.desc())
         .fetchInto(MyReviewListResponse.class);
   }

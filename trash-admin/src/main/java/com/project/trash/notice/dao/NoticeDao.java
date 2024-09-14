@@ -66,7 +66,7 @@ public class NoticeDao {
    * 공지 목록 조회
    */
   public List<NoticeListResponse> select(NoticeListRequest param) {
-    return dsl.select(NOTICE.NTC_SEQ, NOTICE.NTC_TTL, NOTICE.NTC_CTT, NOTICE.NTC_VLD_YN, NOTICE.CRE_DTM)
+    return dsl.select(NOTICE.NTC_ID, NOTICE.NTC_TTL, NOTICE.NTC_CTT, NOTICE.NTC_VLD_YN, NOTICE.CRE_DTM)
               .from(NOTICE)
               .where(getConditions(param))
               .orderBy(NOTICE.CRE_DTM.desc())

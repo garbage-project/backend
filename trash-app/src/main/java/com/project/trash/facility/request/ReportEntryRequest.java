@@ -10,10 +10,10 @@ import lombok.Getter;
 public class ReportEntryRequest {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private Long facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private Long facilityId;
   /**
    * 신고 내용
    */

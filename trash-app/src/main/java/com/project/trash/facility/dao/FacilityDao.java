@@ -32,7 +32,7 @@ public class FacilityDao {
    * 시설물 목록 조회
    */
   public List<FacilityListResponse> select(FacilityListRequest param) {
-    return dsl.select(FACILITY.FCLTY_SEQ, FACILITY.FCLTY_TYP, FACILITY.FCLTY_LTTD, FACILITY.FCLTY_LNGT)
+    return dsl.select(FACILITY.FCLTY_ID, FACILITY.FCLTY_TYP, FACILITY.FCLTY_LTTD, FACILITY.FCLTY_LNGT)
         .from(FACILITY)
         .where(getCondionList(param))
         .orderBy(FACILITY.CRE_DTM.desc())
@@ -55,10 +55,10 @@ public class FacilityDao {
    * 등록한 시설물 목록 조회
    */
   public List<MyFacilityListResponse> select() {
-    return dsl.select(FACILITY.FCLTY_SEQ, FACILITY.FCLTY_TYP, FACILITY.FCLTY_NM,
+    return dsl.select(FACILITY.FCLTY_ID, FACILITY.FCLTY_TYP, FACILITY.FCLTY_NM,
         FACILITY.FCLTY_DTL_LCTN, FACILITY.FCLTY_INFO)
         .from(FACILITY)
-        .where(FACILITY.MBR_ID.eq(String.valueOf(MemberUtils.getMemberSeq())))
+        .where(FACILITY.MBR_ID.eq(String.valueOf(MemberUtils.getMemberId())))
         .orderBy(FACILITY.CRE_DTM.desc())
         .fetchInto(MyFacilityListResponse.class);
   }

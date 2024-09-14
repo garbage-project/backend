@@ -6,6 +6,8 @@ import com.project.trash.member.domain.Member;
 
 import org.jooq.types.ULong;
 
+import java.util.List;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +21,10 @@ import lombok.Setter;
 public class FacilityDetailResponse {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private Long facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private Long facilityId;
   /**
    * 시설물 종류
    */
@@ -73,9 +75,14 @@ public class FacilityDetailResponse {
    */
   @Schema(description = "시설물 등록일자", example = "2024-09-01")
   private String createdDate;
+  /**
+   * 이미지 목록
+   */
+  @Schema(description = "시설물 이미지 목록", example = "[\"/facility/2024/09/14/4-222150239.png\"]")
+  private List<String> images;
 
   public FacilityDetailResponse(Facility facility) {
-    this.facilitySeq = facility.getFacilitySeq();
+    this.facilityId = facility.getFacilityId();
     this.type = facility.getType().getCode();
     this.name = facility.getName();
     this.location = facility.getLocation();

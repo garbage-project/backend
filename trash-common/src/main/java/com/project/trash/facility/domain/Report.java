@@ -22,43 +22,30 @@ import lombok.NoArgsConstructor;
 @Table(name = "REPORT")
 public class Report extends BaseTimeEntity {
 
-  /**
-   * 신고 일련번호
-   */
   @Id
-  @Column(name = "RPT_SEQ", nullable = false)
+  @Column(name = "RPT_ID", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long reportSeq;
-  /**
-   * 신고 내용
-   */
+  private Long reportId;
+
   @Column(name = "RPT_CTT", nullable = false)
   private String content;
-  /**
-   * 답변
-   */
+
   @Column(name = "RPT_ANS")
   private String answer;
-  /**
-   * 처리상태
-   */
+
   @Column(name = "RPT_STT_YN", nullable = false)
   private Boolean status = Boolean.FALSE;
-  /**
-   * 시설물 일련번호
-   */
-  @Column(name = "FCLTY_SEQ", nullable = false)
-  private Long facilitySeq;
-  /**
-   * 회원 일련번호
-   */
-  @CreatedBy
-  @Column(name = "MBR_SEQ", updatable = false, nullable = false)
-  private Long memberSeq;
 
-  public Report(String content, Long facilitySeq) {
+  @Column(name = "FCLTY_ID", nullable = false)
+  private Long facilityId;
+
+  @CreatedBy
+  @Column(name = "MBR_ID", updatable = false, nullable = false)
+  private Long memberId;
+
+  public Report(String content, Long facilityId) {
     this.content = content;
-    this.facilitySeq = facilitySeq;
+    this.facilityId = facilityId;
   }
 
   public void update(String answer, Boolean status) {

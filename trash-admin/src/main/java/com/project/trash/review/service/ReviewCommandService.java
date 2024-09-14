@@ -24,7 +24,7 @@ public class ReviewCommandService {
    * 선택한 리뷰 목록 삭제
    */
   @Transactional
-  public void delete(Set<Long> reviewSeqs) {
-    reviewRepository.deleteAllByIdInBatch(reviewSeqs);
+  public void delete(Set<Long> reviewIds) {
+    reviewRepository.deleteAllByIdInBatch(reviewIds);
   }
 }

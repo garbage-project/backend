@@ -18,7 +18,7 @@ public class Notice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final ULong ntcSeq;
+    private final ULong ntcId;
     private final String ntcTtl;
     private final String ntcCtt;
     private final String ntcVldYn;
@@ -26,7 +26,7 @@ public class Notice implements Serializable {
     private final LocalDateTime updDtm;
 
     public Notice(Notice value) {
-        this.ntcSeq = value.ntcSeq;
+        this.ntcId = value.ntcId;
         this.ntcTtl = value.ntcTtl;
         this.ntcCtt = value.ntcCtt;
         this.ntcVldYn = value.ntcVldYn;
@@ -35,14 +35,14 @@ public class Notice implements Serializable {
     }
 
     public Notice(
-        ULong ntcSeq,
+        ULong ntcId,
         String ntcTtl,
         String ntcCtt,
         String ntcVldYn,
         LocalDateTime creDtm,
         LocalDateTime updDtm
     ) {
-        this.ntcSeq = ntcSeq;
+        this.ntcId = ntcId;
         this.ntcTtl = ntcTtl;
         this.ntcCtt = ntcCtt;
         this.ntcVldYn = ntcVldYn;
@@ -51,10 +51,10 @@ public class Notice implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.NOTICE.NTC_SEQ</code>. 공지 일련번호
+     * Getter for <code>spotfinder.NOTICE.NTC_ID</code>. 공지 ID
      */
-    public ULong getNtcSeq() {
-        return this.ntcSeq;
+    public ULong getNtcId() {
+        return this.ntcId;
     }
 
     /**
@@ -101,11 +101,11 @@ public class Notice implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Notice other = (Notice) obj;
-        if (this.ntcSeq == null) {
-            if (other.ntcSeq != null)
+        if (this.ntcId == null) {
+            if (other.ntcId != null)
                 return false;
         }
-        else if (!this.ntcSeq.equals(other.ntcSeq))
+        else if (!this.ntcId.equals(other.ntcId))
             return false;
         if (this.ntcTtl == null) {
             if (other.ntcTtl != null)
@@ -144,7 +144,7 @@ public class Notice implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.ntcSeq == null) ? 0 : this.ntcSeq.hashCode());
+        result = prime * result + ((this.ntcId == null) ? 0 : this.ntcId.hashCode());
         result = prime * result + ((this.ntcTtl == null) ? 0 : this.ntcTtl.hashCode());
         result = prime * result + ((this.ntcCtt == null) ? 0 : this.ntcCtt.hashCode());
         result = prime * result + ((this.ntcVldYn == null) ? 0 : this.ntcVldYn.hashCode());
@@ -157,7 +157,7 @@ public class Notice implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Notice (");
 
-        sb.append(ntcSeq);
+        sb.append(ntcId);
         sb.append(", ").append(ntcTtl);
         sb.append(", ").append(ntcCtt);
         sb.append(", ").append(ntcVldYn);

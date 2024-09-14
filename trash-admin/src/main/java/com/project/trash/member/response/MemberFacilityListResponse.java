@@ -13,10 +13,10 @@ import lombok.Getter;
 public class MemberFacilityListResponse {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private ULong facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private ULong facilityId;
   /**
    * 시설물 종류
    */
@@ -53,9 +53,9 @@ public class MemberFacilityListResponse {
   @Schema(description = "승인일자 (yyyy-MM-dd)", example = "2024-09-01")
   private String approvalDate;
 
-  public MemberFacilityListResponse(ULong facilitySeq, String type, String name, String location, String detailLocation,
+  public MemberFacilityListResponse(ULong facilityId, String type, String name, String location, String detailLocation,
       String information, String approvalStatus) {
-    this.facilitySeq = facilitySeq;
+    this.facilityId = facilityId;
     this.type = type;
     this.name = name;
     this.location = location;

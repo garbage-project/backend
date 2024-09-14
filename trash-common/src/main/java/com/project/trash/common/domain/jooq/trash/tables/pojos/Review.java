@@ -18,47 +18,43 @@ public class Review implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final ULong rvwSeq;
+    private final ULong rvwId;
     private final String rvwCtt;
-    private final ULong mbrSeq;
-    private final ULong fcltySeq;
+    private final ULong mbrId;
+    private final ULong fcltyId;
     private final LocalDateTime creDtm;
     private final LocalDateTime updDtm;
-    private final String rptSttYn;
 
     public Review(Review value) {
-        this.rvwSeq = value.rvwSeq;
+        this.rvwId = value.rvwId;
         this.rvwCtt = value.rvwCtt;
-        this.mbrSeq = value.mbrSeq;
-        this.fcltySeq = value.fcltySeq;
+        this.mbrId = value.mbrId;
+        this.fcltyId = value.fcltyId;
         this.creDtm = value.creDtm;
         this.updDtm = value.updDtm;
-        this.rptSttYn = value.rptSttYn;
     }
 
     public Review(
-        ULong rvwSeq,
+        ULong rvwId,
         String rvwCtt,
-        ULong mbrSeq,
-        ULong fcltySeq,
+        ULong mbrId,
+        ULong fcltyId,
         LocalDateTime creDtm,
-        LocalDateTime updDtm,
-        String rptSttYn
+        LocalDateTime updDtm
     ) {
-        this.rvwSeq = rvwSeq;
+        this.rvwId = rvwId;
         this.rvwCtt = rvwCtt;
-        this.mbrSeq = mbrSeq;
-        this.fcltySeq = fcltySeq;
+        this.mbrId = mbrId;
+        this.fcltyId = fcltyId;
         this.creDtm = creDtm;
         this.updDtm = updDtm;
-        this.rptSttYn = rptSttYn;
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.RVW_SEQ</code>. 리뷰 일련번호
+     * Getter for <code>spotfinder.REVIEW.RVW_ID</code>. 리뷰 ID
      */
-    public ULong getRvwSeq() {
-        return this.rvwSeq;
+    public ULong getRvwId() {
+        return this.rvwId;
     }
 
     /**
@@ -69,17 +65,17 @@ public class Review implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.MBR_SEQ</code>. 회원 일련번호
+     * Getter for <code>spotfinder.REVIEW.MBR_ID</code>. 회원 ID
      */
-    public ULong getMbrSeq() {
-        return this.mbrSeq;
+    public ULong getMbrId() {
+        return this.mbrId;
     }
 
     /**
-     * Getter for <code>spotfinder.REVIEW.FCLTY_SEQ</code>. 시설물 일련번호
+     * Getter for <code>spotfinder.REVIEW.FCLTY_ID</code>. 시설물 ID
      */
-    public ULong getFcltySeq() {
-        return this.fcltySeq;
+    public ULong getFcltyId() {
+        return this.fcltyId;
     }
 
     /**
@@ -96,13 +92,6 @@ public class Review implements Serializable {
         return this.updDtm;
     }
 
-    /**
-     * Getter for <code>spotfinder.REVIEW.RPT_STT_YN</code>. 신고 처리상태
-     */
-    public String getRptSttYn() {
-        return this.rptSttYn;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -112,11 +101,11 @@ public class Review implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Review other = (Review) obj;
-        if (this.rvwSeq == null) {
-            if (other.rvwSeq != null)
+        if (this.rvwId == null) {
+            if (other.rvwId != null)
                 return false;
         }
-        else if (!this.rvwSeq.equals(other.rvwSeq))
+        else if (!this.rvwId.equals(other.rvwId))
             return false;
         if (this.rvwCtt == null) {
             if (other.rvwCtt != null)
@@ -124,17 +113,17 @@ public class Review implements Serializable {
         }
         else if (!this.rvwCtt.equals(other.rvwCtt))
             return false;
-        if (this.mbrSeq == null) {
-            if (other.mbrSeq != null)
+        if (this.mbrId == null) {
+            if (other.mbrId != null)
                 return false;
         }
-        else if (!this.mbrSeq.equals(other.mbrSeq))
+        else if (!this.mbrId.equals(other.mbrId))
             return false;
-        if (this.fcltySeq == null) {
-            if (other.fcltySeq != null)
+        if (this.fcltyId == null) {
+            if (other.fcltyId != null)
                 return false;
         }
-        else if (!this.fcltySeq.equals(other.fcltySeq))
+        else if (!this.fcltyId.equals(other.fcltyId))
             return false;
         if (this.creDtm == null) {
             if (other.creDtm != null)
@@ -148,12 +137,6 @@ public class Review implements Serializable {
         }
         else if (!this.updDtm.equals(other.updDtm))
             return false;
-        if (this.rptSttYn == null) {
-            if (other.rptSttYn != null)
-                return false;
-        }
-        else if (!this.rptSttYn.equals(other.rptSttYn))
-            return false;
         return true;
     }
 
@@ -161,13 +144,12 @@ public class Review implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.rvwSeq == null) ? 0 : this.rvwSeq.hashCode());
+        result = prime * result + ((this.rvwId == null) ? 0 : this.rvwId.hashCode());
         result = prime * result + ((this.rvwCtt == null) ? 0 : this.rvwCtt.hashCode());
-        result = prime * result + ((this.mbrSeq == null) ? 0 : this.mbrSeq.hashCode());
-        result = prime * result + ((this.fcltySeq == null) ? 0 : this.fcltySeq.hashCode());
+        result = prime * result + ((this.mbrId == null) ? 0 : this.mbrId.hashCode());
+        result = prime * result + ((this.fcltyId == null) ? 0 : this.fcltyId.hashCode());
         result = prime * result + ((this.creDtm == null) ? 0 : this.creDtm.hashCode());
         result = prime * result + ((this.updDtm == null) ? 0 : this.updDtm.hashCode());
-        result = prime * result + ((this.rptSttYn == null) ? 0 : this.rptSttYn.hashCode());
         return result;
     }
 
@@ -175,13 +157,12 @@ public class Review implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Review (");
 
-        sb.append(rvwSeq);
+        sb.append(rvwId);
         sb.append(", ").append(rvwCtt);
-        sb.append(", ").append(mbrSeq);
-        sb.append(", ").append(fcltySeq);
+        sb.append(", ").append(mbrId);
+        sb.append(", ").append(fcltyId);
         sb.append(", ").append(creDtm);
         sb.append(", ").append(updDtm);
-        sb.append(", ").append(rptSttYn);
 
         sb.append(")");
         return sb.toString();

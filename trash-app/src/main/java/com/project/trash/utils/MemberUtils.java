@@ -25,13 +25,13 @@ public class MemberUtils {
   }
 
   /**
-   * 로그인 회원 seq 조회
+   * 로그인 회원 id 조회
    *
-   * @return 회원 seq
+   * @return 회원 id
    */
-  public Long getMemberSeq() {
+  public Long getMemberId() {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberDetail member) {
-      return member.getMemberSeq();
+      return member.getMemberId();
     }
     return null;
   }

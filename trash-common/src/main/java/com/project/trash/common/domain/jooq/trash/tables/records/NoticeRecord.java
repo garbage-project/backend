@@ -22,17 +22,17 @@ public class NoticeRecord extends UpdatableRecordImpl<NoticeRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>spotfinder.NOTICE.NTC_SEQ</code>. 공지 일련번호
+     * Setter for <code>spotfinder.NOTICE.NTC_ID</code>. 공지 ID
      */
-    public NoticeRecord setNtcSeq(ULong value) {
+    public NoticeRecord setNtcId(ULong value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>spotfinder.NOTICE.NTC_SEQ</code>. 공지 일련번호
+     * Getter for <code>spotfinder.NOTICE.NTC_ID</code>. 공지 ID
      */
-    public ULong getNtcSeq() {
+    public ULong getNtcId() {
         return (ULong) get(0);
     }
 
@@ -134,10 +134,10 @@ public class NoticeRecord extends UpdatableRecordImpl<NoticeRecord> {
     /**
      * Create a detached, initialised NoticeRecord
      */
-    public NoticeRecord(ULong ntcSeq, String ntcTtl, String ntcCtt, String ntcVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public NoticeRecord(ULong ntcId, String ntcTtl, String ntcCtt, String ntcVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Notice.NOTICE);
 
-        setNtcSeq(ntcSeq);
+        setNtcId(ntcId);
         setNtcTtl(ntcTtl);
         setNtcCtt(ntcCtt);
         setNtcVldYn(ntcVldYn);
@@ -153,7 +153,7 @@ public class NoticeRecord extends UpdatableRecordImpl<NoticeRecord> {
         super(Notice.NOTICE);
 
         if (value != null) {
-            setNtcSeq(value.getNtcSeq());
+            setNtcId(value.getNtcId());
             setNtcTtl(value.getNtcTtl());
             setNtcCtt(value.getNtcCtt());
             setNtcVldYn(value.getNtcVldYn());

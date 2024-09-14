@@ -31,10 +31,10 @@ public class ReviewCommandService {
    * 리뷰 삭제
    */
   @Transactional
-  public void delete(Long reviewSeq) {
-    Review review = reviewQueryService.getOne(reviewSeq, MemberUtils.getMemberSeq());
+  public void delete(Long reviewId) {
+    Review review = reviewQueryService.getOne(reviewId, MemberUtils.getMemberId());
     // 시설물 존재여부 검증
-    verifyFacilityExist(review.getFacilitySeq());
+    verifyFacilityExist(review.getFacilityId());
 
     reviewRepository.delete(review);
   }
@@ -45,9 +45,9 @@ public class ReviewCommandService {
   @Transactional
   public void entry(ReviewEntryRequest param) {
     // 시설물 존재여부 검증
-    verifyFacilityExist(param.getFacilitySeq());
+    verifyFacilityExist(param.getFacilityId());
 
-    reviewRepository.save(new Review(param.getContent(), param.getFacilitySeq()));
+    reviewRepository.save(new Review(param.getContent(), param.getFacilityId()));
   }
 
   /**
@@ -55,9 +55,9 @@ public class ReviewCommandService {
    */
   @Transactional
   public void modify(ReviewModifyRequest param) {
-    Review review = reviewQueryService.getOne(param.getReviewSeq(), MemberUtils.getMemberSeq());
+    Review review = reviewQueryService.getOne(param.getReviewId(), MemberUtils.getMemberId());
     // 시설물 존재여부 검증
-    verifyFacilityExist(review.getFacilitySeq());
+    verifyFacilityExist(review.getFacilityId());
 
     review.update(param.getContent());
   }
@@ -65,8 +65,8 @@ public class ReviewCommandService {
   /**
    * 시설물 존재여부 검증
    */
-  private void verifyFacilityExist(Long facilitySeq) {
-    if (!facilityRepository.existsById(facilitySeq)) {
+  private void verifyFacilityExist(Long facilityId) {
+    if (!facilityRepository.existsById(facilityId)) {
       throw new ValidationException(FACILITY_NOT_FOUND);
     }
   }

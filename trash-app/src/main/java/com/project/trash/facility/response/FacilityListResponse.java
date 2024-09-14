@@ -17,10 +17,10 @@ import lombok.Setter;
 public class FacilityListResponse {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private ULong facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private ULong facilityId;
   /**
    * 시설물 종류
    */
@@ -37,8 +37,8 @@ public class FacilityListResponse {
   @Schema(description = "경도", example = "33.126115")
   private BigDecimal longitude;
 
-  public FacilityListResponse(ULong facilitySeq, String type, BigDecimal latitude, BigDecimal longitude) {
-    this.facilitySeq = facilitySeq;
+  public FacilityListResponse(ULong facilityId, String type, BigDecimal latitude, BigDecimal longitude) {
+    this.facilityId = facilityId;
     this.type = type;
     this.latitude = latitude;
     this.longitude = longitude;

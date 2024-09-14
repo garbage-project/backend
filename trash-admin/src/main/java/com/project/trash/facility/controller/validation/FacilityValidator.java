@@ -40,7 +40,7 @@ public class FacilityValidator {
     validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
         param.getLongitude(), param.getDepartment(), param.getDepartmentPhoneNumber(), param.getApprovalStatus());
 
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   /**
@@ -70,7 +70,7 @@ public class FacilityValidator {
    * 시설물 리뷰 목록 조회 요청 검증
    */
   public void validate(FacilityReviewListRequest param) {
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   private void validate(String type, String name, String location, String detailLocation, BigDecimal latitude,

@@ -60,9 +60,9 @@ public class FacilityController {
           + "\n[에러 코드]"
           + "\n- FAC000 : 시설물 정보가 존재하지 않습니다.")
   public SuccessResponse delete(
-      @Parameter(description = "삭제할 시설물의 일련번호 목록", required = true, example = "[1, 2, 3]") @RequestParam Set<Long> facilitySeqs) {
+      @Parameter(description = "삭제할 시설물의 ID 목록", required = true, example = "[1, 2, 3]") @RequestParam Set<Long> facilityIds) {
 
-    facilityCommandService.delete(facilitySeqs);
+    facilityCommandService.delete(facilityIds);
     return new SuccessResponse();
   }
 
@@ -82,15 +82,15 @@ public class FacilityController {
   /**
    * 시설물 상세 조회
    */
-  @GetMapping("/{facilitySeq}")
+  @GetMapping("/{facilityId}")
   @Operation(summary = "시설물 상세 조회",
       description = "시설물 정보를 상세 조회한다."
           + "\n[에러 코드]"
           + "\n- FAC000 : 시설물 정보가 존재하지 않습니다.")
   public DataResponse<FacilityDetailResponse> getDetail(
-      @Parameter(description = "조회할 시설물의 일련번호", required = true, example = "1") @PathVariable Long facilitySeq) {
+      @Parameter(description = "조회할 시설물의 ID", required = true, example = "1") @PathVariable Long facilityId) {
 
-    return new DataResponse<>(facilityQueryService.getDetail(facilitySeq));
+    return new DataResponse<>(facilityQueryService.getDetail(facilityId));
   }
 
   /**
@@ -143,9 +143,9 @@ public class FacilityController {
           + "\n[에러 코드]"
           + "\n- RVW000 : 리뷰 정보가 존재하지 않습니다.")
   public SuccessResponse deleteReview(
-      @Parameter(description = "삭제할 리뷰들의 일련번호 목록", required = true, example = "[1, 2, 3]") @RequestParam Set<Long> reviewSeqs) {
+      @Parameter(description = "삭제할 리뷰들의 ID 목록", required = true, example = "[1, 2, 3]") @RequestParam Set<Long> reviewIds) {
 
-    reviewCommandService.delete(reviewSeqs);
+    reviewCommandService.delete(reviewIds);
     return new SuccessResponse();
   }
 }
