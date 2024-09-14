@@ -1,6 +1,7 @@
 package com.project.trash.facility.controller;
 
 import com.project.trash.common.response.DataResponse;
+import com.project.trash.common.response.ImageEntryResponse;
 import com.project.trash.common.response.PageListResponse;
 import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.facility.controller.validation.FacilityValidator;
@@ -18,6 +19,7 @@ import com.project.trash.review.service.ReviewQueryService;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,13 +28,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -104,6 +109,23 @@ public class FacilityController {
 
     facilityCommandService.entry(param);
     return new SuccessResponse();
+  }
+
+  /**
+   * 시설물 이미지 등록
+   */
+  @PostMapping(value = "/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @Operation(summary = "시설물 이미지 등록",
+      description = "시설물 이미지를 등록한다.")
+  public DataResponse<ImageEntryResponse> postImage(
+      @Parameter(
+          description = "이미지 목록",
+          content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)
+      )
+      @RequestPart(required = false) List<MultipartFile> images) {
+    FacilityValidator.validate(images);
+
+    return new DataResponse<>(facilityCommandService.entry(images));
   }
 
   /**

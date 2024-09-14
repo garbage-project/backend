@@ -10,6 +10,7 @@ import com.project.trash.facility.response.FacilityDetailResponse;
 import com.project.trash.facility.response.FacilityListResponse;
 import com.project.trash.member.response.MyFacilityListResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACI
 @Service
 @RequiredArgsConstructor
 public class FacilityQueryService {
+
+  @Value("${cloud.aws.s3.url}")
+  private String s3ImageUrl;
 
   private final FacilityDao facilityDao;
   private final FacilityRepository facilityRepository;
@@ -49,8 +53,8 @@ public class FacilityQueryService {
    * 시설물 상세 조회
    */
   @Transactional(readOnly = true)
-  public FacilityDetailResponse getDetail(Long facilitySeq) {
-    return new FacilityDetailResponse(getOne(facilitySeq));
+  public FacilityDetailResponse getDetail(Long facilityId) {
+    return new FacilityDetailResponse(getOne(facilityId), s3ImageUrl);
   }
 
   @Transactional(readOnly = true)

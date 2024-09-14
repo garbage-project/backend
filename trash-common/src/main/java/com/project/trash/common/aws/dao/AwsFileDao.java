@@ -1,4 +1,4 @@
-package com.project.trash.aws.dao;
+package com.project.trash.common.aws.dao;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -28,15 +28,15 @@ import static com.project.trash.common.domain.resultcode.SystemResultCode.IMAGE_
 @Repository
 public class AwsFileDao {
 
-  private final AmazonS3 amazonS3;
-
   @Value("${cloud.aws.s3.bucket}")
   private String bucket;
+
+  private final AmazonS3 amazonS3;
 
   /**
    * 파일 업로드
    */
-  public String upload(Long memberId, String feature, MultipartFile file) {
+  public String upload(String memberId, String feature, MultipartFile file) {
     final String fileName = createFileName(memberId, FilenameUtils.getExtension(file.getOriginalFilename()));
     final String filePath = createFilePath(feature);
     ObjectMetadata metadata = new ObjectMetadata();
@@ -58,7 +58,7 @@ public class AwsFileDao {
   /**
    * 파일명 생성
    */
-  private String createFileName(long memberId, String extension) {
+  private String createFileName(String memberId, String extension) {
     return memberId + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HHmmssSSS")) + "." +
         StringUtils.lowerCase(extension);
   }

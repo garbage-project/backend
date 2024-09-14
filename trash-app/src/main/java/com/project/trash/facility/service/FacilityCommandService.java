@@ -1,6 +1,6 @@
 package com.project.trash.facility.service;
 
-import com.project.trash.aws.dao.AwsFileDao;
+import com.project.trash.common.aws.dao.AwsFileDao;
 import com.project.trash.common.domain.enums.ImageType;
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.common.response.ImageEntryResponse;
@@ -17,14 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 
 import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_IMAGE_NOT_FOUND;
-import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM_INVALID;
 
 /**
  * 시설물 등록/수정/삭제 서비스
@@ -79,7 +77,7 @@ public class FacilityCommandService {
     Long memberId = MemberUtils.getMemberId();
     List<FacilityImage> facilityImages = images
         .stream()
-        .map(image -> new FacilityImage(awsFileDao.upload(memberId, ImageType.FACILITY.getType(), image)))
+        .map(image -> new FacilityImage(awsFileDao.upload(String.valueOf(memberId), ImageType.FACILITY.getType(), image)))
         .toList();
 
     return new ImageEntryResponse(facilityImageRepository.saveAll(facilityImages)

@@ -80,10 +80,10 @@ public class FacilityDetailResponse {
   /**
    * 이미지 목록
    */
-  @Schema(description = "시설물 이미지 목록", example = "[\"/facility/2024/09/14/4-222150239.png\"]")
+  @Schema(description = "이미지 목록", example = "[\"https://spotfinder-image.s3.ap-northeast-2.amazonaws.com/facility/2024/09/14/4-222150239.png\"]")
   private List<String> images;
 
-  public FacilityDetailResponse(Facility facility) {
+  public FacilityDetailResponse(Facility facility, String s3ImageUrl) {
     this.facilityId = facility.getFacilityId();
     this.type = facility.getType().getCode();
     this.name = facility.getName();
@@ -95,5 +95,9 @@ public class FacilityDetailResponse {
     this.approvalStatus = facility.getApprovalStatus().getCode();
     this.memberId = facility.getMemberId();
     this.createdDate = DateTimeUtils.convertToString(facility.getCreatedAt(), DateTimeUtils.DEFAULT_DATE);
+    this.images = facility.getImages()
+        .stream()
+        .map(image -> s3ImageUrl + image.getPath())
+        .toList();
   }
 }

@@ -1,6 +1,7 @@
 package com.project.trash.facility.request;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -61,4 +62,9 @@ public class FacilityEntryRequest {
    */
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
+  /**
+   * 이미지 ID 목록
+   */
+  @Schema(description = "이미지 ID 목록(최대 3개)", example = "[1, 2]", nullable = true)
+  private Set<Long> imageIds;
 }

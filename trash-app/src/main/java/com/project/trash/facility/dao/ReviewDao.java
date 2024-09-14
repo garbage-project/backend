@@ -1,25 +1,17 @@
 package com.project.trash.facility.dao;
 
-import com.project.trash.facility.domain.enums.FacilityApprovalStatus;
-import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityReviewListRequest;
-import com.project.trash.facility.response.FacilityListResponse;
 import com.project.trash.facility.response.FacilityReviewListResponse;
-import com.project.trash.member.response.MyFacilityListResponse;
 import com.project.trash.member.response.MyReviewListResponse;
 import com.project.trash.utils.MemberUtils;
 
-import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.impl.DSL;
 import org.jooq.types.ULong;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import trash.Tables;
 
 import static trash.Tables.MEMBER;
 import static trash.tables.Facility.FACILITY;
@@ -40,7 +32,7 @@ public class ReviewDao {
   public Long count(FacilityReviewListRequest param) {
     return dsl.selectCount()
               .from(REVIEW)
-              .where(REVIEW.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq())))
+              .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(param.getFacilityId())))
               .fetchOneInto(Long.class);
   }
 
@@ -61,11 +53,11 @@ public class ReviewDao {
    * 시설물 리뷰 목록 조회
    */
   public List<FacilityReviewListResponse> select(FacilityReviewListRequest param) {
-    return dsl.select(REVIEW.RVW_SEQ, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_SEQ, MEMBER.MBR_NCK_NM)
+    return dsl.select(REVIEW.RVW_ID, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_ID, MEMBER.MBR_NCK_NM)
               .from(REVIEW)
               .leftJoin(MEMBER)
-              .on(MEMBER.MBR_SEQ.eq(REVIEW.MBR_SEQ))
-              .where(REVIEW.FCLTY_SEQ.eq(ULong.valueOf(param.getFacilitySeq())))
+              .on(MEMBER.MBR_ID.eq(REVIEW.MBR_ID))
+              .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(param.getFacilityId())))
               .orderBy(REVIEW.CRE_DTM.desc())
               .limit(param.getSize())
               .offset(param.getOffset())

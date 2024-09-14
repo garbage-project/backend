@@ -11,7 +11,6 @@ import com.project.trash.facility.request.ReportEntryRequest;
 import com.project.trash.facility.request.ReviewEntryRequest;
 import com.project.trash.facility.request.ReviewModifyRequest;
 
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
@@ -76,7 +75,7 @@ public class FacilityValidator {
    * 시설물 리뷰 목록 조회 요청 검증
    */
   public void validate(FacilityReviewListRequest param) {
-    ValidatorUtils.validateNull(param.getFacilitySeq());
+    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   /**

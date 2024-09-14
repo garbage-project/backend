@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.trash.facility.domain.Facility;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -19,10 +20,10 @@ import lombok.Setter;
 public class FacilityDetailResponse {
 
   /**
-   * 시설물 일련번호
+   * 시설물 ID
    */
-  @Schema(description = "시설물 일련번호", example = "1")
-  private Long facilitySeq;
+  @Schema(description = "시설물 ID", example = "1")
+  private Long facilityId;
   /**
    * 시설물 종류
    */
@@ -73,9 +74,14 @@ public class FacilityDetailResponse {
    */
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
+  /**
+   * 이미지 목록
+   */
+  @Schema(description = "이미지 목록", example = "[\"https://spotfinder-image.s3.ap-northeast-2.amazonaws.com/facility/2024/09/14/4-222150239.png\"]")
+  private List<String> images;
 
-  public FacilityDetailResponse(Facility facility) {
-    this.facilitySeq = facility.getFacilitySeq();
+  public FacilityDetailResponse(Facility facility, String s3ImageUrl) {
+    this.facilityId = facility.getFacilityId();
     this.type = facility.getType().getCode();
     this.name = facility.getName();
     this.location = facility.getLocation();
@@ -86,5 +92,9 @@ public class FacilityDetailResponse {
     this.department = facility.getDepartment();
     this.departmentPhoneNumber = facility.getDepartmentPhoneNumber();
     this.approvalStatus = facility.getApprovalStatus().getCode();
+    this.images = facility.getImages()
+        .stream()
+        .map(image -> s3ImageUrl + image.getPath())
+        .toList();
   }
 }
