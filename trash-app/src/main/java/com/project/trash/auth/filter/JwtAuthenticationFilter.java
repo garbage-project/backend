@@ -1,6 +1,7 @@
 package com.project.trash.auth.filter;
 
 import com.project.trash.auth.service.JwtService;
+import com.project.trash.common.constant.PathConstant;
 import com.project.trash.member.domain.MemberDetail;
 import com.project.trash.member.service.MemberQueryService;
 import com.project.trash.token.domain.Token;
@@ -13,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,6 +34,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
+    String path = request.getServletPath();
+
+    if (Pattern.matches(PathConstant.SWAGGER_PATHS, path)) {
+      filterChain.doFilter(request, response);
+      return;
+    }
+
     String accessToken = jwtService.extractToken(request);
     if (StringUtils.isBlank(accessToken)) {
       filterChain.doFilter(request, response);

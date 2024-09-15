@@ -6,6 +6,8 @@ import com.project.trash.auth.service.JwtService;
 import com.project.trash.common.exception.handler.CustomAccessDeniedHandler;
 import com.project.trash.common.exception.handler.CustomAuthenticationEntryPoint;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +16,11 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +28,15 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+  @Value("${security.cors.origins}")
+  private List<String> origins;
+
+  @Value("${security.cors.headers}")
+  private List<String> headers;
+
+  @Value("${security.cors.methods}")
+  private List<String> methods;
 
   private final JwtService jwtService;
   private final AdminQueryService adminQueryService;
@@ -39,7 +55,8 @@ public class SecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
             (authorize) -> authorize.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/doc", "/health",
-                "/admins/login", "/admins/reissue").permitAll().anyRequest().authenticated())
+                "/admins/login", "/admins/reissue").permitAll()
+                                    .anyRequest().authenticated())
         .addFilterBefore(new JwtAuthenticationFilter(jwtService, adminQueryService),
             UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling(it -> {
@@ -49,5 +66,17 @@ public class SecurityConfig {
         .securityContext((securityContext) -> securityContext.requireExplicitSave(false));
 
     return http.build();
+  }
+
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource(SecurityProperties securityProperties) {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(origins);
+    configuration.setAllowedMethods(methods);
+    configuration.setAllowedHeaders(headers);
+    configuration.setAllowCredentials(true);
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
   }
 }
