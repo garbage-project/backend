@@ -22,7 +22,7 @@ public class FacilityReviewListResponse {
    * 리뷰 ID
    */
   @Schema(description = "리뷰 ID", example = "1")
-  private ULong reviewSeq;
+  private ULong reviewId;
   /**
    * 리뷰 내용
    */
@@ -37,18 +37,18 @@ public class FacilityReviewListResponse {
    * 등록자 ID
    */
   @Schema(description = "등록자 ID", example = "1")
-  private ULong memberSeq;
+  private ULong memberId;
   /**
    * 닉네임
    */
   @Schema(description = "닉네임", example = "SBS")
   private String nickname;
 
-  public FacilityReviewListResponse(ULong reviewSeq, String content, LocalDateTime createdAt, ULong memberSeq, String nickname) {
-    this.reviewSeq = reviewSeq;
+  public FacilityReviewListResponse(ULong reviewId, String content, LocalDateTime createdAt, ULong memberId, String nickname) {
+    this.reviewId = reviewId;
     this.content = content;
     this.createdDate = DateTimeUtils.convertToString(createdAt, DateTimeUtils.DEFAULT_DATE);
-    this.memberSeq = memberSeq;
+    this.memberId = memberId;
     this.nickname = nickname;
   }
 }

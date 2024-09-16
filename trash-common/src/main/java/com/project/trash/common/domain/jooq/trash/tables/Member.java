@@ -88,6 +88,11 @@ public class Member extends TableImpl<MemberRecord> {
     public final TableField<MemberRecord, String> MBR_SCL_TYP = createField(DSL.name("MBR_SCL_TYP"), SQLDataType.CHAR(1).nullable(false), this, "소셜 타입");
 
     /**
+     * The column <code>spotfinder.MEMBER.MBR_ARGM_YN</code>. 약관 동의 여부
+     */
+    public final TableField<MemberRecord, String> MBR_ARGM_YN = createField(DSL.name("MBR_ARGM_YN"), SQLDataType.CHAR(1).nullable(false).defaultValue(DSL.inline("N", SQLDataType.CHAR)), this, "약관 동의 여부");
+
+    /**
      * The column <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public final TableField<MemberRecord, String> MBR_VLD_YN = createField(DSL.name("MBR_VLD_YN"), SQLDataType.CHAR(1).nullable(false), this, "유효여부");

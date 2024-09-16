@@ -12,17 +12,19 @@ import com.project.trash.member.response.AccessTokenInfoResponse;
 import com.project.trash.member.response.MemberDetailResponse;
 import com.project.trash.member.response.MyFacilityListResponse;
 import com.project.trash.member.response.MyReviewListResponse;
-import com.project.trash.member.response.TokenInfoResponse;
+import com.project.trash.member.response.LoginResponse;
 import com.project.trash.member.service.MemberCommandService;
 import com.project.trash.member.service.MemberQueryService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -63,11 +65,23 @@ public class MemberController {
   /**
    * 등록한 리뷰 목록 조회
    */
+  @GetMapping("/my/reviews")
   @Operation(summary = "로그인 회원이 등록한 리뷰 목록 조회",
       description = "회원이 등록한 리뷰 목록을 조회한다.")
-  @GetMapping("/my/reviews")
   public ListResponse<MyReviewListResponse> getMyReviews() {
     return new ListResponse<>(reviewQueryService.getList());
+  }
+
+  /**
+   * 로그인 회원 닉네임 수정
+   */
+  @PutMapping("/my/nickname")
+  @Operation(summary = "로그인 회원 닉네임 수정",
+      description = "로그인 회원의 닉네임을 수정한다.")
+  public SuccessResponse putMyNickname(
+      @Parameter(description = "수정할 닉네임", required = true)
+      @RequestBody String nickname) {
+    return new SuccessResponse();
   }
 
   /**
@@ -79,7 +93,7 @@ public class MemberController {
           + "\n[에러 코드]"
           + "\n- AUTH002 : OAuth 엑세스 토큰 정보가 유효하지 않습니다."
           + "\n- AUTH004 : 소셜 서비스의 회원 정보 조회를 실패했습니다.")
-  public DataResponse<TokenInfoResponse> postLogin(@RequestBody LoginRequest param) {
+  public DataResponse<LoginResponse> postLogin(@RequestBody LoginRequest param) {
     MemberValidator.validate(param);
 
     return new DataResponse<>(memberCommandService.login(param));

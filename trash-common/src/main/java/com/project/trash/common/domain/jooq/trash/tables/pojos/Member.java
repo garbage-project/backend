@@ -26,6 +26,7 @@ public class Member implements Serializable {
     private final String mbrBrdt;
     private final String mbrSclId;
     private final String mbrSclTyp;
+    private final String mbrArgmYn;
     private final String mbrVldYn;
     private final LocalDateTime creDtm;
     private final LocalDateTime updDtm;
@@ -39,6 +40,7 @@ public class Member implements Serializable {
         this.mbrBrdt = value.mbrBrdt;
         this.mbrSclId = value.mbrSclId;
         this.mbrSclTyp = value.mbrSclTyp;
+        this.mbrArgmYn = value.mbrArgmYn;
         this.mbrVldYn = value.mbrVldYn;
         this.creDtm = value.creDtm;
         this.updDtm = value.updDtm;
@@ -53,6 +55,7 @@ public class Member implements Serializable {
         String mbrBrdt,
         String mbrSclId,
         String mbrSclTyp,
+        String mbrArgmYn,
         String mbrVldYn,
         LocalDateTime creDtm,
         LocalDateTime updDtm
@@ -65,6 +68,7 @@ public class Member implements Serializable {
         this.mbrBrdt = mbrBrdt;
         this.mbrSclId = mbrSclId;
         this.mbrSclTyp = mbrSclTyp;
+        this.mbrArgmYn = mbrArgmYn;
         this.mbrVldYn = mbrVldYn;
         this.creDtm = creDtm;
         this.updDtm = updDtm;
@@ -124,6 +128,13 @@ public class Member implements Serializable {
      */
     public String getMbrSclTyp() {
         return this.mbrSclTyp;
+    }
+
+    /**
+     * Getter for <code>spotfinder.MEMBER.MBR_ARGM_YN</code>. 약관 동의 여부
+     */
+    public String getMbrArgmYn() {
+        return this.mbrArgmYn;
     }
 
     /**
@@ -204,6 +215,12 @@ public class Member implements Serializable {
         }
         else if (!this.mbrSclTyp.equals(other.mbrSclTyp))
             return false;
+        if (this.mbrArgmYn == null) {
+            if (other.mbrArgmYn != null)
+                return false;
+        }
+        else if (!this.mbrArgmYn.equals(other.mbrArgmYn))
+            return false;
         if (this.mbrVldYn == null) {
             if (other.mbrVldYn != null)
                 return false;
@@ -237,6 +254,7 @@ public class Member implements Serializable {
         result = prime * result + ((this.mbrBrdt == null) ? 0 : this.mbrBrdt.hashCode());
         result = prime * result + ((this.mbrSclId == null) ? 0 : this.mbrSclId.hashCode());
         result = prime * result + ((this.mbrSclTyp == null) ? 0 : this.mbrSclTyp.hashCode());
+        result = prime * result + ((this.mbrArgmYn == null) ? 0 : this.mbrArgmYn.hashCode());
         result = prime * result + ((this.mbrVldYn == null) ? 0 : this.mbrVldYn.hashCode());
         result = prime * result + ((this.creDtm == null) ? 0 : this.creDtm.hashCode());
         result = prime * result + ((this.updDtm == null) ? 0 : this.updDtm.hashCode());
@@ -255,6 +273,7 @@ public class Member implements Serializable {
         sb.append(", ").append(mbrBrdt);
         sb.append(", ").append(mbrSclId);
         sb.append(", ").append(mbrSclTyp);
+        sb.append(", ").append(mbrArgmYn);
         sb.append(", ").append(mbrVldYn);
         sb.append(", ").append(creDtm);
         sb.append(", ").append(updDtm);

@@ -47,9 +47,6 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }} # pem 키
           script: |
             docker stop spotfinder-admin || true
-
             docker rm spotfinder-admin || true
-
             docker pull ${{ secrets.DOCKER_USERNAME }}/spotfinder-admin:latest
-
             docker run -d --name spotfinder-admin -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/spotfinder-admin:latest
