@@ -16,6 +16,6 @@ public class MemberReviewListRequest extends PageRequest {
   /**
    * 회원 ID
    */
-  @Parameter(description = "회원 ID", example = "1")
+  @Parameter(description = "회원 ID", required = true, example = "1")
   private Long memberId;
 }

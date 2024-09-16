@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_NOT_FOUND;
 import static com.project.trash.common.domain.resultcode.ReviewResultCode.REVIEW_NOT_FOUND;
 
 /**
@@ -32,6 +33,8 @@ public class ReviewQueryService {
 
   private final ReviewRepository reviewRepository;
   private final ReviewDao reviewDao;
+
+  private final FacilityRepository facilityRepository;
 
   /**
    * 로그인 회원이 등록한 리뷰 목록 조회
@@ -45,6 +48,8 @@ public class ReviewQueryService {
    */
   @Transactional(readOnly = true)
   public Pair<List<FacilityReviewListResponse>, Long> getList(FacilityReviewListRequest param) {
+    verifyFacilityExist(param.getFacilityId());
+
     return Pair.of(reviewDao.select(param), reviewDao.count(param));
   }
 
@@ -55,5 +60,14 @@ public class ReviewQueryService {
   public Review getOne(Long reviewId, Long memberId) {
     return reviewRepository.findByReviewIdAndMemberId(reviewId, memberId)
                            .orElseThrow(() -> new ValidationException(REVIEW_NOT_FOUND));
+  }
+
+  /**
+   * 시설물 존재여부 검증
+   */
+  private void verifyFacilityExist(Long facilityId) {
+    if (!facilityRepository.existsById(facilityId)) {
+      throw new ValidationException(FACILITY_NOT_FOUND);
+    }
   }
 }

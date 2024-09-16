@@ -142,10 +142,25 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
+     * Setter for <code>spotfinder.MEMBER.MBR_ARGM_YN</code>. 약관 동의 여부
+     */
+    public MemberRecord setMbrArgmYn(String value) {
+        set(8, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>spotfinder.MEMBER.MBR_ARGM_YN</code>. 약관 동의 여부
+     */
+    public String getMbrArgmYn() {
+        return (String) get(8);
+    }
+
+    /**
      * Setter for <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public MemberRecord setMbrVldYn(String value) {
-        set(8, value);
+        set(9, value);
         return this;
     }
 
@@ -153,14 +168,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public String getMbrVldYn() {
-        return (String) get(8);
+        return (String) get(9);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.CRE_DTM</code>. 등록일시
      */
     public MemberRecord setCreDtm(LocalDateTime value) {
-        set(9, value);
+        set(10, value);
         return this;
     }
 
@@ -168,14 +183,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
-        return (LocalDateTime) get(9);
+        return (LocalDateTime) get(10);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.UPD_DTM</code>. 수정일시
      */
     public MemberRecord setUpdDtm(LocalDateTime value) {
-        set(10, value);
+        set(11, value);
         return this;
     }
 
@@ -183,7 +198,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.UPD_DTM</code>. 수정일시
      */
     public LocalDateTime getUpdDtm() {
-        return (LocalDateTime) get(10);
+        return (LocalDateTime) get(11);
     }
 
     // -------------------------------------------------------------------------
@@ -209,7 +224,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     /**
      * Create a detached, initialised MemberRecord
      */
-    public MemberRecord(ULong mbrId, String mbrEmail, String mbrNm, String mbrNckNm, String mbrGndr, String mbrBrdt, String mbrSclId, String mbrSclTyp, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public MemberRecord(ULong mbrId, String mbrEmail, String mbrNm, String mbrNckNm, String mbrGndr, String mbrBrdt, String mbrSclId, String mbrSclTyp, String mbrArgmYn, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Member.MEMBER);
 
         setMbrId(mbrId);
@@ -220,6 +235,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
         setMbrBrdt(mbrBrdt);
         setMbrSclId(mbrSclId);
         setMbrSclTyp(mbrSclTyp);
+        setMbrArgmYn(mbrArgmYn);
         setMbrVldYn(mbrVldYn);
         setCreDtm(creDtm);
         setUpdDtm(updDtm);
@@ -241,6 +257,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
             setMbrBrdt(value.getMbrBrdt());
             setMbrSclId(value.getMbrSclId());
             setMbrSclTyp(value.getMbrSclTyp());
+            setMbrArgmYn(value.getMbrArgmYn());
             setMbrVldYn(value.getMbrVldYn());
             setCreDtm(value.getCreDtm());
             setUpdDtm(value.getUpdDtm());

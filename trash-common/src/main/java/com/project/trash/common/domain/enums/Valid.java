@@ -34,6 +34,13 @@ public enum Valid implements Codable {
     return Codable.fromCode(Valid.class, code);
   }
 
+  public static String convertToCode(Boolean valid) {
+    if (valid == null) {
+      return null;
+    }
+    return valid ? Valid.TRUE.getCode() : Valid.FALSE.getCode();
+  }
+
   @Converter
   public static class TypeCodeConverter extends AbstractEnumCodeConverter<Valid> {
     @Override

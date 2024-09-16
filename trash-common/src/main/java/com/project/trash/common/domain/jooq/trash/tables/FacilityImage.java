@@ -60,7 +60,7 @@ public class FacilityImage extends TableImpl<FacilityImageRecord> {
     /**
      * The column <code>spotfinder.FACILITY_IMAGE.FCLTY_ID</code>. 시설물 ID
      */
-    public final TableField<FacilityImageRecord, ULong> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.BIGINTUNSIGNED.nullable(false), this, "시설물 ID");
+    public final TableField<FacilityImageRecord, ULong> FCLTY_ID = createField(DSL.name("FCLTY_ID"), SQLDataType.BIGINTUNSIGNED, this, "시설물 ID");
 
     /**
      * The column <code>spotfinder.FACILITY_IMAGE.CRE_DTM</code>. 등록일시

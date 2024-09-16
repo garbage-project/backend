@@ -3,6 +3,7 @@ package com.project.trash.member.service;
 import com.project.trash.auth.client.SocialMemberClientComposite;
 import com.project.trash.auth.domain.OAuthMember;
 import com.project.trash.auth.service.JwtService;
+import com.project.trash.common.domain.enums.Valid;
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.member.domain.Member;
 import com.project.trash.member.domain.enums.SocialType;
@@ -10,7 +11,7 @@ import com.project.trash.member.repository.MemberRepository;
 import com.project.trash.member.request.LoginRequest;
 import com.project.trash.member.request.ReissueRequest;
 import com.project.trash.member.response.AccessTokenInfoResponse;
-import com.project.trash.member.response.TokenInfoResponse;
+import com.project.trash.member.response.LoginResponse;
 import com.project.trash.token.domain.Token;
 import com.project.trash.token.repository.TokenRepository;
 import com.project.trash.utils.MemberUtils;
@@ -18,6 +19,8 @@ import com.project.trash.utils.MemberUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,9 +46,10 @@ public class MemberCommandService {
    * 소셜 로그인, 가입 전이라면 회원가입
    */
   @Transactional
-  public TokenInfoResponse login(LoginRequest param) {
+  public LoginResponse login(LoginRequest param) {
     String socialId = param.getSocialId();
     SocialType socialType = SocialType.fromCode(param.getSocialType());
+    Member member;
     if (!memberRepository.existsBySocialId(socialId)) {
       OAuthMember memberInfo = socialMemberClient.getMemberInfo(socialType, param.getAccessToken());
 
@@ -54,7 +58,7 @@ public class MemberCommandService {
         throw new ValidationException(AUTH_OAUTH_ACCESS_TOKEN_INVALID);
       }
 
-      memberRepository.save(
+      member = memberRepository.save(
           new Member(memberInfo.email(), memberInfo.name(), memberInfo.gender(), memberInfo.birthday(),
               memberInfo.socialId(), memberInfo.socialType()));
     } else {
@@ -62,6 +66,8 @@ public class MemberCommandService {
       if (!socialId.equals(socialMemberClient.getSocialId(socialType, param.getAccessToken()))) {
         throw new ValidationException(AUTH_OAUTH_ACCESS_TOKEN_INVALID);
       }
+
+      member = memberQueryService.getOne(socialId);
     }
 
     Pair<String, Integer> accessToken = jwtService.createAccessToken(socialId);
@@ -69,7 +75,7 @@ public class MemberCommandService {
 
     tokenRepository.save(new Token(socialId, accessToken.getLeft(), refreshToken.getLeft()));
 
-    return new TokenInfoResponse(socialId, accessToken.getLeft(), accessToken.getRight(), refreshToken.getLeft(),
+    return new LoginResponse(socialId, Valid.convertToCode(member.getAgreementYn()), accessToken.getLeft(), accessToken.getRight(), refreshToken.getLeft(),
         refreshToken.getRight());
   }
 

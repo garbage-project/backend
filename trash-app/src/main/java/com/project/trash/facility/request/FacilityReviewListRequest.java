@@ -16,6 +16,6 @@ public class FacilityReviewListRequest extends PageRequest {
   /**
    * 시설물 ID
    */
-  @Parameter(description = "시설물 ID", example = "1")
+  @Parameter(description = "시설물 ID", required = true, example = "1")
   private Long facilityId;
 }

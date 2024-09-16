@@ -51,6 +51,9 @@ public class Member extends BaseTimeEntity {
   @Column(name = "MBR_SCL_TYP", nullable = false)
   private SocialType socialType;
 
+  @Column(name = "MBR_ARGM_YN", nullable = false)
+  private Boolean agreementYn = Boolean.FALSE;
+
   @Column(name = "MBR_VLD_YN", nullable = false)
   private Boolean valid = Boolean.TRUE;
 
@@ -61,5 +64,9 @@ public class Member extends BaseTimeEntity {
     this.birthday = birthday;
     this.socialId = socialId;
     this.socialType = socialType;
+  }
+
+  public void update(String nickname) {
+    this.nickname = nickname;
   }
 }

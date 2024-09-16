@@ -8,12 +8,18 @@ import lombok.Getter;
  */
 @Getter
 @Schema(title = "로그인 결과 응답")
-public class TokenInfoResponse {
+public class LoginResponse {
 
   /**
    * 소셜 ID
    */
+  @Schema(description = "소셜 ID", example = "XGJbTOt3U-Ahqghp9x61PFduxX_sGpk-M0ZdJSm5ZUc")
   private final String socialId;
+  /**
+   * 약관동의 여부
+   */
+  @Schema(description = "약관 동의 여부(Y/N)", example = "Y")
+  private final String agreementYn;
   /**
    * 엑세스 토큰
    */
@@ -35,9 +41,10 @@ public class TokenInfoResponse {
   @Schema(description = "엑세스 토큰 유효시간", example = "604800000")
   private final Integer refreshExpiration;
 
-  public TokenInfoResponse(String socialId, String accessToken, Integer accessExpiration, String refreshToken,
+  public LoginResponse(String socialId, String agreementYn, String accessToken, Integer accessExpiration, String refreshToken,
       Integer refreshExpiration) {
     this.socialId = socialId;
+    this.agreementYn = agreementYn;
     this.accessToken = accessToken;
     this.accessExpiration = accessExpiration;
     this.refreshToken = refreshToken;
