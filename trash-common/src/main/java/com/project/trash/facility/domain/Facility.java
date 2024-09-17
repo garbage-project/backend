@@ -45,7 +45,7 @@ public class Facility extends BaseTimeEntity {
   @Column(name = "FCLTY_LCTN", nullable = false)
   private String location;
 
-  @Column(name = "FCLTY_DTL_LCTN", nullable = false)
+  @Column(name = "FCLTY_DTL_LCTN")
   private String detailLocation;
 
   @Column(name = "FCLTY_LTTD", nullable = false)
@@ -54,7 +54,7 @@ public class Facility extends BaseTimeEntity {
   @Column(name = "FCLTY_LNGT", nullable = false)
   private BigDecimal longitude;
 
-  @Column(name = "FCLTY_INFO", nullable = false)
+  @Column(name = "FCLTY_INFO")
   private String information;
 
   @Column(name = "FCLTY_DPR_NM")
@@ -100,6 +100,19 @@ public class Facility extends BaseTimeEntity {
     this.departmentPhoneNumber = departmentPhoneNumber;
     this.approvalStatus = approvalStatus;
     this.memberId = memberId;
+  }
+
+  public Facility(String name, String location, String detailLocation, BigDecimal latitude,
+      BigDecimal longitude, String department, String departmentPhoneNumber, FacilityType type) {
+    this.name = name;
+    this.location = location;
+    this.detailLocation = detailLocation;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.department = department;
+    this.departmentPhoneNumber = departmentPhoneNumber;
+    this.type = type;
+    this.approvalStatus = FacilityApprovalStatus.APPROVE;
   }
 
   public void update(FacilityType type, String name, String location, String detailLocation, BigDecimal latitude,

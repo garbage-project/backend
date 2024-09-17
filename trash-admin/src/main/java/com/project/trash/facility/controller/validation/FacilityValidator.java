@@ -109,4 +109,13 @@ public class FacilityValidator {
       throw new ValidationException(PARAM_INVALID);
     }
   }
+
+  public void validate(MultipartFile file, String type) {
+    if (file == null || file.isEmpty()) {
+      throw new ValidationException(PARAM_INVALID);
+    }
+    if (StringUtils.isBlank(type) || !FacilityType.containCode(type)) {
+      throw new ValidationException(PARAM_INVALID);
+    }
+  }
 }

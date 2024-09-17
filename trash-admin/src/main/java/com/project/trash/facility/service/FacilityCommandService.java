@@ -14,15 +14,31 @@ import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.utils.AdminUtils;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_EXCEL_EXTENSION_INVALID;
+import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_EXCEL_READ_FAIL;
 import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_IMAGE_NOT_FOUND;
 
 /**
@@ -72,7 +88,7 @@ public class FacilityCommandService {
    * 시설물 이미지 등록
    */
   @Transactional
-  public ImageEntryResponse entry(List<MultipartFile> images) {
+  public ImageEntryResponse entryImages(List<MultipartFile> images) {
     String adminId = AdminUtils.getId();
     List<FacilityImage> facilityImages = images
         .stream()
@@ -122,5 +138,69 @@ public class FacilityCommandService {
         image.setFacility(null);
       }
     }
+  }
+
+  public void entry(MultipartFile file, FacilityType type) {
+    String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+
+    if (StringUtils.isBlank(extension) || (!extension.equals("xlsx") && !extension.equals("xls"))) {
+      throw new ValidationException(FACILITY_EXCEL_EXTENSION_INVALID);
+    }
+
+    Workbook workbook;
+
+    try {
+      if (extension.equals("xlsx")) {
+        workbook = new XSSFWorkbook(file.getInputStream());
+      } else {
+        workbook = new HSSFWorkbook(file.getInputStream());
+      }
+
+      Sheet worksheet = workbook.getSheetAt(0);
+      List<Facility> addFacilities = new ArrayList<>();
+      for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+        Row row = worksheet.getRow(i);
+
+        try {
+          String name = String.valueOf(getCellValue(row.getCell(0)));
+          String location = String.valueOf(getCellValue(row.getCell(1)));
+          String detailLocation = String.valueOf(getCellValue(row.getCell(2)));
+          BigDecimal latitude = (BigDecimal) getCellValue(row.getCell(3));
+          BigDecimal longitude = (BigDecimal) getCellValue(row.getCell(4));
+          String department = String.valueOf(getCellValue(row.getCell(5)));
+          String departmentPhoneNumber = String.valueOf(getCellValue(row.getCell(6)));
+
+          if (name == null || location == null || latitude == null || longitude == null) {
+            continue;
+          }
+
+          Facility facility = new Facility(name, location, detailLocation, latitude,
+              longitude, department, departmentPhoneNumber, type);
+
+          addFacilities.add(facility);
+        } catch (Exception e) {
+        }
+      }
+
+      facilityRepository.saveAll(addFacilities);
+    } catch (IOException e) {
+      throw new ValidationException(FACILITY_EXCEL_READ_FAIL);
+    }
+  }
+
+  private Object getCellValue(Cell cell) {
+    if (cell == null) {
+      return null;
+    }
+
+    return switch (cell.getCellType()) {
+      case STRING -> {
+        String str = cell.getStringCellValue();
+        yield StringUtils.isBlank(str) || str.equals("-") ? null : str;
+      }
+      case NUMERIC -> BigDecimal.valueOf(cell.getNumericCellValue());
+      case BLANK -> null;
+      default -> throw new ValidationException(FACILITY_EXCEL_READ_FAIL);
+    };
   }
 }

@@ -5,6 +5,8 @@ import com.project.trash.common.response.ImageEntryResponse;
 import com.project.trash.common.response.PageListResponse;
 import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.facility.controller.validation.FacilityValidator;
+import com.project.trash.facility.domain.Facility;
+import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
@@ -17,7 +19,14 @@ import com.project.trash.facility.service.FacilityQueryService;
 import com.project.trash.review.service.ReviewCommandService;
 import com.project.trash.review.service.ReviewQueryService;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +41,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +51,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -125,7 +139,7 @@ public class FacilityController {
       @RequestPart(required = false) List<MultipartFile> images) {
     FacilityValidator.validate(images);
 
-    return new DataResponse<>(facilityCommandService.entry(images));
+    return new DataResponse<>(facilityCommandService.entryImages(images));
   }
 
   /**
@@ -149,7 +163,7 @@ public class FacilityController {
   @GetMapping("/reviews")
   @Operation(summary = "시설물 리뷰 목록 조회",
       description = "시설물의 리뷰 목록을 조회한다.")
-  public PageListResponse<FacilityReviewListResponse> getReviewList(@ParameterObject FacilityReviewListRequest param) {
+  public PageListResponse<FacilityReviewListResponse> getReviews(@ParameterObject FacilityReviewListRequest param) {
     FacilityValidator.validate(param);
 
     Pair<List<FacilityReviewListResponse>, Long> pair = reviewQueryService.getList(param);
@@ -168,6 +182,15 @@ public class FacilityController {
       @Parameter(description = "삭제할 리뷰들의 ID 목록", required = true, example = "[1, 2, 3]") @RequestParam Set<Long> reviewIds) {
 
     reviewCommandService.delete(reviewIds);
+    return new SuccessResponse();
+  }
+
+  @PostMapping(value = "/excel/read")
+  @Operation(hidden = true)
+  public SuccessResponse postFromExcel(@RequestPart("file") MultipartFile file, @RequestPart String type) {
+    FacilityValidator.validate(file, type);
+
+    facilityCommandService.entry(file, FacilityType.fromCode(type));
     return new SuccessResponse();
   }
 }
