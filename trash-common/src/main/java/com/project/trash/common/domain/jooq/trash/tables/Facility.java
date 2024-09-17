@@ -66,22 +66,22 @@ public class Facility extends TableImpl<FacilityRecord> {
     /**
      * The column <code>spotfinder.FACILITY.FCLTY_LCTN</code>. 위치
      */
-    public final TableField<FacilityRecord, String> FCLTY_LCTN = createField(DSL.name("FCLTY_LCTN"), SQLDataType.VARCHAR(50).nullable(false), this, "위치");
+    public final TableField<FacilityRecord, String> FCLTY_LCTN = createField(DSL.name("FCLTY_LCTN"), SQLDataType.VARCHAR(100).nullable(false), this, "위치");
 
     /**
      * The column <code>spotfinder.FACILITY.FCLTY_DTL_LCTN</code>. 상세 위치
      */
-    public final TableField<FacilityRecord, String> FCLTY_DTL_LCTN = createField(DSL.name("FCLTY_DTL_LCTN"), SQLDataType.VARCHAR(50).nullable(false), this, "상세 위치");
+    public final TableField<FacilityRecord, String> FCLTY_DTL_LCTN = createField(DSL.name("FCLTY_DTL_LCTN"), SQLDataType.VARCHAR(100), this, "상세 위치");
 
     /**
      * The column <code>spotfinder.FACILITY.FCLTY_LTTD</code>. 위도
      */
-    public final TableField<FacilityRecord, BigDecimal> FCLTY_LTTD = createField(DSL.name("FCLTY_LTTD"), SQLDataType.DECIMAL(12, 8).nullable(false), this, "위도");
+    public final TableField<FacilityRecord, BigDecimal> FCLTY_LTTD = createField(DSL.name("FCLTY_LTTD"), SQLDataType.DECIMAL(40, 30).nullable(false), this, "위도");
 
     /**
      * The column <code>spotfinder.FACILITY.FCLTY_LNGT</code>. 경도
      */
-    public final TableField<FacilityRecord, BigDecimal> FCLTY_LNGT = createField(DSL.name("FCLTY_LNGT"), SQLDataType.DECIMAL(12, 8).nullable(false), this, "경도");
+    public final TableField<FacilityRecord, BigDecimal> FCLTY_LNGT = createField(DSL.name("FCLTY_LNGT"), SQLDataType.DECIMAL(40, 30).nullable(false), this, "경도");
 
     /**
      * The column <code>spotfinder.FACILITY.FCLTY_INFO</code>. 정보
@@ -97,7 +97,7 @@ public class Facility extends TableImpl<FacilityRecord> {
      * The column <code>spotfinder.FACILITY.FCLTY_DPR_TLPH_NMBR</code>. 관리 부서
      * 전화번호
      */
-    public final TableField<FacilityRecord, String> FCLTY_DPR_TLPH_NMBR = createField(DSL.name("FCLTY_DPR_TLPH_NMBR"), SQLDataType.VARCHAR(30), this, "관리 부서 전화번호");
+    public final TableField<FacilityRecord, String> FCLTY_DPR_TLPH_NMBR = createField(DSL.name("FCLTY_DPR_TLPH_NMBR"), SQLDataType.VARCHAR(100), this, "관리 부서 전화번호");
 
     /**
      * The column <code>spotfinder.FACILITY.FCLTY_APRV_STA</code>. 승인 상태
