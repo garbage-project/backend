@@ -158,19 +158,29 @@ public class FacilityCommandService {
 
       Sheet worksheet = workbook.getSheetAt(0);
       List<Facility> addFacilities = new ArrayList<>();
+
       for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
         Row row = worksheet.getRow(i);
 
         try {
-          String name = String.valueOf(getCellValue(row.getCell(0)));
-          String location = String.valueOf(getCellValue(row.getCell(1)));
-          String detailLocation = String.valueOf(getCellValue(row.getCell(2)));
-          BigDecimal latitude = (BigDecimal) getCellValue(row.getCell(3));
-          BigDecimal longitude = (BigDecimal) getCellValue(row.getCell(4));
-          String department = String.valueOf(getCellValue(row.getCell(5)));
-          String departmentPhoneNumber = String.valueOf(getCellValue(row.getCell(6)));
+          Object cellValue = getCellValue(row.getCell(0));
+          String name = cellValue == null ? null : String.valueOf(cellValue);
+          cellValue = getCellValue(row.getCell(1));
+          String location = cellValue == null ? null : String.valueOf(cellValue);
+          cellValue = getCellValue(row.getCell(2));
+          String detailLocation = cellValue == null ? null : String.valueOf(cellValue);
+          Cell cell = row.getCell(3);
+          BigDecimal latitude = cell.getCellType() == CellType.NUMERIC ? BigDecimal.valueOf(cell.getNumericCellValue())
+              : BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue()));
+          cell = row.getCell(4);
+          BigDecimal longitude = cell.getCellType() == CellType.NUMERIC ? BigDecimal.valueOf(cell.getNumericCellValue())
+              : BigDecimal.valueOf(Double.parseDouble(cell.getStringCellValue()));
+          cellValue = getCellValue(row.getCell(5));
+          String department = cellValue == null ? null : String.valueOf(cellValue);
+          cellValue = getCellValue(row.getCell(6));
+          String departmentPhoneNumber = cellValue == null ? null : String.valueOf(cellValue);
 
-          if (name == null || location == null || latitude == null || longitude == null) {
+          if (name == null || location == null) {
             continue;
           }
 
@@ -194,11 +204,11 @@ public class FacilityCommandService {
     }
 
     return switch (cell.getCellType()) {
-      case STRING -> {
+      case FORMULA, STRING -> {
         String str = cell.getStringCellValue();
         yield StringUtils.isBlank(str) || str.equals("-") ? null : str;
       }
-      case NUMERIC -> BigDecimal.valueOf(cell.getNumericCellValue());
+      case NUMERIC -> cell.getNumericCellValue();
       case BLANK -> null;
       default -> throw new ValidationException(FACILITY_EXCEL_READ_FAIL);
     };
