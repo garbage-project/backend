@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -49,3 +49,20 @@ jobs:
         run: |
           docker tag spotfinder-admin:latest ${{ secrets.ECR_REGISTRY_URI }}:latest
           docker push ${{ secrets.ECR_REGISTRY_URI }}
+
+      # EC2 Deploy
+      - name: Deploy application using SSM
+        run: |
+          aws ssm send-command \
+            --document-name "AWS-RunShellScript" \
+            --instance-ids "${{ secrets.EC2_INSTANCE_ID }}" \
+            --parameters commands='[
+              "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}",
+              "cd /root",
+              "docker stop $(docker ps -a -q)",
+              "docker rm $(docker ps -aq)",
+              "docker rmi $(docker images -a -q)",
+              "docker pull ${{ secrets.ECR_REGISTRY_URI }}:latest",
+              "docker run -d -p 8080:8080 --name spotfinder-admin ${{ secrets.ECR_REGISTRY_URI }}:latest"
+            ]' \
+            --comment "Deploying Docker container"
