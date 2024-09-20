@@ -9,7 +9,6 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -31,22 +30,22 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x test
 
-      - name: Docker Login
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Docker build
+        run: docker build -t spotfinder-admin:latest -f trash-admin/Dockerfile .
 
-      - name: Build & Push spotfinder-admin Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/spotfinder-admin:latest -f trash-admin/Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/spotfinder-admin:latest
-
-      - name: Deploy
-        uses: appleboy/ssh-action@master
+      # AWS 자격증명
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          host: ${{ secrets.ADMIN_EC2_HOST }} # EC2 인스턴스 퍼블릭 DNS
-          username: ec2-user
-          key: ${{ secrets.EC2_PRIVATE_KEY }} # pem 키
-          script: |
-            docker stop spotfinder-admin || true
-            docker rm spotfinder-admin || true
-            docker pull ${{ secrets.DOCKER_USERNAME }}/spotfinder-admin:latest
-            docker run -d --name spotfinder-admin -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/spotfinder-admin:latest
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # ECR 로그인
+      - name: Login to Amazon ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}
+
+      - name: Publish Image to ECR
+        run: |
+          docker tag spotfinder-admin:latest ${{ secrets.ECR_REGISTRY_URI }}:latest
+          docker push ${{ secrets.ECR_REGISTRY_URI }}
