@@ -115,11 +115,9 @@ public class KakaoApiClient {
       JSONObject result = new JSONObject(resultText);
       Long id = result.getLong("id");
       JSONObject kakaoAccount = result.getJSONObject("kakao_account");
-      //      String name = kakaoAccount.getString("name");
       String email = kakaoAccount.getString("email");
       //      GenderType gender = kakaoAccount.getString("gender").equals("male") ? GenderType.MALE : GenderType.FEMALE;
-      //      String birthday = kakaoAccount.getString("birthyear") + kakaoAccount.getString("birthday");
-      return new OAuthMember(id.toString(), "테스트", email, GenderType.MALE, "20000216", SocialType.KAKAO);
+      return new OAuthMember(id.toString(), email, GenderType.MALE, SocialType.KAKAO);
     } catch (Exception e) {
       throw new ValidationException(AUTH_OAUTH_GET_MEMBER_FAIL);
     }

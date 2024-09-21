@@ -59,8 +59,7 @@ public class MemberCommandService {
       }
 
       member = memberRepository.save(
-          new Member(memberInfo.email(), memberInfo.name(), memberInfo.gender(), memberInfo.birthday(),
-              memberInfo.socialId(), memberInfo.socialType()));
+          new Member(memberInfo.email(), memberInfo.gender(), memberInfo.socialId(), memberInfo.socialType()));
     } else {
       // 엑세스 토큰 유효성 검증
       if (!socialId.equals(socialMemberClient.getSocialId(socialType, param.getAccessToken()))) {

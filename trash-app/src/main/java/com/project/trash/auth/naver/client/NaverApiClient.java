@@ -102,12 +102,10 @@ public class NaverApiClient {
       JSONObject result = new JSONObject(resultText);
       JSONObject response = result.getJSONObject("response");
       String id = response.getString("id");
-      String name = response.getString("name");
       String email = response.getString("email");
       String gender = response.getString("gender");
       GenderType genderType = gender.equals("U") ? GenderType.NONE : GenderType.fromCode(gender);
-      String birthday = response.getString("birthyear") + response.getString("birthday").replace("-", "");
-      return new OAuthMember(id, name, email, genderType, birthday, SocialType.NAVER);
+      return new OAuthMember(id, email, genderType, SocialType.NAVER);
     } catch (Exception e) {
       throw new ValidationException(AUTH_OAUTH_GET_MEMBER_FAIL);
     }

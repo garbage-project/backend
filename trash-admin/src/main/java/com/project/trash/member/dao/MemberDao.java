@@ -40,6 +40,19 @@ public class MemberDao {
   }
 
   /**
+   * 회원 목록 조회
+   */
+  public List<MemberListResponse> select(MemberListRequest param) {
+    return dsl.selectFrom(MEMBER)
+              .where(getConditions(param))
+              .orderBy(MEMBER.CRE_DTM.desc())
+              .limit(param.getSize())
+              .offset(param.getOffset())
+              .fetch()
+              .map(MemberListResponse::new);
+  }
+
+  /**
    * 회원 목록 조회 조건 목록
    */
   public List<Condition> getConditions(MemberListRequest param) {
@@ -49,19 +62,9 @@ public class MemberDao {
     if (param.getMemberId() != null) {
       conditions.add(DSL.condition(MEMBER.MBR_ID.eq(ULong.valueOf(param.getMemberId()))));
     }
-    // 이름
-    if (StringUtils.isNotBlank(param.getName())) {
-      conditions.add(DSL.condition(MEMBER.MBR_NM.like("%" + param.getName() + "%")));
-    }
     // 닉네임
     if (StringUtils.isNotBlank(param.getNickname())) {
-      conditions.add(DSL.condition(MEMBER.MBR_NCK_NM.like("%" + param.getName() + "%")));
-    }
-    // 생일
-    if (StringUtils.isNotBlank(param.getBirthday())) {
-      String birthday = DateTimeUtils.convertDateStringToDateString(param.getBirthday(), DateTimeUtils.DEFAULT_DATE,
-          DateTimeUtils.DEFAULT_DAY);
-      conditions.add(DSL.condition(MEMBER.MBR_BRDT.eq(birthday)));
+      conditions.add(DSL.condition(MEMBER.MBR_NCK_NM.like("%" + param.getNickname() + "%")));
     }
     // 성별
     if (StringUtils.isNotBlank(param.getGender())) {
@@ -82,18 +85,5 @@ public class MemberDao {
       conditions.add(DSL.condition(MEMBER.CRE_DTM.le(endDate)));
     }
     return conditions;
-  }
-
-  /**
-   * 회원 목록 조회
-   */
-  public List<MemberListResponse> select(MemberListRequest param) {
-    return dsl.selectFrom(MEMBER)
-              .where(getConditions(param))
-              .orderBy(MEMBER.CRE_DTM.desc())
-              .limit(param.getSize())
-              .offset(param.getOffset())
-              .fetch()
-              .map(MemberListResponse::new);
   }
 }

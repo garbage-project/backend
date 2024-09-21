@@ -20,10 +20,8 @@ public class Member implements Serializable {
 
     private final ULong mbrId;
     private final String mbrEmail;
-    private final String mbrNm;
     private final String mbrNckNm;
     private final String mbrGndr;
-    private final String mbrBrdt;
     private final String mbrSclId;
     private final String mbrSclTyp;
     private final String mbrArgmYn;
@@ -34,10 +32,8 @@ public class Member implements Serializable {
     public Member(Member value) {
         this.mbrId = value.mbrId;
         this.mbrEmail = value.mbrEmail;
-        this.mbrNm = value.mbrNm;
         this.mbrNckNm = value.mbrNckNm;
         this.mbrGndr = value.mbrGndr;
-        this.mbrBrdt = value.mbrBrdt;
         this.mbrSclId = value.mbrSclId;
         this.mbrSclTyp = value.mbrSclTyp;
         this.mbrArgmYn = value.mbrArgmYn;
@@ -49,10 +45,8 @@ public class Member implements Serializable {
     public Member(
         ULong mbrId,
         String mbrEmail,
-        String mbrNm,
         String mbrNckNm,
         String mbrGndr,
-        String mbrBrdt,
         String mbrSclId,
         String mbrSclTyp,
         String mbrArgmYn,
@@ -62,10 +56,8 @@ public class Member implements Serializable {
     ) {
         this.mbrId = mbrId;
         this.mbrEmail = mbrEmail;
-        this.mbrNm = mbrNm;
         this.mbrNckNm = mbrNckNm;
         this.mbrGndr = mbrGndr;
-        this.mbrBrdt = mbrBrdt;
         this.mbrSclId = mbrSclId;
         this.mbrSclTyp = mbrSclTyp;
         this.mbrArgmYn = mbrArgmYn;
@@ -89,13 +81,6 @@ public class Member implements Serializable {
     }
 
     /**
-     * Getter for <code>spotfinder.MEMBER.MBR_NM</code>. 이름
-     */
-    public String getMbrNm() {
-        return this.mbrNm;
-    }
-
-    /**
      * Getter for <code>spotfinder.MEMBER.MBR_NCK_NM</code>. 닉네임
      */
     public String getMbrNckNm() {
@@ -107,13 +92,6 @@ public class Member implements Serializable {
      */
     public String getMbrGndr() {
         return this.mbrGndr;
-    }
-
-    /**
-     * Getter for <code>spotfinder.MEMBER.MBR_BRDT</code>. 생년월일
-     */
-    public String getMbrBrdt() {
-        return this.mbrBrdt;
     }
 
     /**
@@ -179,12 +157,6 @@ public class Member implements Serializable {
         }
         else if (!this.mbrEmail.equals(other.mbrEmail))
             return false;
-        if (this.mbrNm == null) {
-            if (other.mbrNm != null)
-                return false;
-        }
-        else if (!this.mbrNm.equals(other.mbrNm))
-            return false;
         if (this.mbrNckNm == null) {
             if (other.mbrNckNm != null)
                 return false;
@@ -196,12 +168,6 @@ public class Member implements Serializable {
                 return false;
         }
         else if (!this.mbrGndr.equals(other.mbrGndr))
-            return false;
-        if (this.mbrBrdt == null) {
-            if (other.mbrBrdt != null)
-                return false;
-        }
-        else if (!this.mbrBrdt.equals(other.mbrBrdt))
             return false;
         if (this.mbrSclId == null) {
             if (other.mbrSclId != null)
@@ -248,10 +214,8 @@ public class Member implements Serializable {
         int result = 1;
         result = prime * result + ((this.mbrId == null) ? 0 : this.mbrId.hashCode());
         result = prime * result + ((this.mbrEmail == null) ? 0 : this.mbrEmail.hashCode());
-        result = prime * result + ((this.mbrNm == null) ? 0 : this.mbrNm.hashCode());
         result = prime * result + ((this.mbrNckNm == null) ? 0 : this.mbrNckNm.hashCode());
         result = prime * result + ((this.mbrGndr == null) ? 0 : this.mbrGndr.hashCode());
-        result = prime * result + ((this.mbrBrdt == null) ? 0 : this.mbrBrdt.hashCode());
         result = prime * result + ((this.mbrSclId == null) ? 0 : this.mbrSclId.hashCode());
         result = prime * result + ((this.mbrSclTyp == null) ? 0 : this.mbrSclTyp.hashCode());
         result = prime * result + ((this.mbrArgmYn == null) ? 0 : this.mbrArgmYn.hashCode());
@@ -267,10 +231,8 @@ public class Member implements Serializable {
 
         sb.append(mbrId);
         sb.append(", ").append(mbrEmail);
-        sb.append(", ").append(mbrNm);
         sb.append(", ").append(mbrNckNm);
         sb.append(", ").append(mbrGndr);
-        sb.append(", ").append(mbrBrdt);
         sb.append(", ").append(mbrSclId);
         sb.append(", ").append(mbrSclTyp);
         sb.append(", ").append(mbrArgmYn);
