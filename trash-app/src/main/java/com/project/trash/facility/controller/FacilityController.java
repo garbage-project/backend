@@ -110,10 +110,11 @@ public class FacilityController {
   @GetMapping
   @Operation(summary = "시설물 목록 조회",
       description = "시설물 목록을 조회한다.")
-  public ListResponse<FacilityListResponse> getList(@ParameterObject FacilityListRequest param) {
+  public PageListResponse<FacilityListResponse> getList(@ParameterObject FacilityListRequest param) {
     FacilityValidator.validate(param);
 
-    return new ListResponse<>(facilityQueryService.getList(param));
+    Pair<List<FacilityListResponse>, Long> pair = facilityQueryService.getList(param);
+    return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
   }
 
   /**

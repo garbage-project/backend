@@ -16,25 +16,16 @@ import lombok.Setter;
 @Schema(title = "시설물 목록 조회 응답")
 public class FacilityListResponse {
 
-  /**
-   * 시설물 ID
-   */
   @Schema(description = "시설물 ID", example = "1")
   private ULong facilityId;
-  /**
-   * 시설물 종류
-   */
+
   @Schema(description = "시설물 종류 목록(R - 화장실, S - 흡연구역, T - 쓰레기통)", example = "R")
   private String type;
-  /**
-   * 위도
-   */
-  @Schema(description = "위도", example = "2.6112336")
+
+  @Schema(description = "위도", example = "37.413294")
   private BigDecimal latitude;
-  /**
-   * 경도
-   */
-  @Schema(description = "경도", example = "33.126115")
+
+  @Schema(description = "경도", example = "126.764166")
   private BigDecimal longitude;
 
   public FacilityListResponse(ULong facilityId, String type, BigDecimal latitude, BigDecimal longitude) {

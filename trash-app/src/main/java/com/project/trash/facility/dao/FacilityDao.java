@@ -28,6 +28,13 @@ public class FacilityDao {
 
   private final DSLContext dsl;
 
+  public Long count(FacilityListRequest param) {
+    return dsl.selectCount()
+        .from(FACILITY)
+        .where(getCondionList(param))
+        .fetchOneInto(Long.class);
+  }
+
   /**
    * 시설물 목록 조회
    */
@@ -36,6 +43,8 @@ public class FacilityDao {
         .from(FACILITY)
         .where(getCondionList(param))
         .orderBy(FACILITY.CRE_DTM.desc())
+        .limit(param.getSize())
+        .offset(param.getOffset())
         .fetchInto(FacilityListResponse.class);
   }
 
@@ -47,6 +56,9 @@ public class FacilityDao {
     if (param.getType() != null && !param.getType().isEmpty()) {
       conditions.add(DSL.condition(FACILITY.FCLTY_TYP.in(param.getType())));
     }
+
+    conditions.add(DSL.condition(FACILITY.FCLTY_LTTD.between(param.getSouthLat(), param.getNorthLat())
+        .and(FACILITY.FCLTY_LNGT.between(param.getWestLng(), param.getEastLng()))));
 
     return conditions;
   }

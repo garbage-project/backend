@@ -69,6 +69,16 @@ public class FacilityValidator {
         }
       }
     }
+
+    if (param.getSouthLat() == null || param.getNorthLat() == null
+        || param.getWestLng() == null || param.getEastLng() == null) {
+      throw new ValidationException(PARAM_INVALID);
+    }
+
+    if (param.getSouthLat().compareTo(param.getNorthLat()) == 1
+        || param.getWestLng().compareTo(param.getEastLng()) == 1) {
+      throw new ValidationException(PARAM_INVALID);
+    }
   }
 
   /**
