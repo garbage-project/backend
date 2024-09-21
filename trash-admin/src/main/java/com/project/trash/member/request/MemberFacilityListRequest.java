@@ -13,9 +13,6 @@ import lombok.Setter;
 @Setter
 public class MemberFacilityListRequest extends PageRequest {
 
-  /**
-   * 회원 ID
-   */
-  @Parameter(description = "회원 ID", required = true, example = "1")
-  private Long memberId;
+  @Parameter(description = "회원 ID", example = "1", required = true)
+  private String memberId;
 }

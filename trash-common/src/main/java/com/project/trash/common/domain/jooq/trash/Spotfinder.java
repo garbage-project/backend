@@ -13,6 +13,7 @@ import org.jooq.impl.SchemaImpl;
 
 import trash.tables.Admin;
 import trash.tables.Facility;
+import trash.tables.FacilityApprovalHistory;
 import trash.tables.FacilityImage;
 import trash.tables.Member;
 import trash.tables.Notice;
@@ -43,6 +44,11 @@ public class Spotfinder extends SchemaImpl {
      * 시설물 테이블
      */
     public final Facility FACILITY = Facility.FACILITY;
+
+    /**
+     * 시설물 승인 이력 테이블
+     */
+    public final FacilityApprovalHistory FACILITY_APPROVAL_HISTORY = FacilityApprovalHistory.FACILITY_APPROVAL_HISTORY;
 
     /**
      * 시설물 이미지 테이블
@@ -92,6 +98,7 @@ public class Spotfinder extends SchemaImpl {
         return Arrays.asList(
             Admin.ADMIN,
             Facility.FACILITY,
+            FacilityApprovalHistory.FACILITY_APPROVAL_HISTORY,
             FacilityImage.FACILITY_IMAGE,
             Member.MEMBER,
             Notice.NOTICE,

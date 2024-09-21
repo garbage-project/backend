@@ -6,6 +6,7 @@ package trash;
 
 import trash.tables.Admin;
 import trash.tables.Facility;
+import trash.tables.FacilityApprovalHistory;
 import trash.tables.FacilityImage;
 import trash.tables.Member;
 import trash.tables.Notice;
@@ -29,6 +30,11 @@ public class Tables {
      * 시설물 테이블
      */
     public static final Facility FACILITY = Facility.FACILITY;
+
+    /**
+     * 시설물 승인 이력 테이블
+     */
+    public static final FacilityApprovalHistory FACILITY_APPROVAL_HISTORY = FacilityApprovalHistory.FACILITY_APPROVAL_HISTORY;
 
     /**
      * 시설물 이미지 테이블

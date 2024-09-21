@@ -58,8 +58,8 @@ public class MemberQueryService {
    * 회원 존재여부 검증
    */
   @Transactional(readOnly = true)
-  public void verifyExist(Long memberId) {
-    if (!memberRepository.existsById(memberId)) {
+  public void verifyExist(String socialId) {
+    if (!memberRepository.existsBySocialId(socialId)) {
       throw new ValidationException(MEMBER_NOT_FOUND);
     }
   }

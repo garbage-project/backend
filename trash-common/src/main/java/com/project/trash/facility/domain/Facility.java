@@ -74,6 +74,10 @@ public class Facility extends BaseTimeEntity {
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<FacilityImage> images = new ArrayList<>();
 
+  @OneToMany(mappedBy = "facility", fetch = FetchType.LAZY, orphanRemoval = true,
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  private List<FacilityApprovalHistory> approvalHistories = new ArrayList<>();
+
   public Facility(FacilityType type, String name, String location, String detailLocation, BigDecimal latitude,
       BigDecimal longitude, String information, String memberId) {
     this.type = type;
@@ -102,6 +106,7 @@ public class Facility extends BaseTimeEntity {
     this.memberId = memberId;
   }
 
+  // 엑셀 파일 업로드
   public Facility(String name, String location, String detailLocation, BigDecimal latitude,
       BigDecimal longitude, String department, String departmentPhoneNumber, FacilityType type) {
     this.name = name;
@@ -126,7 +131,10 @@ public class Facility extends BaseTimeEntity {
     this.information = information;
 
     // 시설물 수정 시, 승인 대기 상태로 변경
-    this.approvalStatus = FacilityApprovalStatus.PENDING;
+    if (approvalStatus != FacilityApprovalStatus.PENDING) {
+      this.approvalStatus = FacilityApprovalStatus.PENDING;
+      addApprovalHistory(new FacilityApprovalHistory(FacilityApprovalStatus.PENDING));
+    }
   }
 
   public void update(FacilityType type, String name, String location, String detailLocation, BigDecimal latitude,
@@ -141,6 +149,15 @@ public class Facility extends BaseTimeEntity {
     this.information = information;
     this.department = department;
     this.departmentPhoneNumber = departmentPhoneNumber;
+
+    if (this.approvalStatus != approvalStatus) {
+      addApprovalHistory(new FacilityApprovalHistory(approvalStatus));
+    }
     this.approvalStatus = approvalStatus;
+  }
+
+  private void addApprovalHistory(FacilityApprovalHistory approvalHistory) {
+    this.approvalHistories.add(approvalHistory);
+    approvalHistory.setFacility(this);
   }
 }

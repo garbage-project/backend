@@ -9,7 +9,6 @@ import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
 import com.project.trash.facility.request.FacilityReviewListRequest;
-import com.project.trash.member.request.MemberReviewListRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +31,8 @@ public class FacilityValidator {
    * 시설물 등록 요청 검증
    */
   public void validate(FacilityEntryRequest param) {
-    validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
-        param.getLongitude(), param.getDepartment(), param.getDepartmentPhoneNumber(), param.getApprovalStatus(), param.getImageIds());
+    validate(param.getType(), param.getName(), param.getLocation(), param.getLatitude(),
+        param.getLongitude(), param.getApprovalStatus(), param.getImageIds());
   }
 
   public void validate(List<MultipartFile> images) {
@@ -52,8 +51,8 @@ public class FacilityValidator {
    * 시설물 수정 요청 검증
    */
   public void validate(FacilityModifyRequest param) {
-    validate(param.getType(), param.getName(), param.getLocation(), param.getDetailLocation(), param.getLatitude(),
-        param.getLongitude(), param.getDepartment(), param.getDepartmentPhoneNumber(), param.getApprovalStatus(), param.getImageIds());
+    validate(param.getType(), param.getName(), param.getLocation(), param.getLatitude(),
+        param.getLongitude(), param.getApprovalStatus(), param.getImageIds());
 
     ValidatorUtils.validateNull(param.getFacilityId());
   }
@@ -88,19 +87,16 @@ public class FacilityValidator {
     ValidatorUtils.validateNull(param.getFacilityId());
   }
 
-  private void validate(String type, String name, String location, String detailLocation, BigDecimal latitude,
-      BigDecimal longitude, String department, String departmentPhoneNumber, String approvalStatus, Set<Long> imageIds) {
+  private void validate(String type, String name, String location, BigDecimal latitude,
+      BigDecimal longitude, String approvalStatus, Set<Long> imageIds) {
     ValidatorUtils.validateEmpty(type);
     if (!FacilityType.containCode(type)) {
       throw new ValidationException(PARAM_INVALID);
     }
     ValidatorUtils.validateEmpty(name);
     ValidatorUtils.validateEmpty(location);
-    ValidatorUtils.validateEmpty(detailLocation);
     ValidatorUtils.validateNull(latitude);
     ValidatorUtils.validateNull(longitude);
-    ValidatorUtils.validateEmpty(department);
-    ValidatorUtils.validateEmpty(departmentPhoneNumber);
     ValidatorUtils.validateEmpty(approvalStatus);
     if (!FacilityApprovalStatus.containCode(approvalStatus)) {
       throw new ValidationException(PARAM_INVALID);

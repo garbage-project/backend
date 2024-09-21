@@ -1,5 +1,10 @@
 package com.project.trash.member.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.project.trash.common.utils.DateTimeUtils;
+import com.project.trash.facility.domain.enums.FacilityApprovalStatus;
+
+import org.apache.commons.lang3.StringUtils;
 import org.jooq.types.ULong;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,6 +15,7 @@ import lombok.Getter;
  */
 @Getter
 @Schema(title = "회원이 등록한 시설물 목록 조회 응답")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberFacilityListResponse {
 
   @Schema(description = "시설물 ID", example = "1")
@@ -24,7 +30,7 @@ public class MemberFacilityListResponse {
   @Schema(description = "위치", example = "쌍문역")
   private String location;
 
-  @Schema(description = "상세 위치", example = "지하 1층")
+  @Schema(description = "상세 위치", example = "지하 1층", nullable = true)
   private String detailLocation;
 
   @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
@@ -33,11 +39,11 @@ public class MemberFacilityListResponse {
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
 
-  @Schema(description = "승인일자 (yyyy-MM-dd)", example = "2024-09-01")
+  @Schema(description = "승인일자 (yyyy-MM-dd)", example = "2024-09-01", nullable = true)
   private String approvalDate;
 
   public MemberFacilityListResponse(ULong facilityId, String type, String name, String location, String detailLocation,
-      String information, String approvalStatus) {
+      String information, String approvalStatus, String approvalAt) {
     this.facilityId = facilityId;
     this.type = type;
     this.name = name;
@@ -45,5 +51,9 @@ public class MemberFacilityListResponse {
     this.detailLocation = detailLocation;
     this.information = information;
     this.approvalStatus = approvalStatus;
+    // 현재 승인 상태가 승인 완료일 경우에만 승인일자 표시
+    if (approvalStatus.equals(FacilityApprovalStatus.APPROVE.getCode())) {
+      this.approvalDate = approvalAt.substring(0, 10);
+    }
   }
 }

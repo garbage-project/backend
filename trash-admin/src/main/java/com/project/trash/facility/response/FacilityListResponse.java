@@ -33,22 +33,22 @@ public class FacilityListResponse {
   @Schema(description = "위치", example = "쌍문역")
   private String location;
 
-  @Schema(description = "상세 위치", example = "지하 1층")
+  @Schema(description = "상세 위치", example = "지하 1층", nullable = true)
   private String detailLocation;
 
   @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
   private String information;
 
-  @Schema(description = "관리 부서", example = "서울시설공단")
+  @Schema(description = "관리 부서", example = "서울시설공단", nullable = true)
   private String department;
 
-  @Schema(description = "관리 부서 전화번호", example = "02-2290-7111")
+  @Schema(description = "관리 부서 전화번호", example = "02-2290-7111", nullable = true)
   private String departmentPhoneNumber;
 
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
 
-  @Schema(description = "등록자 ID", example = "test1234")
+  @Schema(description = "등록자 ID", example = "test1234", nullable = true)
   private String memberId;
 
   @Schema(description = "시설물 등록일자", example = "2024-09-01")

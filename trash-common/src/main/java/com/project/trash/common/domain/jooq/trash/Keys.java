@@ -11,6 +11,7 @@ import org.jooq.impl.Internal;
 
 import trash.tables.Admin;
 import trash.tables.Facility;
+import trash.tables.FacilityApprovalHistory;
 import trash.tables.FacilityImage;
 import trash.tables.Member;
 import trash.tables.Notice;
@@ -18,6 +19,7 @@ import trash.tables.Report;
 import trash.tables.Review;
 import trash.tables.Token;
 import trash.tables.records.AdminRecord;
+import trash.tables.records.FacilityApprovalHistoryRecord;
 import trash.tables.records.FacilityImageRecord;
 import trash.tables.records.FacilityRecord;
 import trash.tables.records.MemberRecord;
@@ -40,6 +42,7 @@ public class Keys {
 
     public static final UniqueKey<AdminRecord> KEY_ADMIN_PRIMARY = Internal.createUniqueKey(Admin.ADMIN, DSL.name("KEY_ADMIN_PRIMARY"), new TableField[] { Admin.ADMIN.ADM_ID }, true);
     public static final UniqueKey<FacilityRecord> KEY_FACILITY_PRIMARY = Internal.createUniqueKey(Facility.FACILITY, DSL.name("KEY_FACILITY_PRIMARY"), new TableField[] { Facility.FACILITY.FCLTY_ID }, true);
+    public static final UniqueKey<FacilityApprovalHistoryRecord> KEY_FACILITY_APPROVAL_HISTORY_PRIMARY = Internal.createUniqueKey(FacilityApprovalHistory.FACILITY_APPROVAL_HISTORY, DSL.name("KEY_FACILITY_APPROVAL_HISTORY_PRIMARY"), new TableField[] { FacilityApprovalHistory.FACILITY_APPROVAL_HISTORY.FCLTY_APRV_HST_ID }, true);
     public static final UniqueKey<FacilityImageRecord> KEY_FACILITY_IMAGE_PRIMARY = Internal.createUniqueKey(FacilityImage.FACILITY_IMAGE, DSL.name("KEY_FACILITY_IMAGE_PRIMARY"), new TableField[] { FacilityImage.FACILITY_IMAGE.FCLTY_IMG_ID }, true);
     public static final UniqueKey<MemberRecord> KEY_MEMBER_PRIMARY = Internal.createUniqueKey(Member.MEMBER, DSL.name("KEY_MEMBER_PRIMARY"), new TableField[] { Member.MEMBER.MBR_ID }, true);
     public static final UniqueKey<NoticeRecord> KEY_NOTICE_PRIMARY = Internal.createUniqueKey(Notice.NOTICE, DSL.name("KEY_NOTICE_PRIMARY"), new TableField[] { Notice.NOTICE.NTC_ID }, true);

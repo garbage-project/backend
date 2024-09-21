@@ -40,7 +40,7 @@ public class MemberValidator {
    * 등록한 시설물 목록 조회 요청 검증
    */
   public void validate(MemberFacilityListRequest param) {
-    ValidatorUtils.validateNull(param.getMemberId());
+    ValidatorUtils.validateEmpty(param.getMemberId());
   }
 
   /**
