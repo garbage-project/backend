@@ -49,7 +49,7 @@ public class FacilityDetailResponse {
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
 
-  @Schema(description = "등록자 ID", example = "test1234")
+  @Schema(description = "등록자 ID", example = "test1234", nullable = true)
   private String memberId;
 
   @Schema(description = "시설물 등록일자", example = "2024-09-01")
