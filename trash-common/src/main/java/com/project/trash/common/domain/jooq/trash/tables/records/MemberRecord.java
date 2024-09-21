@@ -52,25 +52,10 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     }
 
     /**
-     * Setter for <code>spotfinder.MEMBER.MBR_NM</code>. 이름
-     */
-    public MemberRecord setMbrNm(String value) {
-        set(2, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>spotfinder.MEMBER.MBR_NM</code>. 이름
-     */
-    public String getMbrNm() {
-        return (String) get(2);
-    }
-
-    /**
      * Setter for <code>spotfinder.MEMBER.MBR_NCK_NM</code>. 닉네임
      */
     public MemberRecord setMbrNckNm(String value) {
-        set(3, value);
+        set(2, value);
         return this;
     }
 
@@ -78,14 +63,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.MBR_NCK_NM</code>. 닉네임
      */
     public String getMbrNckNm() {
-        return (String) get(3);
+        return (String) get(2);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.MBR_GNDR</code>. 성별
      */
     public MemberRecord setMbrGndr(String value) {
-        set(4, value);
+        set(3, value);
         return this;
     }
 
@@ -93,29 +78,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.MBR_GNDR</code>. 성별
      */
     public String getMbrGndr() {
-        return (String) get(4);
-    }
-
-    /**
-     * Setter for <code>spotfinder.MEMBER.MBR_BRDT</code>. 생년월일
-     */
-    public MemberRecord setMbrBrdt(String value) {
-        set(5, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>spotfinder.MEMBER.MBR_BRDT</code>. 생년월일
-     */
-    public String getMbrBrdt() {
-        return (String) get(5);
+        return (String) get(3);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
     public MemberRecord setMbrSclId(String value) {
-        set(6, value);
+        set(4, value);
         return this;
     }
 
@@ -123,14 +93,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.MBR_SCL_ID</code>. 소셜 ID
      */
     public String getMbrSclId() {
-        return (String) get(6);
+        return (String) get(4);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
      */
     public MemberRecord setMbrSclTyp(String value) {
-        set(7, value);
+        set(5, value);
         return this;
     }
 
@@ -138,14 +108,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.MBR_SCL_TYP</code>. 소셜 타입
      */
     public String getMbrSclTyp() {
-        return (String) get(7);
+        return (String) get(5);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.MBR_ARGM_YN</code>. 약관 동의 여부
      */
     public MemberRecord setMbrArgmYn(String value) {
-        set(8, value);
+        set(6, value);
         return this;
     }
 
@@ -153,14 +123,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.MBR_ARGM_YN</code>. 약관 동의 여부
      */
     public String getMbrArgmYn() {
-        return (String) get(8);
+        return (String) get(6);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public MemberRecord setMbrVldYn(String value) {
-        set(9, value);
+        set(7, value);
         return this;
     }
 
@@ -168,14 +138,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.MBR_VLD_YN</code>. 유효여부
      */
     public String getMbrVldYn() {
-        return (String) get(9);
+        return (String) get(7);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.CRE_DTM</code>. 등록일시
      */
     public MemberRecord setCreDtm(LocalDateTime value) {
-        set(10, value);
+        set(8, value);
         return this;
     }
 
@@ -183,14 +153,14 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.CRE_DTM</code>. 등록일시
      */
     public LocalDateTime getCreDtm() {
-        return (LocalDateTime) get(10);
+        return (LocalDateTime) get(8);
     }
 
     /**
      * Setter for <code>spotfinder.MEMBER.UPD_DTM</code>. 수정일시
      */
     public MemberRecord setUpdDtm(LocalDateTime value) {
-        set(11, value);
+        set(9, value);
         return this;
     }
 
@@ -198,7 +168,7 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
      * Getter for <code>spotfinder.MEMBER.UPD_DTM</code>. 수정일시
      */
     public LocalDateTime getUpdDtm() {
-        return (LocalDateTime) get(11);
+        return (LocalDateTime) get(9);
     }
 
     // -------------------------------------------------------------------------
@@ -224,15 +194,13 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
     /**
      * Create a detached, initialised MemberRecord
      */
-    public MemberRecord(ULong mbrId, String mbrEmail, String mbrNm, String mbrNckNm, String mbrGndr, String mbrBrdt, String mbrSclId, String mbrSclTyp, String mbrArgmYn, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
+    public MemberRecord(ULong mbrId, String mbrEmail, String mbrNckNm, String mbrGndr, String mbrSclId, String mbrSclTyp, String mbrArgmYn, String mbrVldYn, LocalDateTime creDtm, LocalDateTime updDtm) {
         super(Member.MEMBER);
 
         setMbrId(mbrId);
         setMbrEmail(mbrEmail);
-        setMbrNm(mbrNm);
         setMbrNckNm(mbrNckNm);
         setMbrGndr(mbrGndr);
-        setMbrBrdt(mbrBrdt);
         setMbrSclId(mbrSclId);
         setMbrSclTyp(mbrSclTyp);
         setMbrArgmYn(mbrArgmYn);
@@ -251,10 +219,8 @@ public class MemberRecord extends UpdatableRecordImpl<MemberRecord> {
         if (value != null) {
             setMbrId(value.getMbrId());
             setMbrEmail(value.getMbrEmail());
-            setMbrNm(value.getMbrNm());
             setMbrNckNm(value.getMbrNckNm());
             setMbrGndr(value.getMbrGndr());
-            setMbrBrdt(value.getMbrBrdt());
             setMbrSclId(value.getMbrSclId());
             setMbrSclTyp(value.getMbrSclTyp());
             setMbrArgmYn(value.getMbrArgmYn());

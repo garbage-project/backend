@@ -23,9 +23,6 @@ public class MemberValidator {
    * 회원 목록 조회 요청 검증
    */
   public void validate(MemberListRequest param) {
-    if (StringUtils.isNotBlank(param.getBirthday()) && !DateTimeUtils.validFormat(param.getBirthday())) {
-      throw new ValidationException(PARAM_INVALID);
-    }
     String startDate = param.getStartDate();
     if (StringUtils.isNotBlank(startDate) && !DateTimeUtils.validFormat(startDate)) {
       throw new ValidationException(PARAM_INVALID);

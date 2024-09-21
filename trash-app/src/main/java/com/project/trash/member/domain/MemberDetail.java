@@ -18,13 +18,13 @@ import lombok.Getter;
 public class MemberDetail implements UserDetails {
 
   /**
-   * 회원 고유번호
+   * 회원 ID
    */
   private final Long memberId;
   /**
-   * 회원 이름
+   * 닉네임
    */
-  private final String name;
+  private final String nickname;
   /**
    * 이메일
    */
@@ -40,7 +40,7 @@ public class MemberDetail implements UserDetails {
 
   public MemberDetail(Member member) {
     this.memberId = member.getMemberId();
-    this.name = member.getName();
+    this.nickname = member.getNickname();
     this.email = member.getEmail();
     this.socialId = member.getSocialId();
     this.socialType = member.getSocialType();

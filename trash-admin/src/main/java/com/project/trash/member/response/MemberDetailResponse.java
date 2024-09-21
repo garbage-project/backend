@@ -26,20 +26,10 @@ public class MemberDetailResponse {
   @Schema(description = "이메일", example = "test1234@naver.com")
   private String email;
   /**
-   * 이름
-   */
-  @Schema(description = "회원 이름", example = "김회원")
-  private String name;
-  /**
    * 닉네임
    */
   @Schema(description = "회원 닉네임", example = "Kim")
   private String nickname;
-  /**
-   * 생일
-   */
-  @Schema(description = "회원 생일 (yyyy-MM-dd)", example = "1990-01-01")
-  private String birthday;
   /**
    * 성별
    */
@@ -59,11 +49,7 @@ public class MemberDetailResponse {
   public MemberDetailResponse(Member member) {
     this.memberId = member.getMemberId();
     this.email = member.getEmail();
-    this.name = member.getName();
     this.nickname = member.getNickname();
-    this.birthday =
-        DateTimeUtils.convertToString(DateTimeUtils.convertToDate(member.getBirthday(), DateTimeUtils.DEFAULT_DAY),
-            DateTimeUtils.DEFAULT_DATE);
     this.gender = member.getGender().getCode();
     this.socialType = member.getSocialType().getCode();
     this.createdDate = DateTimeUtils.convertToString(member.getCreatedAt(), DateTimeUtils.DEFAULT_DATE);

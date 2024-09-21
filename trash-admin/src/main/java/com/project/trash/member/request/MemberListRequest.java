@@ -19,20 +19,10 @@ public class MemberListRequest extends PageRequest {
   @Parameter(description = "회원 ID", example = "1")
   private Long memberId;
   /**
-   * 이름
-   */
-  @Parameter(description = "회원 이름", example = "김회원")
-  private String name;
-  /**
    * 닉네임
    */
   @Parameter(description = "회원 닉네임", example = "Kim")
   private String nickname;
-  /**
-   * 생일
-   */
-  @Parameter(description = "회원 생일 (yyyy-MM-dd)", example = "1990-01-01")
-  private String birthday;
   /**
    * 성별
    */

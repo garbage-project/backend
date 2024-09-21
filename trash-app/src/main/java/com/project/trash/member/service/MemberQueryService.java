@@ -33,7 +33,7 @@ public class MemberQueryService {
    */
   public MemberDetailResponse getDetail() {
     MemberDetail member = MemberUtils.getMember();
-    return new MemberDetailResponse(member.getName(), member.getSocialId());
+    return new MemberDetailResponse(member.getNickname(), member.getSocialId());
   }
 
   @Transactional(readOnly = true)

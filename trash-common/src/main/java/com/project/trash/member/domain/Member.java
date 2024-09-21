@@ -31,18 +31,12 @@ public class Member extends BaseTimeEntity {
   @Column(name = "MBR_EMAIL", nullable = false)
   private String email;
 
-  @Column(name = "MBR_NM", nullable = false)
-  private String name;
-
   @Column(name = "MBR_NCK_NM", nullable = false)
   private String nickname = "";
 
   @Convert(converter = GenderType.TypeCodeConverter.class)
   @Column(name = "MBR_GNDR", nullable = false)
   private GenderType gender;
-
-  @Column(name = "MBR_BRDT", nullable = false)
-  private String birthday;
 
   @Column(name = "MBR_SCL_ID", nullable = false)
   private String socialId;
@@ -57,11 +51,9 @@ public class Member extends BaseTimeEntity {
   @Column(name = "MBR_VLD_YN", nullable = false)
   private Boolean valid = Boolean.TRUE;
 
-  public Member(String email, String name, GenderType gender, String birthday, String socialId, SocialType socialType) {
+  public Member(String email, GenderType gender, String socialId, SocialType socialType) {
     this.email = email;
-    this.name = name;
     this.gender = gender;
-    this.birthday = birthday;
     this.socialId = socialId;
     this.socialType = socialType;
   }
