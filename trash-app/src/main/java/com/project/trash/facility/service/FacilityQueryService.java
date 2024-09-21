@@ -8,8 +8,10 @@ import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.response.FacilityDetailResponse;
 import com.project.trash.facility.response.FacilityListResponse;
+import com.project.trash.facility.response.FacilityReviewListResponse;
 import com.project.trash.member.response.MyFacilityListResponse;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +39,8 @@ public class FacilityQueryService {
    * 시설물 목록 조회
    */
   @Transactional(readOnly = true)
-  public List<FacilityListResponse> getList(FacilityListRequest param) {
-    return facilityDao.select(param);
+  public Pair<List<FacilityListResponse>, Long> getList(FacilityListRequest param) {
+    return Pair.of(facilityDao.select(param), facilityDao.count(param));
   }
 
   /**
