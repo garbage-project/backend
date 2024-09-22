@@ -42,21 +42,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     String accessToken = CookieUtils.getCookie(request, "accessToken");
-    System.out.println("accessToken: " + accessToken);
     if (StringUtils.isBlank(accessToken)) {
-      System.out.println("accessToken blank");
       filterChain.doFilter(request, response);
       return;
     }
 
     String adminId = jwtService.extractUsername(accessToken);
-    System.out.println("adminId: " + adminId);
     if (StringUtils.isNotBlank(adminId)) {
       AdminDetail adminDetail = new AdminDetail(adminQueryService.getOne(adminId));
 
       Optional<Token> token = adminQueryService.getToken(adminId);
       if (token.isEmpty() || !token.get().getAccessToken().equals(accessToken)) {
-        System.out.println("accessToken 일치하지 않음");
         filterChain.doFilter(request, response);
         return;
       }
@@ -66,8 +62,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Authentication authentication =
             new UsernamePasswordAuthenticationToken(adminDetail, accessToken, adminDetail.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-      } else {
-        System.out.println("accessToken 유효하지 않음");
       }
     }
 
