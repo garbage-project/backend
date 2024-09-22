@@ -8,7 +8,6 @@ import com.project.trash.facility.repository.FacilityRepository;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.response.FacilityDetailResponse;
 import com.project.trash.facility.response.FacilityListResponse;
-import com.project.trash.facility.response.FacilityReviewListResponse;
 import com.project.trash.member.response.MyFacilityListResponse;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -16,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -39,8 +40,25 @@ public class FacilityQueryService {
    * 시설물 목록 조회
    */
   @Transactional(readOnly = true)
-  public Pair<List<FacilityListResponse>, Long> getList(FacilityListRequest param) {
-    return Pair.of(facilityDao.select(param), facilityDao.count(param));
+  public FacilityListResponse getList(FacilityListRequest param) {
+    List<FacilityListResponse.FacilityList> list = facilityDao.select(param);
+
+    BigDecimal KM_IN_ONE_DEGREE_LAT = BigDecimal.valueOf(111.32); // 위도 1도에 해당하는 거리 (약 111.32km)
+    BigDecimal distanceInKm = BigDecimal.valueOf(25.0);  // 25km
+
+    // 남북으로 25km 떨어진 위도 계산
+    BigDecimal latitude = param.getLatitude();
+    BigDecimal longitude = param.getLongitude();
+    BigDecimal northLatitude = latitude.add(distanceInKm.divide(KM_IN_ONE_DEGREE_LAT, 10, RoundingMode.HALF_UP));
+    BigDecimal southLatitude = latitude.subtract(distanceInKm.divide(KM_IN_ONE_DEGREE_LAT, 10, RoundingMode.HALF_UP));
+
+    // 동서로 25km 떨어진 경도 계산 (위도의 영향을 받음)
+    BigDecimal cosLatitude = BigDecimal.valueOf(Math.cos(Math.toRadians(latitude.doubleValue())));
+    BigDecimal kmPerDegreeLongitude = KM_IN_ONE_DEGREE_LAT.multiply(cosLatitude);
+    BigDecimal eastLongitude = longitude.add(distanceInKm.divide(kmPerDegreeLongitude, 10, RoundingMode.HALF_UP));
+    BigDecimal westLongitude = longitude.subtract(distanceInKm.divide(kmPerDegreeLongitude, 10, RoundingMode.HALF_UP));
+
+    return new FacilityListResponse(northLatitude, southLatitude, westLongitude, eastLongitude, list);
   }
 
   /**

@@ -1,5 +1,6 @@
 package com.project.trash.facility.controller;
 
+import com.project.trash.common.response.DataListResponse;
 import com.project.trash.common.response.DataResponse;
 import com.project.trash.common.response.ImageEntryResponse;
 import com.project.trash.common.response.ListResponse;
@@ -110,11 +111,10 @@ public class FacilityController {
   @GetMapping
   @Operation(summary = "시설물 목록 조회",
       description = "시설물 목록을 조회한다.")
-  public PageListResponse<FacilityListResponse> getList(@ParameterObject FacilityListRequest param) {
+  public DataResponse<FacilityListResponse> getList(@ParameterObject FacilityListRequest param) {
     FacilityValidator.validate(param);
 
-    Pair<List<FacilityListResponse>, Long> pair = facilityQueryService.getList(param);
-    return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
+    return new DataResponse<>(facilityQueryService.getList(param));
   }
 
   /**

@@ -23,39 +23,24 @@ import trash.tables.records.ReportRecord;
 @Schema(title = "신고 상세 조회 응답")
 public class ReportDetailResponse {
 
-  /**
-   * 신고 ID
-   */
   @Schema(description = "신고 ID", example = "1")
   private final ULong reportId;
-  /**
-   * 신고 내용
-   */
+
   @Schema(description = "신고 내용", example = "현재는 해당 시설물이 존재하지 않습니다.")
   private final String content;
-  /**
-   * 답변
-   */
+
   @Schema(description = "답변", example = "처리 완료했습니다!")
   private final String answer;
-  /**
-   * 상태
-   */
+
   @Schema(description = "신고 처리상태(Y - 처리완료, N - 미처리)", example = "Y")
   private final String status;
-  /**
-   * 등록일자
-   */
+
   @Schema(description = "신고 등록일자", example = "2024-09-01")
   private final String createdDate;
-  /**
-   * 회원 ID(신고자 ID)
-   */
+
   @Schema(description = "회원 ID", example = "1")
   private final ULong memberId;
-  /**
-   * 회원 닉네임
-   */
+
   @Schema(description = "회원 닉네임", example = "Kim")
   private final String nickname;
   /**
