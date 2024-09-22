@@ -65,7 +65,7 @@ public class ReviewDao {
    * 시설물 리뷰 목록 조회
    */
   public List<FacilityReviewListResponse> select(FacilityReviewListRequest param) {
-    return dsl.select(REVIEW.RVW_ID, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_SCL_ID, MEMBER.MBR_NCK_NM)
+    return dsl.select(REVIEW.RVW_ID, REVIEW.RVW_CTT, REVIEW.CRE_DTM, REVIEW.MBR_ID, MEMBER.MBR_NCK_NM)
         .from(REVIEW)
         .leftJoin(MEMBER)
         .on(MEMBER.MBR_ID.eq(REVIEW.MBR_ID))

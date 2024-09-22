@@ -40,7 +40,7 @@ public class ReviewDao {
    * 등록한 리뷰 목록 조회
    */
   public List<MyReviewListResponse> select() {
-    return dsl.select(REVIEW.RVW_ID, FACILITY.FCLTY_NM, REVIEW.RVW_CTT, REVIEW.CRE_DTM)
+    return dsl.select(REVIEW.RVW_ID, FACILITY.FCLwTY_TYP, FACILITY.FCLTY_NM, REVIEW.RVW_CTT, REVIEW.CRE_DTM)
         .from(REVIEW)
         .leftJoin(FACILITY)
         .on(FACILITY.FCLTY_ID.eq(REVIEW.FCLTY_ID))
