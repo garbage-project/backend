@@ -11,14 +11,13 @@ import lombok.ToString;
  * 단일 데이터와 목록 조회 공통 응답 형식
  */
 @Getter
-@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DataListResponse extends SuccessResponse {
-  private final Object data;
-  private final List<?> list;
+public class DataListResponse<T1, T2> extends SuccessResponse {
+  private final T1 data;
+  private final List<T2> list;
   private int count;
 
-  public DataListResponse(Object data, List<?> list) {
+  public DataListResponse(T1 data, List<T2> list) {
     this.data = data;
     this.list = list;
     if (this.list != null && !this.list.isEmpty()) {

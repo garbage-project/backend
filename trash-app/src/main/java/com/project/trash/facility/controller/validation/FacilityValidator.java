@@ -6,7 +6,6 @@ import com.project.trash.facility.domain.enums.FacilityType;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
-import com.project.trash.facility.request.FacilityReviewListRequest;
 import com.project.trash.facility.request.ReportEntryRequest;
 import com.project.trash.facility.request.ReviewEntryRequest;
 import com.project.trash.facility.request.ReviewModifyRequest;
@@ -70,22 +69,9 @@ public class FacilityValidator {
       }
     }
 
-    if (param.getSouthLat() == null || param.getNorthLat() == null
-        || param.getWestLng() == null || param.getEastLng() == null) {
+    if (param.getLatitude() == null || param.getLongitude() == null) {
       throw new ValidationException(PARAM_INVALID);
     }
-
-    if (param.getSouthLat().compareTo(param.getNorthLat()) == 1
-        || param.getWestLng().compareTo(param.getEastLng()) == 1) {
-      throw new ValidationException(PARAM_INVALID);
-    }
-  }
-
-  /**
-   * 시설물 리뷰 목록 조회 요청 검증
-   */
-  public void validate(FacilityReviewListRequest param) {
-    ValidatorUtils.validateNull(param.getFacilityId());
   }
 
   /**
