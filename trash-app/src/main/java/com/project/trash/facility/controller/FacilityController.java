@@ -1,16 +1,14 @@
 package com.project.trash.facility.controller;
 
-import com.project.trash.common.response.DataListResponse;
+import com.project.trash.common.request.PageRequest;
 import com.project.trash.common.response.DataResponse;
 import com.project.trash.common.response.ImageEntryResponse;
-import com.project.trash.common.response.ListResponse;
 import com.project.trash.common.response.PageListResponse;
 import com.project.trash.common.response.SuccessResponse;
 import com.project.trash.facility.controller.validation.FacilityValidator;
 import com.project.trash.facility.request.FacilityEntryRequest;
 import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.request.FacilityModifyRequest;
-import com.project.trash.facility.request.FacilityReviewListRequest;
 import com.project.trash.facility.request.ReportEntryRequest;
 import com.project.trash.facility.request.ReviewEntryRequest;
 import com.project.trash.facility.request.ReviewModifyRequest;
@@ -120,14 +118,27 @@ public class FacilityController {
   /**
    * 시설물 리뷰 목록 조회
    */
-  @GetMapping("/reviews")
+  @GetMapping("/{facilityId}/reviews")
   @Operation(summary = "시설물 리뷰 목록 조회",
       description = "시설물의 리뷰 목록을 조회한다.")
-  public PageListResponse<FacilityReviewListResponse> getReviewList(@ParameterObject FacilityReviewListRequest param) {
-    FacilityValidator.validate(param);
+  public PageListResponse<FacilityReviewListResponse> getReviewList(
+      @Parameter(description = "조회할 시설물의 ID", required = true, example = "1") @PathVariable Long facilityId,
+      @ParameterObject PageRequest param) {
 
-    Pair<List<FacilityReviewListResponse>, Long> pair = reviewQueryService.getList(param);
+    Pair<List<FacilityReviewListResponse>, Long> pair = reviewQueryService.getList(facilityId, param);
     return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
+  }
+
+  /**
+   * 시설물 리뷰 개수 조회
+   */
+  @GetMapping("/{facilityId}/reviews/count")
+  @Operation(summary = "시설물 리뷰 개수 조회",
+      description = "시설물에 등록된 리뷰 개수를 조회한다.")
+  public DataResponse<Long> getReviewCount(
+      @Parameter(description = "조회할 시설물의 ID", required = true, example = "1") @PathVariable Long facilityId) {
+
+    return new DataResponse<>(reviewQueryService.getCount(facilityId));
   }
 
   /**

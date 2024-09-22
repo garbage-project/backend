@@ -44,7 +44,7 @@ public class CookieUtils {
    */
   public void setCookie(String name, String value, Integer maxAge, HttpServletResponse response) {
     ResponseCookie cookie =
-        ResponseCookie.from(name, value).path("/").sameSite("None").httpOnly(true).secure(true).maxAge(maxAge).build();
+        ResponseCookie.from(name, value).path("/").sameSite("None").httpOnly(true).secure(false).maxAge(maxAge).build();
 
     response.addHeader("Set-Cookie", cookie.toString());
   }

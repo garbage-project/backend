@@ -1,6 +1,6 @@
 package com.project.trash.facility.dao;
 
-import com.project.trash.facility.request.FacilityReviewListRequest;
+import com.project.trash.common.request.PageRequest;
 import com.project.trash.facility.response.FacilityReviewListResponse;
 import com.project.trash.member.response.MyReviewListResponse;
 import com.project.trash.utils.MemberUtils;
@@ -27,12 +27,12 @@ public class ReviewDao {
   private final DSLContext dsl;
 
   /**
-   * 시설물 리뷰 목록 총개수
+   * 시설물 리뷰 총개수
    */
-  public Long count(FacilityReviewListRequest param) {
+  public Long count(Long facilityId ) {
     return dsl.selectCount()
               .from(REVIEW)
-              .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(param.getFacilityId())))
+              .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(facilityId)))
               .fetchOneInto(Long.class);
   }
 
@@ -52,12 +52,12 @@ public class ReviewDao {
   /**
    * 시설물 리뷰 목록 조회
    */
-  public List<FacilityReviewListResponse> select(FacilityReviewListRequest param) {
+  public List<FacilityReviewListResponse> select(Long facilityId, PageRequest param) {
     return dsl.select(REVIEW.RVW_ID, REVIEW.RVW_CTT, REVIEW.CRE_DTM, MEMBER.MBR_ID, MEMBER.MBR_NCK_NM)
               .from(REVIEW)
               .leftJoin(MEMBER)
               .on(MEMBER.MBR_ID.eq(REVIEW.MBR_ID))
-              .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(param.getFacilityId())))
+              .where(REVIEW.FCLTY_ID.eq(ULong.valueOf(facilityId)))
               .orderBy(REVIEW.CRE_DTM.desc())
               .limit(param.getSize())
               .offset(param.getOffset())
