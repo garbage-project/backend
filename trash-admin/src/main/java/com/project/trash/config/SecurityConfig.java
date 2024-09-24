@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -31,12 +32,6 @@ public class SecurityConfig {
 
   @Value("${security.cors.origins}")
   private List<String> origins;
-
-  @Value("${security.cors.headers}")
-  private List<String> headers;
-
-  @Value("${security.cors.methods}")
-  private List<String> methods;
 
   private final JwtService jwtService;
   private final AdminQueryService adminQueryService;
@@ -63,7 +58,8 @@ public class SecurityConfig {
           it.authenticationEntryPoint(customAuthenticationEntryPoint);
           it.accessDeniedHandler(customAccessDeniedHandler);
         })
-        .securityContext((securityContext) -> securityContext.requireExplicitSave(false));
+        .securityContext((securityContext) -> securityContext.requireExplicitSave(false))
+        .cors(Customizer.withDefaults());
 
     return http.build();
   }
