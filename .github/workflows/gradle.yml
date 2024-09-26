@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,39 +30,30 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x test
 
-      - name: Docker build
-        run: docker build -t spotfinder-admin:latest -f trash-admin/Dockerfile .
-
-      # AWS 자격증명
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+  deploy-admin:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.commits.*.modified, 'trash-admin/') ||
+      !contains(github.event.commits.*.modified, 'trash-app/')
+    steps:
+      - name: Deploy EC2
+        uses: ../actions/ec2-deploy.yml
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          DOCKER_FILE_PATH: trash-admin/Dockerfile
+          DOCKER_IMAGE_NAME: spotfinder-admin
+          ECR_REGISTRY_URI: ${{ secrets.ADMIN_ECR_REGISTRY_URI }}
+          EC2_INSTANCE_ID: ${{ secrets.ADMIN_EC2_INSTANCE_ID }}
 
-      # ECR 로그인
-      - name: Login to Amazon ECR
-        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}
-
-      - name: Publish Image to ECR
-        run: |
-          docker tag spotfinder-admin:latest ${{ secrets.ECR_REGISTRY_URI }}:latest
-          docker push ${{ secrets.ECR_REGISTRY_URI }}
-
-      # EC2 Deploy
-      - name: Deploy application using SSM
-        run: |
-          aws ssm send-command \
-            --document-name "AWS-RunShellScript" \
-            --instance-ids "${{ secrets.EC2_INSTANCE_ID }}" \
-            --parameters commands='[
-              "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}",
-              "cd /root",
-              "docker stop $(docker ps -a -q)",
-              "docker rm $(docker ps -aq)",
-              "docker rmi $(docker images -a -q)",
-              "docker pull ${{ secrets.ECR_REGISTRY_URI }}:latest",
-              "docker run -d -p 8080:8080 --name spotfinder-admin ${{ secrets.ECR_REGISTRY_URI }}:latest"
-            ]' \
-            --comment "Deploying Docker container"
+  deploy-app:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.commits.*.modified, 'trash-app/') ||
+      !contains(github.event.commits.*.modified, 'trash-admin/')
+    steps:
+      - name: Deploy EC2
+        uses: ../actions/ec2-deploy.yml
+        with:
+          DOCKER_FILE_PATH: trash-app/Dockerfile
+          DOCKER_IMAGE_NAME: spotfinder-app
+          ECR_REGISTRY_URI: ${{ secrets.APP_ECR_REGISTRY_URI }}
+          EC2_INSTANCE_ID: ${{ secrets.APP_EC2_INSTANCE_ID }}
