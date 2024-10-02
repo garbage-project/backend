@@ -2,6 +2,7 @@ package com.project.trash.review.service;
 
 import com.project.trash.facility.domain.Review;
 import com.project.trash.facility.repository.ReviewRepository;
+import com.project.trash.member.request.MemberReviewModifyRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,13 @@ public class ReviewCommandService {
 
   private final ReviewRepository reviewRepository;
   private final ReviewQueryService reviewQueryService;
+
+  @Transactional
+  public void modify(MemberReviewModifyRequest param) {
+    Review review = reviewQueryService.getOne(param.getReviewId());
+
+    review.update(param.getContent());
+  }
 
   /**
    * 선택한 리뷰 목록 삭제

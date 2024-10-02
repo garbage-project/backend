@@ -1,6 +1,5 @@
 package com.project.trash.facility.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.trash.facility.domain.Facility;
 
 import java.math.BigDecimal;
@@ -16,7 +15,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Schema(title = "시설물 상세 조회 응답")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FacilityDetailResponse {
 
   @Schema(description = "시설물 ID", example = "1")
@@ -52,8 +50,8 @@ public class FacilityDetailResponse {
   @Schema(description = "승인 상태 (P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
   private String approvalStatus;
 
-  @Schema(description = "이미지 목록", example = "[\"https://spotfinder-image.s3.ap-northeast-2.amazonaws.com/facility/2024/09/14/4-222150239.png\"]")
-  private List<String> images;
+  @Schema(description = "이미지 목록")
+  private List<Image> images;
 
   public FacilityDetailResponse(Facility facility, String s3ImageUrl) {
     this.facilityId = facility.getFacilityId();
@@ -69,7 +67,23 @@ public class FacilityDetailResponse {
     this.approvalStatus = facility.getApprovalStatus().getCode();
     this.images = facility.getImages()
         .stream()
-        .map(image -> s3ImageUrl + image.getPath())
+        .map(image -> new Image(image.getImgId(), s3ImageUrl + image.getPath()))
         .toList();
+  }
+
+  @Getter
+  @Setter
+  public static class Image {
+
+    @Schema(description = "이미지 ID", example = "1")
+    private Long imageId;
+
+    @Schema(description = "이미지 url", example = "https://spotfinder-image.s3.ap-northeast-2.amazonaws.com/facility/2024/09/14/4-222150239.png")
+    private String url;
+
+    public Image(Long imageId, String url) {
+      this.imageId = imageId;
+      this.url = url;
+    }
   }
 }

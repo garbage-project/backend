@@ -6,6 +6,7 @@ import com.project.trash.common.utils.ValidatorUtils;
 import com.project.trash.member.request.MemberFacilityListRequest;
 import com.project.trash.member.request.MemberListRequest;
 import com.project.trash.member.request.MemberReviewListRequest;
+import com.project.trash.member.request.MemberReviewModifyRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,6 +19,14 @@ import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM
  */
 @UtilityClass
 public class MemberValidator {
+
+  /**
+   * 회원 리뷰 수정 요청 검증
+   */
+  public void validate(MemberReviewModifyRequest param) {
+    ValidatorUtils.validateNull(param.getReviewId());
+    ValidatorUtils.validateEmpty(param.getContent());
+  }
 
   /**
    * 회원 목록 조회 요청 검증
