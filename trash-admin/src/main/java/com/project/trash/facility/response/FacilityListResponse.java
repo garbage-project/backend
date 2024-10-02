@@ -1,11 +1,8 @@
 package com.project.trash.facility.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.trash.common.utils.DateTimeUtils;
 
 import org.jooq.types.ULong;
-
-import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -18,7 +15,6 @@ import trash.tables.records.FacilityRecord;
 @Getter
 @Setter
 @Schema(title = "시설물 목록 조회 응답")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FacilityListResponse {
 
   @Schema(description = "시설물 ID", example = "1")

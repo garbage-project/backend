@@ -1,6 +1,5 @@
 package com.project.trash.report.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.trash.common.domain.enums.Valid;
 import com.project.trash.common.utils.DateTimeUtils;
 import com.project.trash.facility.domain.Facility;
@@ -62,7 +61,6 @@ public class ReportDetailResponse {
 
   @Getter
   @Setter
-  @JsonInclude(JsonInclude.Include.NON_NULL)
   public static class FacilityDetail {
 
     /**

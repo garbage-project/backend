@@ -8,6 +8,7 @@ import com.project.trash.member.controller.validation.MemberValidator;
 import com.project.trash.member.request.MemberFacilityListRequest;
 import com.project.trash.member.request.MemberListRequest;
 import com.project.trash.member.request.MemberReviewListRequest;
+import com.project.trash.member.request.MemberReviewModifyRequest;
 import com.project.trash.member.response.MemberDetailResponse;
 import com.project.trash.member.response.MemberFacilityListResponse;
 import com.project.trash.member.response.MemberListResponse;
@@ -22,6 +23,8 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,6 +82,21 @@ public class MemberController {
       Set<Long> reviewIds) {
 
     reviewCommandService.delete(reviewIds);
+    return new SuccessResponse();
+  }
+
+  /**
+   * 회원 리뷰 수정
+   */
+  @PutMapping("/reviews")
+  @Operation(summary = "회원 리뷰 수정",
+      description = "회원의 리뷰를 수정한다."
+          + "\n[에러 코드]"
+          + "\n- RVW000 : 리뷰 정보가 존재하지 않습니다.")
+  public SuccessResponse putReview(@RequestBody MemberReviewModifyRequest param) {
+    MemberValidator.validate(param);
+
+    reviewCommandService.modify(param);
     return new SuccessResponse();
   }
 

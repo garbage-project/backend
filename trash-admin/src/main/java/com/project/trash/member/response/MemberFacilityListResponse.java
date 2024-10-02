@@ -1,10 +1,7 @@
 package com.project.trash.member.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.project.trash.common.utils.DateTimeUtils;
 import com.project.trash.facility.domain.enums.FacilityApprovalStatus;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jooq.types.ULong;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +12,6 @@ import lombok.Getter;
  */
 @Getter
 @Schema(title = "회원이 등록한 시설물 목록 조회 응답")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberFacilityListResponse {
 
   @Schema(description = "시설물 ID", example = "1")

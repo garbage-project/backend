@@ -1,8 +1,6 @@
 package com.project.trash.member.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.trash.common.utils.DateTimeUtils;
-import com.project.trash.facility.domain.Facility;
 
 import org.jooq.types.ULong;
 
@@ -12,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import trash.tables.records.FacilityRecord;
-import trash.tables.records.ReviewRecord;
 
 /**
  * 등록한 리뷰 목록 응답
@@ -43,7 +40,6 @@ public class MemberReviewListResponse {
 
   @Getter
   @Setter
-  @JsonInclude(JsonInclude.Include.NON_NULL)
   public static class FacilityDetail {
 
     @Schema(description = "시설물 ID", example = "1")
