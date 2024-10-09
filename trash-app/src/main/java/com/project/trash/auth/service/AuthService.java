@@ -1,6 +1,6 @@
 package com.project.trash.auth.service;
 
-import com.project.trash.auth.client.SocialMemberClientComposite;
+import com.project.trash.auth.client.SocialApiClientComposite;
 import com.project.trash.auth.provider.AuthCodeRequestUrlProviderComposite;
 import com.project.trash.member.domain.enums.SocialType;
 
@@ -8,16 +8,12 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * Auth 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
   private final AuthCodeRequestUrlProviderComposite authCodeRequestUrlProvider;
-  private final SocialMemberClientComposite socialMemberClient;
-
+  private final SocialApiClientComposite socialMemberClient;
 
   /**
    * OAuth 엑세스 토큰 발급
@@ -35,6 +31,4 @@ public class AuthService {
   public String getAuthCodeRequestUrl(SocialType socialType) {
     return authCodeRequestUrlProvider.provide(socialType);
   }
-
-
 }

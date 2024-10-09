@@ -18,9 +18,6 @@ import lombok.RequiredArgsConstructor;
 
 import static com.project.trash.common.domain.resultcode.MemberResultCode.MEMBER_NOT_FOUND;
 
-/**
- * 회원 조회 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class MemberQueryService {
@@ -28,25 +25,14 @@ public class MemberQueryService {
   private final MemberRepository memberRepository;
   private final MemberDao memberDao;
 
-  /**
-   * 회원 상세 조회
-   */
   @Transactional(readOnly = true)
   public MemberDetailResponse getDetail(Long memberId) {
     return new MemberDetailResponse(getOne(memberId));
   }
 
-  /**
-   * 회원 목록 조회
-   */
   @Transactional(readOnly = true)
   public Pair<List<MemberListResponse>, Long> getList(MemberListRequest param) {
     return Pair.of(memberDao.select(param), memberDao.count(param));
-  }
-
-  @Transactional(readOnly = true)
-  public Member getOne(String socialId) {
-    return memberRepository.findBySocialId(socialId).orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
   }
 
   @Transactional(readOnly = true)
@@ -54,12 +40,9 @@ public class MemberQueryService {
     return memberRepository.findById(memberId).orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
   }
 
-  /**
-   * 회원 존재여부 검증
-   */
   @Transactional(readOnly = true)
-  public void verifyExist(String socialId) {
-    if (!memberRepository.existsBySocialId(socialId)) {
+  public void verifyExist(Long id) {
+    if (!memberRepository.existsById(id)) {
       throw new ValidationException(MEMBER_NOT_FOUND);
     }
   }

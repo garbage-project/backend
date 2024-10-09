@@ -15,9 +15,6 @@ import lombok.RequiredArgsConstructor;
 
 import static com.project.trash.common.domain.resultcode.AdminResultCode.ADMIN_NOT_FOUND;
 
-/**
- * 관리자 조회 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class AdminQueryService {

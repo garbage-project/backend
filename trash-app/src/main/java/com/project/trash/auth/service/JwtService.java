@@ -2,7 +2,6 @@ package com.project.trash.auth.service;
 
 import com.project.trash.auth.config.JwtConfig;
 import com.project.trash.member.domain.Member;
-import com.project.trash.token.repository.TokenRepository;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,20 +19,13 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-/**
- * JWT 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class JwtService {
 
   private final JwtConfig jwtConfig;
-  private final TokenRepository tokenRepository;
 
-  /**
-   * 엑세스 토큰 발급
-   */
-  public Pair<String, Integer> createAccessToken(String socialId) {
+  public Pair<String, Long> createAccessToken(String socialId) {
     String token = Jwts.builder()
                        .setSubject(socialId)
                        .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -44,10 +36,7 @@ public class JwtService {
     return Pair.of(token, jwtConfig.accessExpiration());
   }
 
-  /**
-   * 리프레시 토큰 발급
-   */
-  public Pair<String, Integer> createRefreshToken(String socialId) {
+  public Pair<String, Long> createRefreshToken(String socialId) {
     String token = Jwts.builder()
                        .setSubject(socialId)
                        .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -58,16 +47,10 @@ public class JwtService {
     return Pair.of(token, jwtConfig.refreshExpiration());
   }
 
-  /**
-   * 토큰에서 소셜 ID 추출
-   */
   public String extractSocialId(String token) {
     return extractClaim(token, Claims::getSubject);
   }
 
-  /**
-   * Authorization 헤더에서 엑세스 토큰 추출
-   */
   public String extractToken(HttpServletRequest request) {
     String authorizationHeader = request.getHeader("Authorization");
 
@@ -78,9 +61,6 @@ public class JwtService {
     return authorizationHeader.substring(7);
   }
 
-  /**
-   * 토큰 유효성 검사
-   */
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String socialId = extractSocialId(token);
     return (socialId.equals(userDetails.getUsername())) && !isTokenExpired(token);

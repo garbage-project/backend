@@ -6,9 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import lombok.experimental.UtilityClass;
 
-/**
- * 회원 유틸
- */
 @UtilityClass
 public class MemberUtils {
 
@@ -24,11 +21,6 @@ public class MemberUtils {
     return null;
   }
 
-  /**
-   * 로그인 회원 id 조회
-   *
-   * @return 회원 id
-   */
   public Long getMemberId() {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof MemberDetail member) {
       return member.getMemberId();

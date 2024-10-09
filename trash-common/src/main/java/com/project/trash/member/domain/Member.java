@@ -61,4 +61,9 @@ public class Member extends BaseTimeEntity {
   public void update(String nickname) {
     this.nickname = nickname;
   }
+
+  public void delete() {
+    this.valid = Boolean.FALSE;
+    this.nickname = "알 수 없음";
+  }
 }

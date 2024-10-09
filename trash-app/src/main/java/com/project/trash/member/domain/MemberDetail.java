@@ -11,31 +11,13 @@ import java.util.List;
 
 import lombok.Getter;
 
-/**
- * 로그인 회원 정보
- */
 @Getter
 public class MemberDetail implements UserDetails {
 
-  /**
-   * 회원 ID
-   */
   private final Long memberId;
-  /**
-   * 닉네임
-   */
   private final String nickname;
-  /**
-   * 이메일
-   */
   private final String email;
-  /**
-   * 소셜 ID
-   */
   private final String socialId;
-  /**
-   * 소셜 타입
-   */
   private final SocialType socialType;
 
   public MemberDetail(Member member) {

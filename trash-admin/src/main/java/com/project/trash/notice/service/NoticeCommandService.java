@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * 공지 등록/수정/삭제 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class NoticeCommandService {
@@ -21,9 +18,6 @@ public class NoticeCommandService {
   private final NoticeRepository noticeRepository;
   private final NoticeQueryService noticeQueryService;
 
-  /**
-   * 공지 삭제
-   */
   @Transactional
   public void delete(Long reviewId) {
     Notice notice = noticeQueryService.getOne(reviewId);
@@ -31,17 +25,11 @@ public class NoticeCommandService {
     noticeRepository.delete(notice);
   }
 
-  /**
-   * 공지 등록
-   */
   @Transactional
   public void entry(NoticeEntryRequest param) {
     noticeRepository.save(new Notice(param.getTitle(), param.getContent(), Valid.convertToBoolean(param.getValid())));
   }
 
-  /**
-   * 공지 수정
-   */
   @Transactional
   public void modify(NoticeModifyRequest param) {
     Notice notice = noticeQueryService.getOne(param.getNoticeId());

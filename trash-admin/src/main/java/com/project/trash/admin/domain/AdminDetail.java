@@ -9,19 +9,11 @@ import java.util.List;
 
 import lombok.Getter;
 
-/**
- * 로그인 관리자 정보
- */
 @Getter
 public class AdminDetail implements UserDetails {
 
-  /**
-   * ID
-   */
   private final String id;
-  /**
-   * 비밀번호
-   */
+
   private final String password;
 
   public AdminDetail(Admin admin) {

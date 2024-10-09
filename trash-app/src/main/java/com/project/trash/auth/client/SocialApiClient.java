@@ -6,7 +6,7 @@ import com.project.trash.member.domain.enums.SocialType;
 /**
  * Resource Server 정보 요청
  */
-public interface SocialMemberClient {
+public interface SocialApiClient {
 
   /**
    * 엑세스 토큰 발급
@@ -27,4 +27,9 @@ public interface SocialMemberClient {
    * 지원하는 SocialType
    */
   SocialType supportSocial();
+
+  /**
+   * 연결 해제
+   */
+  void unlink(String accessToken);
 }

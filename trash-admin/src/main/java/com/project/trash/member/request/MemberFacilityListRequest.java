@@ -6,9 +6,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 등록한 시설물 목록 조회
- */
 @Getter
 @Setter
 public class MemberFacilityListRequest extends PageRequest {

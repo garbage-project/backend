@@ -8,7 +8,6 @@ import com.project.trash.facility.request.FacilityListRequest;
 import com.project.trash.facility.response.FacilityDetailResponse;
 import com.project.trash.facility.response.FacilityListResponse;
 import com.project.trash.member.request.MemberFacilityListRequest;
-import com.project.trash.member.response.MemberDetailResponse;
 import com.project.trash.member.response.MemberFacilityListResponse;
 import com.project.trash.member.service.MemberQueryService;
 
@@ -23,9 +22,6 @@ import lombok.RequiredArgsConstructor;
 
 import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_NOT_FOUND;
 
-/**
- * 시설물 조회 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class FacilityQueryService {
@@ -38,36 +34,24 @@ public class FacilityQueryService {
 
   private final MemberQueryService memberQueryService;
 
-  /**
-   * 등록한 시설물 목록 조회
-   */
   @Transactional(readOnly = true)
   public Pair<List<MemberFacilityListResponse>, Long> getList(MemberFacilityListRequest param) {
     // 회원 존재여부 검증
-    memberQueryService.verifyExist(param.getMemberId());
+    memberQueryService.verifyExist(Long.valueOf(param.getMemberId()));
 
     return Pair.of(facilityDao.select(param), facilityDao.count(param.getMemberId()));
   }
 
-  /**
-   * 시설물 상세 조회
-   */
   @Transactional(readOnly = true)
   public FacilityDetailResponse getDetail(Long facilityId) {
     return new FacilityDetailResponse(getOne(facilityId), s3ImageUrl);
   }
 
-  /**
-   * 시설물 목록 조회
-   */
   @Transactional(readOnly = true)
   public Pair<List<FacilityListResponse>, Long> getList(FacilityListRequest param) {
     return Pair.of(facilityDao.select(param), facilityDao.count(param));
   }
 
-  /**
-   * 시설물 단일 조회
-   */
   @Transactional(readOnly = true)
   public Facility getOne(Long facilityId) {
     return facilityRepository.findById(facilityId).orElseThrow(() -> new ValidationException(FACILITY_NOT_FOUND));

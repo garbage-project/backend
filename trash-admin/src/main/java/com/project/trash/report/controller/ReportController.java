@@ -27,9 +27,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-/**
- * 신고 API
- */
 @RestController
 @RequestMapping("/reports")
 @RequiredArgsConstructor
@@ -39,9 +36,6 @@ public class ReportController {
   private final ReportCommandService reportCommandService;
   private final ReportQueryService reportQueryService;
 
-  /**
-   * 신고 상세 조회
-   */
   @GetMapping("/{reportId}")
   @Operation(summary = "신고 상세 조회",
       description = "신고 내용을 상세 조회한다."
@@ -51,9 +45,6 @@ public class ReportController {
     return new DataResponse<>(reportQueryService.getDetail(reportId));
   }
 
-  /**
-   * 신고 목록 조회
-   */
   @GetMapping
   @Operation(summary = "신고 목록 조회",
       description = "신고 목록을 조회한다.")
@@ -64,9 +55,6 @@ public class ReportController {
     return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
   }
 
-  /**
-   * 신고 수정
-   */
   @PutMapping
   @Operation(summary = "신고 정보 수정",
       description = "신고 정보를 수정한다."

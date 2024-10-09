@@ -6,9 +6,6 @@ import java.util.Set;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
-/**
- * 시설물 등록 요청
- */
 @Getter
 public class FacilityEntryRequest {
 

@@ -37,9 +37,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-/**
- * 회원 API
- */
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
@@ -54,9 +51,6 @@ public class MemberController {
   private final ReviewQueryService reviewQueryService;
   private final ReviewCommandService reviewCommandService;
 
-  /**
-   * 회원 삭제
-   */
   @DeleteMapping("/{memberId}")
   @Operation(summary = "회원 삭제",
       description = "회원을 삭제한다."
@@ -69,9 +63,6 @@ public class MemberController {
     return new SuccessResponse();
   }
 
-  /**
-   * 선택한 리뷰 목록 삭제
-   */
   @DeleteMapping("/reviews")
   @Operation(summary = "선택한 리뷰 목록 삭제",
       description = "선택한 리뷰들을 삭제한다."
@@ -85,9 +76,6 @@ public class MemberController {
     return new SuccessResponse();
   }
 
-  /**
-   * 회원 리뷰 수정
-   */
   @PutMapping("/reviews")
   @Operation(summary = "회원 리뷰 수정",
       description = "회원의 리뷰를 수정한다."
@@ -100,9 +88,6 @@ public class MemberController {
     return new SuccessResponse();
   }
 
-  /**
-   * 회원 상세 조회
-   */
   @GetMapping("/{memberId}")
   @Operation(summary = "회원 상세 조회",
       description = "회원 정보를 상세 조회한다."
@@ -114,9 +99,6 @@ public class MemberController {
     return new DataResponse<>(memberQueryService.getDetail(memberId));
   }
 
-  /**
-   * 등록한 시설물 목록 조회
-   */
   @GetMapping("/facilities")
   @Operation(summary = "회원이 등록한 시설물 목록 조회",
       description = "회원이 등록한 시설물 목록을 조회한다."
@@ -129,9 +111,6 @@ public class MemberController {
     return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
   }
 
-  /**
-   * 회원 목록 조회
-   */
   @GetMapping
   @Operation(summary = "회원 목록 조회",
       description = "회원 목록을 조회한다.")
@@ -142,9 +121,6 @@ public class MemberController {
     return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
   }
 
-  /**
-   * 등록한 리뷰 목록 조회
-   */
   @GetMapping("/reviews")
   @Operation(summary = "회원이 등록한 리뷰 목록 조회",
       description = "회원이 등록한 리뷰 목록을 조회한다.")

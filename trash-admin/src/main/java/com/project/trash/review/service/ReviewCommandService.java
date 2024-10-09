@@ -11,9 +11,6 @@ import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * 리뷰 등록/수정/삭제 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class ReviewCommandService {
@@ -28,9 +25,6 @@ public class ReviewCommandService {
     review.update(param.getContent());
   }
 
-  /**
-   * 선택한 리뷰 목록 삭제
-   */
   @Transactional
   public void delete(Set<Long> reviewIds) {
     reviewRepository.deleteAllByIdInBatch(reviewIds);

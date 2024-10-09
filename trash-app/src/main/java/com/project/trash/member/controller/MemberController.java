@@ -7,6 +7,7 @@ import com.project.trash.facility.service.FacilityQueryService;
 import com.project.trash.facility.service.ReviewQueryService;
 import com.project.trash.member.controller.validation.MemberValidator;
 import com.project.trash.member.request.LoginRequest;
+import com.project.trash.member.request.MemberDeleteRequest;
 import com.project.trash.member.request.ReissueRequest;
 import com.project.trash.member.response.AccessTokenInfoResponse;
 import com.project.trash.member.response.MemberDetailResponse;
@@ -28,9 +29,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-/**
- * 회원 API
- */
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
@@ -42,9 +40,16 @@ public class MemberController {
   private final FacilityQueryService facilityQueryService;
   private final ReviewQueryService reviewQueryService;
 
-  /**
-   * 등록한 시설물 목록 조회
-   */
+  @PostMapping("/delete")
+  @Operation(summary = "회원 탈퇴",
+      description = "로그인 회원의 정보를 삭제한다.")
+  public SuccessResponse delete(@RequestBody MemberDeleteRequest param) {
+    MemberValidator.validate(param);
+
+    memberCommandService.delete(param);
+    return new SuccessResponse();
+  }
+
   @GetMapping("/my/facilities")
   @Operation(summary = "로그인 회원이 등록한 시설물 목록 조회",
       description = "회원이 등록한 시설물 목록을 조회한다.")
@@ -52,9 +57,6 @@ public class MemberController {
     return new ListResponse<>(facilityQueryService.getList());
   }
 
-  /**
-   * 로그인 회원 정보 조회
-   */
   @GetMapping("/my")
   @Operation(summary = "로그인 회원 정보 조회",
       description = "로그인 회원의 정보를 조회한다.")
@@ -62,9 +64,6 @@ public class MemberController {
     return new DataResponse<>(memberQueryService.getDetail());
   }
 
-  /**
-   * 등록한 리뷰 목록 조회
-   */
   @GetMapping("/my/reviews")
   @Operation(summary = "로그인 회원이 등록한 리뷰 목록 조회",
       description = "회원이 등록한 리뷰 목록을 조회한다.")
@@ -72,9 +71,6 @@ public class MemberController {
     return new ListResponse<>(reviewQueryService.getList());
   }
 
-  /**
-   * 로그인 회원 닉네임 수정
-   */
   @PutMapping("/my/nickname")
   @Operation(summary = "로그인 회원 닉네임 수정",
       description = "로그인 회원의 닉네임을 수정한다.")
@@ -84,9 +80,6 @@ public class MemberController {
     return new SuccessResponse();
   }
 
-  /**
-   * 로그인
-   */
   @PostMapping("/login")
   @Operation(summary = "로그인",
       description = "로그인한다."
@@ -99,9 +92,6 @@ public class MemberController {
     return new DataResponse<>(memberCommandService.login(param));
   }
 
-  /**
-   * 로그아웃
-   */
   @PostMapping("/logout")
   @Operation(summary = "로그아웃",
       description = "로그아웃한다."
@@ -112,9 +102,6 @@ public class MemberController {
     return new SuccessResponse();
   }
 
-  /**
-   * 엑세스 토큰 재발급
-   */
   @PostMapping("/reissue")
   @Operation(summary = "엑세스 토큰 재발급",
       description = "엑세스 토큰을 재발급한다."

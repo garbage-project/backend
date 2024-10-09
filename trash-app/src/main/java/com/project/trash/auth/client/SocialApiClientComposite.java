@@ -18,12 +18,12 @@ import static java.util.stream.Collectors.toMap;
  * Resource Server 회원 정보 요청 카카오에서 사용자 정보를 받아오는 클래스 Composite 패턴으로 구현
  */
 @Component
-public class SocialMemberClientComposite {
+public class SocialApiClientComposite {
 
-  private final Map<SocialType, SocialMemberClient> clientMap;
+  private final Map<SocialType, SocialApiClient> clientMap;
 
-  public SocialMemberClientComposite(Set<SocialMemberClient> clients) {
-    clientMap = clients.stream().collect(toMap(SocialMemberClient::supportSocial, identity()));
+  public SocialApiClientComposite(Set<SocialApiClient> clients) {
+    clientMap = clients.stream().collect(toMap(SocialApiClient::supportSocial, identity()));
   }
 
   /**
@@ -47,7 +47,11 @@ public class SocialMemberClientComposite {
     return getClient(socialType).getSocialId(accessToken);
   }
 
-  private SocialMemberClient getClient(SocialType socialType) {
+  public void unlink(SocialType socialType, String accessToken) {
+    getClient(socialType).unlink(accessToken);
+  }
+
+  private SocialApiClient getClient(SocialType socialType) {
     return Optional.ofNullable(clientMap.get(socialType)).orElseThrow(() -> new ValidationException(PARAM_INVALID));
   }
 }

@@ -43,9 +43,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-/**
- * 시설물 API
- */
 @RestController
 @RequestMapping("/facilities")
 @RequiredArgsConstructor
@@ -60,9 +57,6 @@ public class FacilityController {
 
   private final ReportCommandService reportCommandService;
 
-  /**
-   * 시설물 삭제
-   */
   @DeleteMapping("/{facilityId}")
   @Operation(summary = "시설물 삭제",
       description = "시설물을 삭제한다."
@@ -75,9 +69,6 @@ public class FacilityController {
     return new SuccessResponse();
   }
 
-  /**
-   * 리뷰 삭제
-   */
   @DeleteMapping("/reviews/{reviewId}")
   @Operation(summary = "리뷰 삭제",
       description = "리뷰를 삭제한다."
@@ -89,9 +80,6 @@ public class FacilityController {
     return new SuccessResponse();
   }
 
-  /**
-   * 시설물 상세 조회
-   */
   @GetMapping("/{facilityId}")
   @Operation(summary = "시설물 상세 조회",
       description = "시설물 정보를 상세 조회한다."
@@ -103,9 +91,6 @@ public class FacilityController {
     return new DataResponse<>(facilityQueryService.getDetail(facilityId));
   }
 
-  /**
-   * 시설물 목록 조회
-   */
   @GetMapping
   @Operation(summary = "시설물 목록 조회",
       description = "시설물 목록을 조회한다.")
@@ -115,9 +100,6 @@ public class FacilityController {
     return new DataResponse<>(facilityQueryService.getList(param));
   }
 
-  /**
-   * 시설물 리뷰 목록 조회
-   */
   @GetMapping("/{facilityId}/reviews")
   @Operation(summary = "시설물 리뷰 목록 조회",
       description = "시설물의 리뷰 목록을 조회한다.")
@@ -129,9 +111,6 @@ public class FacilityController {
     return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
   }
 
-  /**
-   * 시설물 리뷰 개수 조회
-   */
   @GetMapping("/{facilityId}/reviews/count")
   @Operation(summary = "시설물 리뷰 개수 조회",
       description = "시설물에 등록된 리뷰 개수를 조회한다.")
@@ -141,9 +120,6 @@ public class FacilityController {
     return new DataResponse<>(reviewQueryService.getCount(facilityId));
   }
 
-  /**
-   * 시설물 등록
-   */
   @PostMapping
   @Operation(summary = "시설물 등록",
       description = "시설물을 등록한다.")
@@ -154,9 +130,6 @@ public class FacilityController {
     return new SuccessResponse();
   }
 
-  /**
-   * 시설물 이미지 등록
-   */
   @PostMapping(value = "/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @Operation(summary = "시설물 이미지 등록",
       description = "시설물 이미지를 등록한다.")
@@ -171,9 +144,6 @@ public class FacilityController {
     return new DataResponse<>(facilityCommandService.entry(images));
   }
 
-  /**
-   * 신고 등록
-   */
   @PostMapping("/reports")
   @Operation(summary = "신고 등록",
       description = "신고를 등록한다.")
@@ -184,9 +154,6 @@ public class FacilityController {
     return new SuccessResponse();
   }
 
-  /**
-   * 리뷰 등록
-   */
   @PostMapping("/reviews")
   @Operation(summary = "리뷰 등록",
       description = "리뷰를 등록한다.")
@@ -197,9 +164,6 @@ public class FacilityController {
     return new SuccessResponse();
   }
 
-  /**
-   * 시설물 수정
-   */
   @PutMapping
   @Operation(summary = "시설물 수정",
       description = "시설물을 수정한다."
@@ -212,9 +176,6 @@ public class FacilityController {
     return new SuccessResponse();
   }
 
-  /**
-   * 리뷰 수정
-   */
   @PutMapping("/reviews")
   @Operation(summary = "리뷰 수정",
       description = "리뷰를 수정한다."

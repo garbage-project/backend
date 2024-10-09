@@ -8,9 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * 회원 등록/수정/삭제 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class MemberCommandService {
@@ -18,9 +15,6 @@ public class MemberCommandService {
   private final MemberRepository memberRepository;
   private final MemberQueryService memberQueryService;
 
-  /**
-   * 회원 삭제
-   */
   @Transactional
   public void delete(Long memberId) {
     Member member = memberQueryService.getOne(memberId);

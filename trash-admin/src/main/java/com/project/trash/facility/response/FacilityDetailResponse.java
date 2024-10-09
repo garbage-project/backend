@@ -9,9 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 시설물 상세 조회 응답
- */
 @Getter
 @Setter
 @Schema(title = "시설물 상세 조회 응답")

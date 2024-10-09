@@ -21,15 +21,9 @@ import lombok.experimental.UtilityClass;
 
 import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM_INVALID;
 
-/**
- * 시설물 요청 파라미터 검증
- */
 @UtilityClass
 public class FacilityValidator {
 
-  /**
-   * 시설물 등록 요청 검증
-   */
   public void validate(FacilityEntryRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getLatitude(),
         param.getLongitude(), param.getApprovalStatus(), param.getImageIds());
@@ -47,9 +41,6 @@ public class FacilityValidator {
     }
   }
 
-  /**
-   * 시설물 수정 요청 검증
-   */
   public void validate(FacilityModifyRequest param) {
     validate(param.getType(), param.getName(), param.getLocation(), param.getLatitude(),
         param.getLongitude(), param.getApprovalStatus(), param.getImageIds());
@@ -57,9 +48,6 @@ public class FacilityValidator {
     ValidatorUtils.validateNull(param.getFacilityId());
   }
 
-  /**
-   * 시설물 목록 조회 요청 검증
-   */
   public void validate(FacilityListRequest param) {
     if (StringUtils.isNotBlank(param.getType()) && !FacilityType.containCode(param.getType())) {
       throw new ValidationException(PARAM_INVALID);
@@ -80,9 +68,7 @@ public class FacilityValidator {
     }
   }
 
-  /**
-   * 시설물 리뷰 목록 조회 요청 검증
-   */
+
   public void validate(FacilityReviewListRequest param) {
     ValidatorUtils.validateNull(param.getFacilityId());
   }

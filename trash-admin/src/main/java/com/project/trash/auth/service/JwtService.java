@@ -18,19 +18,13 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 
-/**
- * JWT 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class JwtService {
 
   private final JwtConfig jwtConfig;
 
-  /**
-   * 엑세스 토큰 발급
-   */
-  public Pair<String, Integer> createAccessToken(String socialId) {
+  public Pair<String, Long> createAccessToken(String socialId) {
     String token = Jwts.builder()
                        .setSubject(socialId)
                        .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -41,10 +35,7 @@ public class JwtService {
     return Pair.of(token, jwtConfig.accessExpiration());
   }
 
-  /**
-   * 리프레시 토큰 발급
-   */
-  public Pair<String, Integer> createRefreshToken(String socialId) {
+  public Pair<String, Long> createRefreshToken(String socialId) {
     String token = Jwts.builder()
                        .setSubject(socialId)
                        .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -55,16 +46,10 @@ public class JwtService {
     return Pair.of(token, jwtConfig.refreshExpiration());
   }
 
-  /**
-   * 토큰에서 고유값 추출
-   */
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }
 
-  /**
-   * 토큰 유효성 검사
-   */
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
