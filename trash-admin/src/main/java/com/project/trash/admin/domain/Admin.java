@@ -7,9 +7,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * 관리자 엔티티
- */
 @Entity
 @Getter
 @NoArgsConstructor

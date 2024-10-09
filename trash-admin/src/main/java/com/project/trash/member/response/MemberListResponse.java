@@ -9,9 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 import trash.tables.records.MemberRecord;
 
-/**
- * 회원 목록 조회 응답
- */
 @Getter
 @Setter
 @Schema(title = "회원 목록 조회 응답")

@@ -1,15 +1,11 @@
 package com.project.trash.facility.request;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
-/**
- * 시설물 수정 요청
- */
 @Getter
 public class FacilityModifyRequest {
 

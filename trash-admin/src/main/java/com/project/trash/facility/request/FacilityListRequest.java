@@ -2,16 +2,10 @@ package com.project.trash.facility.request;
 
 import com.project.trash.common.request.PageRequest;
 
-import java.util.Set;
-
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 시설물 목록 요청
- */
 @Getter
 @Setter
 public class FacilityListRequest extends PageRequest {

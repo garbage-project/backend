@@ -15,9 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
-/**
- * 인증 API
- */
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

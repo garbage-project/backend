@@ -14,9 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 import trash.tables.records.ReportRecord;
 
-/**
- * 신고 상세 조회 응답
- */
 @Getter
 @Setter
 @Schema(title = "신고 상세 조회 응답")
@@ -42,9 +39,7 @@ public class ReportDetailResponse {
 
   @Schema(description = "회원 닉네임", example = "Kim")
   private final String nickname;
-  /**
-   * 시설물 정보
-   */
+
   private final FacilityDetail facility;
 
   public ReportDetailResponse(Record2<ReportRecord, String> reportDetail, Facility facility, String s3ImageUrl) {
@@ -63,59 +58,36 @@ public class ReportDetailResponse {
   @Setter
   public static class FacilityDetail {
 
-    /**
-     * 시설물 ID
-     */
     @Schema(description = "시설물 ID", example = "1")
     private final Long facilityId;
-    /**
-     * 시설물 종류
-     */
+
     @Schema(description = "시설물 종류 목록(R - 화장실, S - 흡연구역, T - 쓰레기통)", example = "R")
     private final String type;
-    /**
-     * 시설물명
-     */
+
     @Schema(description = "시설물명", example = "쌍문역 내 화장실")
     private final String name;
-    /**
-     * 위치
-     */
+
     @Schema(description = "위치", example = "쌍문역")
     private final String location;
-    /**
-     * 상세 위치
-     */
+
     @Schema(description = "상세 위치", example = "지하 1층")
     private final String detailLocation;
-    /**
-     * 정보
-     */
+
     @Schema(description = "정보", example = "개찰구 내에 존재합니다.", nullable = true)
     private final String information;
-    /**
-     * 관리 부서
-     */
+
     @Schema(description = "관리 부서", example = "서울시설공단")
     private final String department;
-    /**
-     * 관리 부서 전화번호
-     */
+
     @Schema(description = "관리 부서 전화번호", example = "02-2290-7111")
     private final String departmentPhoneNumber;
-    /**
-     * 승인 상태
-     */
+
     @Schema(description = "승인 상태(P - 승인대기, A - 승인완료, R - 승인거절, S - 승인중단)", example = "A")
     private final String approvalStatus;
-    /**
-     * 등록일자
-     */
+
     @Schema(description = "시설물 등록일자", example = "2024-09-01")
     private final String createdDate;
-    /**
-     * 이미지 목록
-     */
+
     private List<String> images;
 
     public FacilityDetail(Facility facility, String s3ImageUrl) {

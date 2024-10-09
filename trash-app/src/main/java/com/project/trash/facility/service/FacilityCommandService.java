@@ -24,9 +24,6 @@ import lombok.RequiredArgsConstructor;
 
 import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_IMAGE_NOT_FOUND;
 
-/**
- * 시설물 등록/수정/삭제 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class FacilityCommandService {
@@ -38,9 +35,6 @@ public class FacilityCommandService {
 
   private final AwsFileDao awsFileDao;
 
-  /**
-   * 시설물 삭제
-   */
   @Transactional
   public void delete(Long facilityId) {
     Facility facility = facilityQueryService.getOne(facilityId, MemberUtils.getMemberId());
@@ -48,9 +42,6 @@ public class FacilityCommandService {
     facilityRepository.delete(facility);
   }
 
-  /**
-   * 시설물 등록
-   */
   @Transactional
   public void entry(FacilityEntryRequest param) {
     Facility facility = facilityRepository.save(new Facility(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
@@ -69,9 +60,6 @@ public class FacilityCommandService {
     }
   }
 
-  /**
-   * 시설물 이미지 등록
-   */
   @Transactional
   public ImageEntryResponse entry(List<MultipartFile> images) {
     Long memberId = MemberUtils.getMemberId();
@@ -86,9 +74,6 @@ public class FacilityCommandService {
         .toList());
   }
 
-  /**
-   * 시설물 수정
-   */
   @Transactional
   public void modify(FacilityModifyRequest param) {
     Facility facility = facilityQueryService.getOne(param.getFacilityId(), MemberUtils.getMemberId());

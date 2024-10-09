@@ -42,7 +42,7 @@ public class CookieUtils {
    * @param maxAge   저장 기간
    * @param response 응답
    */
-  public void setCookie(String name, String value, Integer maxAge, HttpServletResponse response) {
+  public void setCookie(String name, String value, Long maxAge, HttpServletResponse response) {
     ResponseCookie cookie =
         ResponseCookie.from(name, value).path("/").sameSite("None").httpOnly(true).secure(true).maxAge(maxAge).build();
 

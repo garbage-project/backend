@@ -1,7 +1,7 @@
-package com.project.trash.auth.kakao.client;
+package com.project.trash.auth.kakao;
 
+import com.project.trash.auth.client.SocialApiClient;
 import com.project.trash.auth.domain.OAuthMember;
-import com.project.trash.auth.kakao.KakaoOAuthConfig;
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.member.domain.enums.GenderType;
 import com.project.trash.member.domain.enums.SocialType;
@@ -23,30 +23,11 @@ import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAU
  */
 @RequiredArgsConstructor
 @Component
-public class KakaoApiClient {
+public class KakaoApiClient implements SocialApiClient {
 
   private final KakaoOAuthConfig kakaoOAuthConfig;
 
-  /**
-   * 엑세스 토큰 정보 확인(검증)
-   *
-   * @return 소셜 ID
-   */
-  public String getAccessTokenInfo(String accessToken) {
-    String resultText = WebClient.create(kakaoOAuthConfig.tokenInfoUri())
-                                 .get()
-                                 .header("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
-                                 .header(HttpHeaders.AUTHORIZATION,
-                                     kakaoOAuthConfig.authorizationPrefix() + accessToken)
-                                 .exchangeToMono(res -> res.bodyToMono(String.class))
-                                 .block();
-
-    return extractSocialId(resultText);
-  }
-
-  /**
-   * 사용자 정보 가져오기
-   */
+  @Override
   public OAuthMember getMemberInfo(String accessToken) {
     String resultText = WebClient.create(kakaoOAuthConfig.userInfoUri())
                                  .get()
@@ -59,10 +40,8 @@ public class KakaoApiClient {
     return makeOAuthMember(resultText);
   }
 
-  /**
-   * 엑세스 토큰 발급
-   */
-  public String getToken(String authCode) {
+  @Override
+  public String getAccessToken(String authCode) {
     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
     params.add("grant_type", "authorization_code");
     params.add("client_id", kakaoOAuthConfig.clientId());
@@ -80,6 +59,34 @@ public class KakaoApiClient {
     return extractToken(resultText);
   }
 
+  @Override
+  public String getSocialId(String accessToken) {
+    String resultText = WebClient.create(kakaoOAuthConfig.tokenInfoUri())
+                                 .get()
+                                 .header("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
+                                 .header(HttpHeaders.AUTHORIZATION,
+                                     kakaoOAuthConfig.authorizationPrefix() + accessToken)
+                                 .exchangeToMono(res -> res.bodyToMono(String.class))
+                                 .block();
+
+    return extractSocialId(resultText);
+  }
+
+  @Override
+  public SocialType supportSocial() {
+    return SocialType.KAKAO;
+  }
+
+  @Override
+  public void unlink(String accessToken) {
+    WebClient.create(kakaoOAuthConfig.unlinkUri())
+             .post()
+             .header(HttpHeaders.AUTHORIZATION,
+                 kakaoOAuthConfig.authorizationPrefix() + accessToken)
+             .exchangeToMono(res -> res.bodyToMono(String.class))
+             .block();
+  }
+
   /**
    * 소셜 ID 추출
    */
@@ -92,9 +99,6 @@ public class KakaoApiClient {
     }
   }
 
-  /**
-   * 엑세스 토큰 추출
-   */
   private String extractToken(String resultText) {
     try {
       JSONObject jsonObject = new JSONObject(resultText);
@@ -104,12 +108,6 @@ public class KakaoApiClient {
     }
   }
 
-  /**
-   * json 문자열 파싱 - 회원 정보
-   *
-   * @param resultText 응답 문자열
-   * @return 회원 정보
-   */
   private OAuthMember makeOAuthMember(String resultText) {
     try {
       JSONObject result = new JSONObject(resultText);

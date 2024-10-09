@@ -18,9 +18,6 @@ import lombok.RequiredArgsConstructor;
 
 import static com.project.trash.common.domain.resultcode.MemberResultCode.MEMBER_NOT_FOUND;
 
-/**
- * 회원 조회 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class MemberQueryService {
@@ -28,9 +25,6 @@ public class MemberQueryService {
   private final MemberRepository memberRepository;
   private final TokenRepository tokenRepository;
 
-  /**
-   * 로그인 회원 상세 조회
-   */
   public MemberDetailResponse getDetail() {
     MemberDetail member = MemberUtils.getMember();
     return new MemberDetailResponse(member.getNickname(), member.getSocialId());
@@ -38,7 +32,8 @@ public class MemberQueryService {
 
   @Transactional(readOnly = true)
   public Member getOne(String socialId) {
-    return memberRepository.findBySocialId(socialId).orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
+    return memberRepository.findBySocialIdAndValid(socialId, Boolean.TRUE)
+                           .orElseThrow(() -> new ValidationException(MEMBER_NOT_FOUND));
   }
 
   @Transactional(readOnly = true)

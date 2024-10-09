@@ -9,6 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record KakaoOAuthConfig(
 
     String redirectUri, String clientId, String clientSecret, String[] scope, String authorizeUri, String tokenUri,
-    String tokenInfoUri, String userInfoUri, String authorizationPrefix) {
+    String tokenInfoUri, String userInfoUri, String unlinkUri, String authorizationPrefix) {
 
 }

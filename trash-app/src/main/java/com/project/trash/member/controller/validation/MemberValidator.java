@@ -4,6 +4,7 @@ import com.project.trash.common.exception.ValidationException;
 import com.project.trash.common.utils.ValidatorUtils;
 import com.project.trash.member.domain.enums.SocialType;
 import com.project.trash.member.request.LoginRequest;
+import com.project.trash.member.request.MemberDeleteRequest;
 import com.project.trash.member.request.ReissueRequest;
 
 import lombok.experimental.UtilityClass;
@@ -16,9 +17,10 @@ import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM
 @UtilityClass
 public class MemberValidator {
 
-  /**
-   * 로그인 유효성 검증
-   */
+  public void validate(MemberDeleteRequest param) {
+    ValidatorUtils.validateEmpty(param.getAccessToken());
+  }
+
   public void validate(LoginRequest param) {
     ValidatorUtils.validateEmpty(param.getSocialType());
     if (!SocialType.containCode(param.getSocialType())) {
@@ -28,9 +30,6 @@ public class MemberValidator {
     ValidatorUtils.validateEmpty(param.getSocialId());
   }
 
-  /**
-   * 엑세스 토큰 재발급 유효성 검증
-   */
   public void validate(ReissueRequest param) {
     ValidatorUtils.validateEmpty(param.getSocialId());
     ValidatorUtils.validateEmpty(param.getRefreshToken());

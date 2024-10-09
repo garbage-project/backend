@@ -21,9 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-/**
- * 관리자 API
- */
 @RestController
 @RequestMapping("/admins")
 @RequiredArgsConstructor
@@ -32,9 +29,6 @@ public class AdminController {
 
   private final AdminCommandService adminCommandService;
 
-  /**
-   * 로그인
-   */
   @PostMapping("/login")
   @Operation(summary = "로그인",
       description = "로그인한다."
@@ -47,9 +41,6 @@ public class AdminController {
     return new DataResponse<>(adminCommandService.login(param, response));
   }
 
-  /**
-   * 로그아웃
-   */
   @PostMapping("/logout")
   @Operation(summary = "로그아웃",
       description = "로그아웃한다."
@@ -60,9 +51,6 @@ public class AdminController {
     return new SuccessResponse();
   }
 
-  /**
-   * 엑세스 토큰 재발급
-   */
   @PostMapping("/reissue")
   @Operation(summary = "엑세스 토큰 재발급",
       description = "엑세스 토큰을 재발급한다."
@@ -76,9 +64,6 @@ public class AdminController {
     return new DataResponse<>(adminCommandService.reissue(param, request));
   }
 
-  /**
-   * 관리자 정보 수정
-   */
   @PutMapping
   @Operation(summary = "관리자 정보 수정",
       description = "관리자 정보를 수정한다."

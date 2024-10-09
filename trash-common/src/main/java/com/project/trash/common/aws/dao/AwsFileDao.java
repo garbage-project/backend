@@ -20,9 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import static com.project.trash.common.domain.resultcode.SystemResultCode.IMAGE_UPLOAD_FAIL;
 
-/**
- * AWS File DAO
- */
 @Slf4j
 @RequiredArgsConstructor
 @Repository

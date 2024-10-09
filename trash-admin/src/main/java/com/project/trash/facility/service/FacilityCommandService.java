@@ -23,14 +23,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -41,9 +39,6 @@ import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACI
 import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_EXCEL_READ_FAIL;
 import static com.project.trash.common.domain.resultcode.FacilityResultCode.FACILITY_IMAGE_NOT_FOUND;
 
-/**
- * 시설물 등록/수정/삭제 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class FacilityCommandService {
@@ -55,17 +50,11 @@ public class FacilityCommandService {
 
   private final AwsFileDao awsFileDao;
 
-  /**
-   * 선택한 시설물 목록 삭제
-   */
   @Transactional
   public void delete(Set<Long> facilityIds) {
     facilityRepository.deleteAllByIdInBatch(facilityIds);
   }
 
-  /**
-   * 시설물 등록
-   */
   @Transactional
   public void entry(FacilityEntryRequest param) {
     Facility facility = facilityRepository.save(new Facility(FacilityType.fromCode(param.getType()), param.getName(), param.getLocation(),
@@ -84,9 +73,6 @@ public class FacilityCommandService {
     }
   }
 
-  /**
-   * 시설물 이미지 등록
-   */
   @Transactional
   public ImageEntryResponse entryImages(List<MultipartFile> images) {
     String adminId = AdminUtils.getId();
@@ -101,9 +87,6 @@ public class FacilityCommandService {
         .toList());
   }
 
-  /**
-   * 시설물 수정
-   */
   @Transactional
   public void modify(FacilityModifyRequest param) {
     Facility facility = facilityQueryService.getOne(param.getFacilityId());

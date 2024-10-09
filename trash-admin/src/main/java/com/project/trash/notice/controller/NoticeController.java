@@ -30,9 +30,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-/**
- * 공지 API
- */
 @RestController
 @RequestMapping("/notices")
 @RequiredArgsConstructor
@@ -42,9 +39,6 @@ public class NoticeController {
   private final NoticeCommandService noticeCommandService;
   private final NoticeQueryService noticeQueryService;
 
-  /**
-   * 공지 삭제
-   */
   @DeleteMapping("/{noticeId}")
   @Operation(summary = "공지 삭제",
       description = "공지를 삭제한다."
@@ -56,9 +50,6 @@ public class NoticeController {
     return new SuccessResponse();
   }
 
-  /**
-   * 공지 상세 조회
-   */
   @GetMapping("/{noticeId}")
   @Operation(summary = "공지 상세 조회",
       description = "공지 정보를 상세 조회한다."
@@ -70,9 +61,6 @@ public class NoticeController {
     return new DataResponse<>(noticeQueryService.getDetail(noticeId));
   }
 
-  /**
-   * 공지 목록 조회
-   */
   @GetMapping
   @Operation(summary = "공지 목록 조회",
       description = "공지 목록을 조회한다.")
@@ -83,9 +71,6 @@ public class NoticeController {
     return new PageListResponse<>(param, pair.getLeft(), pair.getRight());
   }
 
-  /**
-   * 공지 등록
-   */
   @PostMapping
   @Operation(summary = "공지 등록",
       description = "공지를 등록한다.")
@@ -96,9 +81,6 @@ public class NoticeController {
     return new SuccessResponse();
   }
 
-  /**
-   * 공지 수정
-   */
   @PutMapping
   @Operation(summary = "공지 수정",
       description = "공지를 수정한다."

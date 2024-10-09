@@ -3,9 +3,6 @@ package com.project.trash.admin.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
-/**
- * 엑세스 토큰 재발급 요청
- */
 @Getter
 public class ReissueRequest {
 

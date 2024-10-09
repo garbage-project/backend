@@ -8,9 +8,6 @@ import java.util.Optional;
 
 import lombok.experimental.UtilityClass;
 
-/**
- * 관리자 유틸
- */
 @UtilityClass
 public class AdminUtils {
 
@@ -26,11 +23,6 @@ public class AdminUtils {
     return null;
   }
 
-  /**
-   * 관리자 ID 조회
-   *
-   * @return 관리자 ID
-   */
   public String getId() {
     return Optional.ofNullable(getAdmin()).map(AdminDetail::getId).orElse(null);
   }

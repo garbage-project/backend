@@ -26,9 +26,6 @@ import static com.project.trash.common.domain.resultcode.AdminResultCode.ADMIN_I
 import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_TOKEN_INVALID;
 import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_TOKEN_NOT_FOUND;
 
-/**
- * 관리자 수정 서비스
- */
 @Service
 @RequiredArgsConstructor
 public class AdminCommandService {
@@ -38,9 +35,6 @@ public class AdminCommandService {
 
   private final TokenRepository tokenRepository;
 
-  /**
-   * 로그인
-   */
   @Transactional
   public LoginResponse login(LoginRequest param, HttpServletResponse response) {
     Admin admin = adminQueryService.getOne(param.getId());
@@ -50,8 +44,8 @@ public class AdminCommandService {
       throw new ValidationException(ADMIN_INFO_NOT_MATCH);
     }
 
-    Pair<String, Integer> accessToken = jwtService.createAccessToken(admin.getId());
-    Pair<String, Integer> refreshToken = jwtService.createRefreshToken(admin.getId());
+    Pair<String, Long> accessToken = jwtService.createAccessToken(admin.getId());
+    Pair<String, Long> refreshToken = jwtService.createRefreshToken(admin.getId());
 
     tokenRepository.save(new Token(admin.getId(), accessToken.getLeft(), refreshToken.getLeft()));
 
@@ -61,9 +55,6 @@ public class AdminCommandService {
     return new LoginResponse(admin.getId());
   }
 
-  /**
-   * 로그아웃
-   */
   @Transactional
   public void logout(HttpServletResponse response) {
     Token token = getToken(AdminUtils.getId());
@@ -71,13 +62,10 @@ public class AdminCommandService {
     tokenRepository.delete(token);
 
     // 토큰 제거
-    CookieUtils.setCookie("accessToken", "", 0, response);
-    CookieUtils.setCookie("refreshToken", "", 0, response);
+    CookieUtils.setCookie("accessToken", "", 0L, response);
+    CookieUtils.setCookie("refreshToken", "", 0L, response);
   }
 
-  /**
-   * 관리자 정보 수정
-   */
   @Transactional
   public void modify(AdminModifyRequest param) {
     Admin admin = adminQueryService.getOne(AdminUtils.getId());
@@ -85,9 +73,6 @@ public class AdminCommandService {
     admin.update(param.getPassword());
   }
 
-  /**
-   * 엑세스 토큰 재발급
-   */
   @Transactional
   public AccessTokenInfoResponse reissue(ReissueRequest param, HttpServletRequest request) {
     Admin admin = adminQueryService.getOne(param.getId());
@@ -102,7 +87,7 @@ public class AdminCommandService {
       throw new ValidationException(AUTH_TOKEN_INVALID);
     }
 
-    Pair<String, Integer> accessToken = jwtService.createAccessToken(admin.getId());
+    Pair<String, Long> accessToken = jwtService.createAccessToken(admin.getId());
 
     token.updateAccessToken(accessToken.getLeft());
 

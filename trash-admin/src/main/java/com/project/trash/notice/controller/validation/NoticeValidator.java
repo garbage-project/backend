@@ -13,15 +13,9 @@ import lombok.experimental.UtilityClass;
 
 import static com.project.trash.common.domain.resultcode.RequestResultCode.PARAM_INVALID;
 
-/**
- * 공지 요청 파라미터 검증
- */
 @UtilityClass
 public class NoticeValidator {
 
-  /**
-   * 공지 목록 조회 요청 검증
-   */
   public void validate(NoticeListRequest param) {
     String startDate = param.getStartDate();
     if (StringUtils.isNotBlank(startDate) && !DateTimeUtils.validFormat(startDate)) {
@@ -36,19 +30,12 @@ public class NoticeValidator {
     }
   }
 
-
-  /**
-   * 공지 등록 요청 검증
-   */
   public void validate(NoticeEntryRequest param) {
     ValidatorUtils.validateEmpty(param.getTitle());
     ValidatorUtils.validateEmpty(param.getContent());
     ValidatorUtils.validateEmpty(param.getValid());
   }
 
-  /**
-   * 공지 수정 요청 검증
-   */
   public void validate(NoticeModifyRequest param) {
     ValidatorUtils.validateNull(param.getNoticeId());
     ValidatorUtils.validateEmpty(param.getTitle());

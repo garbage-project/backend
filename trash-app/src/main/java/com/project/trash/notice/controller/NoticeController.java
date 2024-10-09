@@ -12,9 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-/**
- * 공지 API
- */
 @RestController
 @RequestMapping("/notices")
 @RequiredArgsConstructor
@@ -23,9 +20,6 @@ public class NoticeController {
 
   private final NoticeQueryService noticeQueryService;
 
-  /**
-   * 공지 목록 조회
-   */
   @GetMapping
   @Operation(summary = "공지 목록 조회",
       description = "공지 목록을 조회한다.")

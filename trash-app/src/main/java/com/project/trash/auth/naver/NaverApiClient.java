@@ -1,10 +1,11 @@
-package com.project.trash.auth.naver.client;
+package com.project.trash.auth.naver;
 
+import com.project.trash.auth.client.SocialApiClient;
 import com.project.trash.auth.domain.OAuthMember;
-import com.project.trash.auth.naver.NaverOAuthConfig;
 import com.project.trash.common.exception.ValidationException;
 import com.project.trash.member.domain.enums.GenderType;
 import com.project.trash.member.domain.enums.SocialType;
+import com.project.trash.member.response.NaverUnlinkResponse;
 
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpHeaders;
@@ -17,39 +18,19 @@ import lombok.RequiredArgsConstructor;
 
 import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAUTH_GET_ACCESS_TOKEN_FAIL;
 import static com.project.trash.common.domain.resultcode.AuthResultCode.AUTH_OAUTH_GET_MEMBER_FAIL;
+import static com.project.trash.common.domain.resultcode.SystemResultCode.SOCIAL_API_FAIL;
 
 /**
  * Naver Api 요청
  */
 @RequiredArgsConstructor
 @Component
-public class NaverApiClient {
+public class NaverApiClient implements SocialApiClient {
 
   private final NaverOAuthConfig naverOAuthConfig;
 
-  /**
-   * 사용자 정보 조회
-   */
-  public OAuthMember getMemberInfo(String accessToken) {
-    return makeOAuthMember(fetchMemberInfo(accessToken));
-  }
-
-  /**
-   * 소셜 ID 조회
-   */
-  public String getSocialId(String accessToken) {
-    try {
-      JSONObject result = new JSONObject(fetchMemberInfo(accessToken));
-      return result.getJSONObject("response").getString("id");
-    } catch (Exception e) {
-      throw new ValidationException(AUTH_OAUTH_GET_MEMBER_FAIL);
-    }
-  }
-
-  /**
-   * 엑세스 토큰 발급
-   */
-  public String getToken(String authCode) {
+  @Override
+  public String getAccessToken(String authCode) {
     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
     params.add("grant_type", "authorization_code");
     params.add("client_id", naverOAuthConfig.clientId());
@@ -67,9 +48,45 @@ public class NaverApiClient {
     return extractToken(resultText);
   }
 
-  /**
-   * 엑세스 토큰 추출
-   */
+  @Override
+  public SocialType supportSocial() {
+    return SocialType.NAVER;
+  }
+
+  @Override
+  public OAuthMember getMemberInfo(String accessToken) {
+    return makeOAuthMember(fetchMemberInfo(accessToken));
+  }
+
+  @Override
+  public String getSocialId(String accessToken) {
+    try {
+      JSONObject result = new JSONObject(fetchMemberInfo(accessToken));
+      return result.getJSONObject("response").getString("id");
+    } catch (Exception e) {
+      throw new ValidationException(AUTH_OAUTH_GET_MEMBER_FAIL);
+    }
+  }
+
+  @Override
+  public void unlink(String accessToken) {
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    params.add("grant_type", "delete");
+    params.add("client_id", naverOAuthConfig.clientId());
+    params.add("client_secret", naverOAuthConfig.clientSecret());
+    params.add("access_token", accessToken);
+
+    NaverUnlinkResponse response = WebClient.create(naverOAuthConfig.tokenUri())
+                                 .post()
+                                 .bodyValue(params)
+                                 .exchangeToMono(res -> res.bodyToMono(NaverUnlinkResponse.class))
+                                 .block();
+
+    if (response != null && !response.getResult().equalsIgnoreCase("success")) {
+      throw new ValidationException(SOCIAL_API_FAIL);
+    }
+  }
+
   private String extractToken(String resultText) {
     try {
       JSONObject jsonObject = new JSONObject(resultText);
@@ -79,9 +96,6 @@ public class NaverApiClient {
     }
   }
 
-  /**
-   * 사용자 정보 조회 API 요청
-   */
   private String fetchMemberInfo(String accessToken) {
     return WebClient.create(naverOAuthConfig.userInfoUri())
                     .get()
@@ -91,12 +105,6 @@ public class NaverApiClient {
                     .block();
   }
 
-  /**
-   * json 문자열 파싱 - 회원 정보
-   *
-   * @param resultText 응답 문자열
-   * @return 회원 정보
-   */
   private OAuthMember makeOAuthMember(String resultText) {
     try {
       JSONObject result = new JSONObject(resultText);
