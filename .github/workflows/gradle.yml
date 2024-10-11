@@ -1,4 +1,4 @@
-name: Java CI/CD with Gradle
+name: EC2 Deploy
 
 on:
   push:
@@ -30,10 +30,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x test
 
-      - name: Docker build
-        run: docker build -t spotfinder-admin:latest -f trash-admin/Dockerfile .
-
-      # AWS 자격증명
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -41,28 +37,48 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # ECR 로그인
       - name: Login to Amazon ECR
-        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ADMIN_ECR_REGISTRY_URI }}
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}
 
-      - name: Publish Image to ECR
+      - name: Admin Docker build & push to ECR
         run: |
-          docker tag spotfinder-admin:latest ${{ secrets.ADMIN_ECR_REGISTRY_URI }}:latest
-          docker push ${{ secrets.ADMIN_ECR_REGISTRY_URI }}
+          docker build -t ${{ secrets.ECR_REGISTRY_URI }}:admin -f trash-admin/Dockerfile .
+          docker push ${{ secrets.ECR_REGISTRY_URI }}:admin
 
-      # EC2 Deploy
-      - name: Deploy application using SSM
+      - name: Admin Server Deploy
         run: |
           aws ssm send-command \
             --document-name "AWS-RunShellScript" \
             --instance-ids "${{ secrets.ADMIN_EC2_INSTANCE_ID }}" \
             --parameters commands='[
-              "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ADMIN_ECR_REGISTRY_URI }}",
+              "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}",
               "cd /root",
               "docker stop $(docker ps -a -q)",
               "docker rm $(docker ps -aq)",
               "docker rmi $(docker images -a -q)",
-              "docker pull ${{ secrets.ADMIN_ECR_REGISTRY_URI }}:latest",
-              "docker run -d -p 8080:8080 --name spotfinder-admin ${{ secrets.ADMIN_ECR_REGISTRY_URI }}:latest"
+              "docker pull ${{ secrets.ECR_REGISTRY_URI }}:admin",
+              "docker run -d -p 8080:8080 --name spotfinder-admin ${{ secrets.ECR_REGISTRY_URI }}:admin"
+            ]' \
+            --comment "Deploying Docker container"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: App Docker build & push to ECR
+        run: docker buildx build --platform=linux/arm64 -t ${{ secrets.ECR_REGISTRY_URI }}:app -f trash-app/Dockerfile --push .
+
+      - name: App Server Deploy
+        run: |
+          aws ssm send-command \
+            --document-name "AWS-RunShellScript" \
+            --instance-ids "${{ secrets.APP_EC2_INSTANCE_ID }}" \
+            --parameters commands='[
+              "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}",
+              "cd /root",
+              "docker stop $(docker ps -a -q)",
+              "docker rm $(docker ps -aq)",
+              "docker rmi $(docker images -a -q)",
+              "docker pull ${{ secrets.ECR_REGISTRY_URI }}:app",
+              "docker run -d -p 8080:8080 --name spotfinder-app ${{ secrets.ECR_REGISTRY_URI }}:app"
             ]' \
             --comment "Deploying Docker container"
