@@ -10,12 +10,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class AdminUtils {
-
-  /**
-   * 로그인 관리자 정보 조회
-   *
-   * @return 관리자 정보
-   */
+  
   public AdminDetail getAdmin() {
     if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof AdminDetail admin) {
       return admin;
