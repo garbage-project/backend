@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  admin-build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,11 +34,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: chmod +x gradlew && ./gradlew build -x test
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -70,9 +67,49 @@ jobs:
               "docker run -d -p 8080:8080 --name spotfinder-admin ${{ secrets.ECR_REGISTRY_URI }}:admin"
             ]' \
             --comment "Deploying Docker container"
+      
+
+  app-build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          token: ${{ secrets.GIT_TOKEN }}
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Gradle Caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build with Gradle
+        run: chmod +x gradlew && ./gradlew build -x test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URI }}
 
       - name: App Docker build & push to ECR
         run: docker buildx build --platform=linux/arm64 -t ${{ secrets.ECR_REGISTRY_URI }}:app -f trash-app/Dockerfile --push .
